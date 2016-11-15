@@ -538,11 +538,11 @@
     <Content Include="Views\RoleManage\Create.cshtml" />
     <Content Include="Views\RoleManage\Edit.cshtml" />
     <Content Include="Views\RoleManage\Delete.cshtml" />
-    <Content Include="Views\UserManager\Create.cshtml" />
-    <Content Include="Views\UserManager\Delete.cshtml" />
-    <Content Include="Views\UserManager\Details.cshtml" />
-    <Content Include="Views\UserManager\Edit.cshtml" />
-    <Content Include="Views\UserManager\Index.cshtml" />
+    <Content Include="Views\UserManage\Create.cshtml" />
+    <Content Include="Views\UserManage\Delete.cshtml" />
+    <Content Include="Views\UserManage\Details.cshtml" />
+    <Content Include="Views\UserManage\Edit.cshtml" />
+    <Content Include="Views\UserManage\Index.cshtml" />
     <Content Include="Views\Chart\DeadReportChart.cshtml" />
     <Content Include="Views\Chart\Index.cshtml" />
     <Content Include="Views\Sorts\SortList.cshtml" />
