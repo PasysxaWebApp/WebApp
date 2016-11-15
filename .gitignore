@@ -127,7 +127,7 @@ publish/
 ## web deploy settings but do note that will include unencrypted
 ## passwords
 #*.pubxml
-
+libs/*
 # NuGet Packages Directory
 packages/*
 ## TODO: If the tool you use requires repositories.config
@@ -187,3 +187,7 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+# this project
+WebAppBase/libs/*
+WebAppBase/packages/*
