@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Threading.Tasks;
+using Pasys.Web.Identity;
 
 namespace WebAppBase.Controllers
 {
@@ -56,8 +57,8 @@ namespace WebAppBase.Controllers
 
         public ActionResult Index()
         {
-            var at = "OrganizationAdmin";            
-            var menus=RoleManager.GetMenusByRoleName(at);
+            //var at = "OrganizationAdmin";            
+            //var menus=RoleManager.GetMenusByRoleName(at);
             return View();
         }
 

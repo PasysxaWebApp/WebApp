@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Threading.Tasks;
 using System.Net;
 using WebAppBase.Models;
+using Pasys.Web.Identity;
+using Pasys.Web.Identity.Models;
 
 namespace WebAppBase.Controllers
 {

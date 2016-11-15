@@ -11,9 +11,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using WebAppBase.Models;
+using Pasys.Web.Identity.Models;
 
-namespace WebAppBase
+namespace Pasys.Web.Identity
 {
     public class EmailService : IIdentityMessageService
     {

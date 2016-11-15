@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Web.Mvc;
 
-namespace AspMvcLibrary.Attributes
+namespace SharedUtilitys.AspMvcLibrary.Attributes
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class SubmitCommandAttribute : ActionMethodSelectorAttribute

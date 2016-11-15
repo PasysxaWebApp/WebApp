@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using WebAppBase.Configs;
 using WebAppBase.Enums;
 using System.Text;
+using Pasys.Web.Identity.Models;
 
 namespace WebAppBase.Models.SystemMenus
 {

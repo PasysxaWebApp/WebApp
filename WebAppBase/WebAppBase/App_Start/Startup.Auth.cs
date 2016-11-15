@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using WebAppBase.Models;
+using Pasys.Web.Identity.Models;
+using Pasys.Web.Identity;
 
 namespace WebAppBase
 {

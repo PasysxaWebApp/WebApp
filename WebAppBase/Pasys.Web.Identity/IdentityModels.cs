@@ -12,7 +12,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace WebAppBase.Models
+namespace Pasys.Web.Identity.Models
 {
     public enum Authorization
     {
