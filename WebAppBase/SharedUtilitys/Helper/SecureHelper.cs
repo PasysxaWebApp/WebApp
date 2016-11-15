@@ -135,5 +135,18 @@ namespace SharedUtilitys.Helper
             }
             return true;
         }
+
+        public static string GetWequence(int length)
+        {
+            byte[] buffer = new byte[length / 2];
+            RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
+            provider.GetBytes(buffer);
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                builder.Append(string.Format("{0:X2}", buffer[i]));
+            }
+            return builder.ToString();
+        }
     }
 }
