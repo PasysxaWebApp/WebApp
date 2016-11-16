@@ -541,6 +541,7 @@
     <Content Include="Views\Chart\DeadReportChart.cshtml" />
     <Content Include="Views\Chart\Index.cshtml" />
     <Content Include="Views\Sorts\SortList.cshtml" />
+    <Content Include="Views\Shared\_LayoutDefault.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\PriceAdjust\" />
@@ -587,7 +588,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55906</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
