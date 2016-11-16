@@ -61,7 +61,14 @@ namespace WebAppBase.Controllers
         // GET: UserManager/Create
         public ActionResult Create()
         {
-            return View();
+            var rolesList = new List<SelectListItem>();
+            var mdl = new Models.UserEditViewModel();
+            db.Roles.ForEachAsync(item =>
+            {
+                rolesList.Add(new SelectListItem { Value = item.Id, Text = item.Name });
+            });
+            mdl.RolesList = rolesList;
+            return View(mdl);
         }
 
         // POST: UserManager/Create
@@ -73,7 +80,7 @@ namespace WebAppBase.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = userEditViewModel.Email, Email = userEditViewModel.Email };
+                var user = new ApplicationUser { UserName = userEditViewModel.Email, Email = userEditViewModel.Email};
                 var result = await UserManager.CreateAsync(user,"123456");
                 if (result.Succeeded)
                 {
@@ -102,6 +109,7 @@ namespace WebAppBase.Controllers
             {
                 return HttpNotFound();
             }
+            userEditViewModel.RolesList = GetRoleSelectList();
             return View(userEditViewModel);
         }
 
@@ -135,7 +143,8 @@ namespace WebAppBase.Controllers
             var userEditViewModel = new UserEditViewModel
             {
                 Id = user.Id,
-                Email = user.Email
+                Email = user.Email,
+                //RoleId = user.RoleId
             };
             
             if (userEditViewModel == null)
@@ -163,6 +172,16 @@ namespace WebAppBase.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private List<SelectListItem> GetRoleSelectList()
+        {
+            var rolesList = new List<SelectListItem>();
+            db.Roles.ForEachAsync(item =>
+            {
+                rolesList.Add(new SelectListItem { Value = item.Id, Text = item.Name });
+            });
+            return rolesList;
         }
     }
 }

@@ -586,6 +586,8 @@ namespace WebAppBase.Models
             roleManager.CreateMenu(m);
             m = new ApplicationMenu { MenuId = 69, ParentMenuId = 33, MenuName = "お知らせ", ActionName = "Index", ControllerName = "Notice", CssClass = "", ActionParam = "" };
             roleManager.CreateMenu(m);
+            m = new ApplicationMenu { MenuId = 70, ParentMenuId = 11, MenuName = "角色管理", ActionName = "Index", ControllerName = "RoleManage", CssClass = "", ActionParam = "" };
+            roleManager.CreateMenu(m);
 
             if (roleVisitor != null)
             {
@@ -650,6 +652,8 @@ namespace WebAppBase.Models
                 roleManager.AddRoleMenu(roleOgnUser.Id, 63, 104, true, false);
                 roleManager.AddRoleMenu(roleOgnUser.Id, 67, 522, true, false);
                 roleManager.AddRoleMenu(roleOgnUser.Id, 68, 523, true, false);
+
+                roleManager.AddRoleMenu(roleOgnUser.Id, 70, 524, true, false);
             }
 
             if (roleOgnAdmin != null)
@@ -701,6 +705,8 @@ namespace WebAppBase.Models
                 //roleManager.AddRoleMenu(roleOgnAdmin.Id, 66, 503, true, false);
                 roleManager.AddRoleMenu(roleOgnAdmin.Id, 67, 521, true, true);
                 roleManager.AddRoleMenu(roleOgnAdmin.Id, 68, 522, true, false);
+
+                roleManager.AddRoleMenu(roleOgnAdmin.Id, 70, 523, true, false);
 
             }
 

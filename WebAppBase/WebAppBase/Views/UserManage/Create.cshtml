@@ -20,8 +20,29 @@
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
+            <div class="col-md-10">
+               <table>
+                   <tr>
+                       <th>选择</th>
+                       <th>权限</th>
+                   </tr>
+                   @{
+                        foreach (var item in Model.RolesList)
+                        {
+                            Html.Raw("<tr>");
+                            Html.Raw("<td>");
+                            Html.Raw("<input type='checkbox' name='' value='" + item.Value + "' />");
+                            Html.Raw("</td>");
+                            Html.Raw("<td>");
+                            Html.Raw(item.Text);
+                            Html.Raw("</td>");
+                            Html.Raw("</tr>");
+                        }
+                   }
+               </table>
+            </div>
         </div>
-
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
