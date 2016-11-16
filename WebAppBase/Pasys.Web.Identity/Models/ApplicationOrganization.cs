@@ -12,6 +12,7 @@ namespace Pasys.Web.Identity.Models
     public class ApplicationOrganization
     {
         public string OrganizationID { get; set; }
+        public string ParentOrganizationID { get; set; }
         public string OrganizationCode { get; set; }
         /// <summary>
         /// 利用状态
