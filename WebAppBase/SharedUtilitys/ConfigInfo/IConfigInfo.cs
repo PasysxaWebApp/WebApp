@@ -20,14 +20,14 @@ namespace SharedUtilitys.ConfigInfo
             var tp = typeof(T);
             var mapPath = string.Empty;
             string configInfoFile = tp.Name;
-            var fileName = string.Format("/App_Data/{0}.config", configInfoFile);
+            var fileName = string.Format("~/App_Data/{0}.config", configInfoFile);
             if (IOHelper.MapPathExists(fileName))
             {
                 mapPath = IOHelper.GetMapPath(fileName);
             }
             else if (configInfoFile.ToLower().EndsWith("configinfo"))
             {
-                fileName = string.Format("/App_Data/{0}.config", configInfoFile.Substring(0, configInfoFile.Length - 10));
+                fileName = string.Format("~/App_Data/{0}.config", configInfoFile.Substring(0, configInfoFile.Length - 10));
                 if (IOHelper.MapPathExists(fileName))
                 {
                     mapPath = IOHelper.GetMapPath(fileName);
@@ -35,7 +35,7 @@ namespace SharedUtilitys.ConfigInfo
             }
             else if (configInfoFile.ToLower().EndsWith("config"))
             {
-                fileName = string.Format("/App_Data/{0}.config", configInfoFile.Substring(0, configInfoFile.Length - 6));
+                fileName = string.Format("~/App_Data/{0}.config", configInfoFile.Substring(0, configInfoFile.Length - 6));
                 if (IOHelper.MapPathExists(fileName))
                 {
                     mapPath = IOHelper.GetMapPath(fileName);

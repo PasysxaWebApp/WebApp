@@ -73,7 +73,7 @@ namespace SharedUtilitys.Strategy
     public class StrategyLoader : ConfigInfoOperator<StrategyManifest>
     {
         #region 私有字段
-        private const string _strategies = "/App_Data/strategymanifest.config";
+        private const string _strategies = "~/App_Data/strategymanifest.config";
         #endregion
         /// <summary>
         /// 获得关系数据库配置
