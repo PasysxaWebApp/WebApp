@@ -63,7 +63,14 @@ namespace WebAppBase.Controllers
         // GET: UserManager/Create
         public ActionResult Create()
         {
-            return View();
+            var rolesList = new List<Models.RoleViewModel>();
+            var mdl = new Models.UserEditViewModel();
+            db.Roles.ForEachAsync(item =>
+            {
+                rolesList.Add(new RoleViewModel{ Id=item.Id,Name=item.Name});
+            });
+            mdl.RolesList = rolesList;
+            return View(mdl);
         }
 
         // POST: UserManager/Create
@@ -71,13 +78,14 @@ namespace WebAppBase.Controllers
         // 詳細については、http://go.microsoft.com/fwlink/?LinkId=317598 を参照してください。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Email")] UserEditViewModel userEditViewModel)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Email,UserRoles")] UserEditViewModel userEditViewModel)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = userEditViewModel.Email, Email = userEditViewModel.Email };
+                var user = new ApplicationUser { UserName = userEditViewModel.Email, Email = userEditViewModel.Email};
                 var result = await UserManager.CreateAsync(user,"123456");
-                if (result.Succeeded)
+                var addRolesResult = await UserManager.AddToRolesAsync(user.Id,userEditViewModel.UserRoles.ToArray());
+                if (result.Succeeded && addRolesResult.Succeeded)
                 {
                     return RedirectToAction("Index");
                 }
@@ -104,6 +112,9 @@ namespace WebAppBase.Controllers
             {
                 return HttpNotFound();
             }
+             
+            userEditViewModel.UserRoles = UserManager.GetRolesAsync(id).Result.ToList();
+            userEditViewModel.RolesList = GetRoleList();
             return View(userEditViewModel);
         }
 
@@ -112,7 +123,7 @@ namespace WebAppBase.Controllers
         // 詳細については、http://go.microsoft.com/fwlink/?LinkId=317598 を参照してください。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email")] UserEditViewModel userEditViewModel)
+        public ActionResult Edit([Bind(Include = "Id,Email,UserRoles")] UserEditViewModel userEditViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -121,6 +132,10 @@ namespace WebAppBase.Controllers
                 user.UserName = userEditViewModel.Email;
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
+
+                UserManager.RemoveFromRolesAsync(user.Id, UserManager.GetRoles(user.Id).ToArray());
+                UserManager.AddToRolesAsync(user.Id, userEditViewModel.UserRoles.ToArray());
+
                 return RedirectToAction("Index");
             }
             return View(userEditViewModel);
@@ -137,7 +152,8 @@ namespace WebAppBase.Controllers
             var userEditViewModel = new UserEditViewModel
             {
                 Id = user.Id,
-                Email = user.Email
+                Email = user.Email,
+                //RoleId = user.RoleId
             };
             
             if (userEditViewModel == null)
@@ -165,6 +181,16 @@ namespace WebAppBase.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private List<Models.RoleViewModel> GetRoleList()
+        {
+            var rolesList = new List<RoleViewModel>();
+            db.Roles.ForEachAsync(item =>
+            {
+                rolesList.Add(new RoleViewModel { Id=item.Id,Name=item.Name });
+            });
+            return rolesList;
         }
     }
 }

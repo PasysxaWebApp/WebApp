@@ -24,6 +24,12 @@ namespace WebAppBase.Models
         [EmailAddress]
         public string Email { get; set; }
 
-        public IEnumerable<SelectListItem> RolesList { get; set; }
+        public List<string> UserRoles { get; set; }
+
+        public string RoleName { get; set; }
+
+        public IEnumerable<SelectListItem> RolesSelectList { get; set; }
+
+        public IEnumerable<RoleViewModel> RolesList { get; set; }
     }
 }
