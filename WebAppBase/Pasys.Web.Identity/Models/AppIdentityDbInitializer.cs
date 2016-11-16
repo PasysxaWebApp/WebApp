@@ -27,7 +27,7 @@ namespace Pasys.Web.Identity.Models
                 drop table [dbo].[account_m_organizations];
              */
 
-
+            
             var org = new ApplicationOrganization()
             {
                 OrganizationID = "DebugOrganizationID",
@@ -43,9 +43,8 @@ namespace Pasys.Web.Identity.Models
                 LastUserID = "SYS",
                 LastUpdatetime = System.DateTime.Now
             };
-            var orgSet = db.Set<ApplicationOrganization>();
-            orgSet.Add(org);
-            db.SaveChanges();
+            var orgManager = new OrganizationManager(new OrganizationStore(db));
+            orgManager.Create(org);
 
             var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db)); //HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var roleManager = new ApplicationRoleMenuManager(new RoleMenuStore(db)); // HttpContext.Current.GetOwinContext().Get<ApplicationRoleMenuManager>();
