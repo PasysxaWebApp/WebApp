@@ -28,6 +28,8 @@ namespace WebAppBase.Models
 
         public string RoleName { get; set; }
 
-        public IEnumerable<SelectListItem> RolesList { get; set; }
+        public IEnumerable<SelectListItem> RolesSelectList { get; set; }
+
+        public IEnumerable<RoleViewModel> RolesList { get; set; }
     }
 }

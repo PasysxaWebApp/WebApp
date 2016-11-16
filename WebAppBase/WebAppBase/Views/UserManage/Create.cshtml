@@ -26,19 +26,17 @@
                        <th>选择</th>
                        <th>权限</th>
                    </tr>
-                   @{
-                        foreach (var item in Model.RolesList)
+                        @for (int i = 0; i < Model.RolesList.Count(); i++)
                         {
-                            Html.Raw("<tr>");
-                            Html.Raw("<td>");
-                            Html.Raw("<input type='checkbox' name='' value='" + item.Value + "' />");
-                            Html.Raw("</td>");
-                            Html.Raw("<td>");
-                            Html.Raw(item.Text);
-                            Html.Raw("</td>");
-                            Html.Raw("</tr>");
+                            <tr>
+                                <td>
+                                    <input type='checkbox' name='UserRoles' value='@Model.RolesList.ToList()[i].Name' />
+                                </td>
+                                <td>
+                                    @Model.RolesList.ToList()[i].Name
+                                </td>
+                            </tr>
                         }
-                   }
                </table>
             </div>
         </div>
