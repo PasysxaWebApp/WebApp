@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Web.Identity", "Pasys.Web.Identity\Pasys.Web.Identity.csproj", "{2FB3C6A7-89BB-4048-A0AA-E7E1E3B01B93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Web.Core", "Pasys.Web.Core\Pasys.Web.Core.csproj", "{3F905868-F488-467F-B212-4E7A17A71881}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Strategy.SMS", "Pasys.Strategy.SMS\Pasys.Strategy.SMS.csproj", "{C65064FB-8865-421A-98D2-4539954F188D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,11 +35,21 @@ Global
 		{2FB3C6A7-89BB-4048-A0AA-E7E1E3B01B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FB3C6A7-89BB-4048-A0AA-E7E1E3B01B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FB3C6A7-89BB-4048-A0AA-E7E1E3B01B93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F905868-F488-467F-B212-4E7A17A71881}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F905868-F488-467F-B212-4E7A17A71881}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F905868-F488-467F-B212-4E7A17A71881}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F905868-F488-467F-B212-4E7A17A71881}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C65064FB-8865-421A-98D2-4539954F188D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C65064FB-8865-421A-98D2-4539954F188D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C65064FB-8865-421A-98D2-4539954F188D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C65064FB-8865-421A-98D2-4539954F188D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2FB3C6A7-89BB-4048-A0AA-E7E1E3B01B93} = {DBF1DF28-605A-4711-908D-2D19D60431DE}
+		{3F905868-F488-467F-B212-4E7A17A71881} = {DBF1DF28-605A-4711-908D-2D19D60431DE}
+		{C65064FB-8865-421A-98D2-4539954F188D} = {9C3BAE2D-F4CD-4735-8264-C562099A671A}
 	EndGlobalSection
 EndGlobal

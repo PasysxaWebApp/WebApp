@@ -12,7 +12,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace WebAppBase.Models
+namespace Pasys.Web.Identity.Models
 {
     public enum Authorization
     {
@@ -516,7 +516,7 @@ namespace WebAppBase.Models
             roleManager.CreateMenu(m);
             m = new ApplicationMenu { MenuId = 34, ParentMenuId = 33, MenuName = "事業所設定", ActionName = "Index", ControllerName = "Organization", CssClass = "", ActionParam = "" };
             roleManager.CreateMenu(m);
-            m = new ApplicationMenu { MenuId = 35, ParentMenuId = 33, MenuName = "ユーザー管理", ActionName = "Index", ControllerName = "UserManage", CssClass = "", ActionParam = "" };
+            m = new ApplicationMenu { MenuId = 35, ParentMenuId = 33, MenuName = "ユーザー管理", ActionName = "UserList", ControllerName = "User", CssClass = "", ActionParam = "" };
             roleManager.CreateMenu(m);
             //m = new ApplicationMenu { MenuId = 36, ParentMenuId = 33, MenuName = "--", ActionName = "", ControllerName = "", CssClass = "", ActionParam = "" };
             //roleManager.CreateMenu(m);
@@ -576,7 +576,7 @@ namespace WebAppBase.Models
             roleManager.CreateMenu(m);
             m = new ApplicationMenu { MenuId = 64, ParentMenuId = 11, MenuName = "事業所設定", ActionName = "Index", ControllerName = "Organization", CssClass = "", ActionParam = "" };
             roleManager.CreateMenu(m);
-            m = new ApplicationMenu { MenuId = 65, ParentMenuId = 11, MenuName = "ユーザー管理", ActionName = "Index", ControllerName = "UserManage", CssClass = "", ActionParam = "" };
+            m = new ApplicationMenu { MenuId = 65, ParentMenuId = 11, MenuName = "ユーザー管理", ActionName = "UserList", ControllerName = "User", CssClass = "", ActionParam = "" };
             roleManager.CreateMenu(m);
             //m = new ApplicationMenu { MenuId = 66, ParentMenuId = 11, MenuName = "--", ActionName = "", ControllerName = "", CssClass = "", ActionParam = "" };
             //roleManager.CreateMenu(m);

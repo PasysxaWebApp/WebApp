@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace AspMvcLibrary.Attributes
+namespace SharedUtilitys.AspMvcLibrary.Attributes
 {
     class RangeNoIncludeAttribute : ValidationAttribute
     {

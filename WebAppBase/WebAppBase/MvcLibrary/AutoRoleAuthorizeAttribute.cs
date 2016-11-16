@@ -8,6 +8,7 @@ using System.Net;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Pasys.Web.Identity;
 
 namespace WebAppBase.MvcLibrary
 {

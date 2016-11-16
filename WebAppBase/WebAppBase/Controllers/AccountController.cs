@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebAppBase.Models;
+using Pasys.Web.Identity;
+using Pasys.Web.Identity.Models;
 
 namespace WebAppBase.Controllers
 {

@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Threading.Tasks;
+using Pasys.Web.Identity;
 
 namespace WebAppBase.Controllers
 {
@@ -56,8 +57,12 @@ namespace WebAppBase.Controllers
 
         public ActionResult Index()
         {
-            var at = "OrganizationAdmin";            
-            var menus=RoleManager.GetMenusByRoleName(at);
+            //var at = "OrganizationAdmin";            
+            //var menus=RoleManager.GetMenusByRoleName(at);
+            var aes= SharedUtilitys.Helper.SecureHelper.GetWequence(64);
+            var sha1 = SharedUtilitys.Helper.SecureHelper.GetWequence(128);
+            ViewBag.AES = aes;
+            ViewBag.SHA1 = sha1;
             return View();
         }
 

@@ -1,11 +1,11 @@
-﻿using AspMvcLibrary.Attributes;
-using WebAppBase.Configs;
+﻿using WebAppBase.Configs;
 using WebAppBase.Models.Chart;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SharedUtilitys.AspMvcLibrary.Attributes;
 
 namespace WebAppBase.Controllers
 {

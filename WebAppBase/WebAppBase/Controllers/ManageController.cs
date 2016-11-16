@@ -9,6 +9,7 @@ using Microsoft.Owin.Security;
 using WebAppBase.Models;
 using WebAppBase.Configs;
 using WebAppBase.MvcLibrary;
+using Pasys.Web.Identity;
 
 namespace WebAppBase.Controllers
 {
