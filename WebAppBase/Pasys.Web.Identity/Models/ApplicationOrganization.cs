@@ -27,7 +27,7 @@ namespace Pasys.Web.Identity.Models
         public string LastUserID { get; set; }
         public DateTime LastUpdatetime { get; set; }
 
-        //public virtual List<ApplicationUser> Users { get; set; }
+        public virtual List<ApplicationUser> Users { get; set; }
         public virtual List<ApplicationRole> Roles { get; set; }
 
     }
