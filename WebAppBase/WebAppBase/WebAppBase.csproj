@@ -474,22 +474,13 @@
     <Content Include="Contents\fonts\meiryo.ttc" />
     <Content Include="Contents\fonts\meiryob.ttc" />
     <Content Include="Contents\images\System\Moon\Thumbs.db" />
-    <Content Include="App_Data\strategymanifest.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\rdbs.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\sms.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\global.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="App_Data\strategymanifest.config" />
+    <Content Include="App_Data\rdbs.config" />
+    <Content Include="App_Data\sms.config" />
+    <Content Include="App_Data\global.config" />
     <Content Include="App_Data\weixinmp.config" />
-    <Content Include="App_Data\local.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="App_Data\local.config" />
+    <None Include="Properties\PublishProfiles\localhost.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

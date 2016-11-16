@@ -30,24 +30,17 @@
     </div>
 </div>
 
-<div>AES</div>
-<div>
-    @Html.Raw(ViewBag.AES)
-</div>
-<div>SHA1</div>
-<div>
-    @Html.Raw(ViewBag.SHA1)
-</div>
 <h1>Cookies</h1>
 @{
     var cookies = (HttpCookieCollection)ViewBag.Cookies;
     foreach (var ck in cookies.AllKeys)
     {
         <h3>@ck</h3>
-        <p>Name= @Html.Raw(cookies[ck].Name)        </p>
-        <p>Path= @Html.Raw(cookies[ck].Path)        </p>
-        <p>Secure= @Html.Raw(cookies[ck].Secure)        </p>
-        <p>Value= @Html.Raw(cookies[ck].Value)        </p>
-        <p>Domain= @Html.Raw(cookies[ck].Domain)        </p>
+        <p>Name= @Html.Raw(cookies[ck].Name);        </p>
+        <p>Path= @Html.Raw(cookies[ck].Path);        </p>
+        <p>Secure= @Html.Raw(cookies[ck].Secure);        </p>
+        <p>Value= @Html.Raw(cookies[ck].Value);        </p>
+        <p>Domain= @Html.Raw(cookies[ck].Domain);        </p>
     }
 }
+

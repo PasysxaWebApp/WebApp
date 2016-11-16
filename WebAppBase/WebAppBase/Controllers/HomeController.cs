@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Threading.Tasks;
 using Pasys.Web.Identity;
+using System.Text;
 
 namespace WebAppBase.Controllers
 {
@@ -63,6 +64,8 @@ namespace WebAppBase.Controllers
             var sha1 = SharedUtilitys.Helper.SecureHelper.GetWequence(128);
             ViewBag.AES = aes;
             ViewBag.SHA1 = sha1;
+           
+            ViewBag.Cookies =this.Request.Cookies;            
             return View();
         }
 
