@@ -18,7 +18,7 @@ namespace WebAppBase.Controllers
 {
     public class UserManageController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private AppIdentityDbContext db = new AppIdentityDbContext();
 
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager

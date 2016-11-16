@@ -43,7 +43,7 @@ namespace Pasys.Web.Identity
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {            
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<AppIdentityDbContext>()));
             // ユーザー名の検証ロジックを設定します
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
@@ -132,7 +132,7 @@ namespace Pasys.Web.Identity
 
         public static ApplicationRoleMenuManager Create(IdentityFactoryOptions<ApplicationRoleMenuManager> options, IOwinContext context)
         {
-            return new ApplicationRoleMenuManager(new RoleMenuStore(context.Get<ApplicationDbContext>()));
+            return new ApplicationRoleMenuManager(new RoleMenuStore(context.Get<AppIdentityDbContext>()));
         }
         public virtual void CreateMenu(ApplicationMenu menu)
         {
