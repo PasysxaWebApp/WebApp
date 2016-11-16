@@ -22,6 +22,8 @@ namespace WebAppBase
             var smsConfig = Pasys.Web.Core.ConfigManager.GetSMSConfigInfo();
             var weixin = Pasys.Web.Core.ConfigManager.GetWeiXinMPConfigInfo();
 
+            var localConfig= Pasys.Web.Core.ConfigManager.GetConfig<WebAppBase.AppConfig.LocalConfigInfo>();
+            var localConfig2= Pasys.Web.Core.ConfigManager.GetConfig<WebAppBase.AppConfig.LocalConfig>();
 
             var smsStrategy= Pasys.Web.Core.StrategyManager.GetSMSStrategy();
         }

@@ -70,7 +70,7 @@ namespace SharedUtilitys.Strategy
         }
     }
 
-    public class StrategyLoader : ConfigInfoOperater<StrategyManifest>
+    public class StrategyLoader : ConfigInfoOperator<StrategyManifest>
     {
         #region 私有字段
         private const string _strategies = "/App_Data/strategymanifest.config";

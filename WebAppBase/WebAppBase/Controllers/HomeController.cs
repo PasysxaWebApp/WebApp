@@ -131,6 +131,7 @@ namespace WebAppBase.Controllers
             var at = "OrganizationAdmin";
             if (User.Identity.IsAuthenticated)
             {
+                var user = UserManager.FindById(User.Identity.GetUserId());
                 var roles = UserManager.GetRoles(User.Identity.GetUserId());
                 if (roles.Count > 0)
                 {
