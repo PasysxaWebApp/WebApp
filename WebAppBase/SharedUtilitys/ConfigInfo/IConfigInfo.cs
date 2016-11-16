@@ -13,7 +13,7 @@ namespace SharedUtilitys.ConfigInfo
         string Ver { get; set; }
     }
 
-    public class ConfigInfoOperater
+    public class ConfigInfoOperator
     {
         public static T LoadConfigInfo<T>() where T : IConfigInfo
         {
@@ -28,6 +28,14 @@ namespace SharedUtilitys.ConfigInfo
             else if (configInfoFile.ToLower().EndsWith("configinfo"))
             {
                 fileName = string.Format("/App_Data/{0}.config", configInfoFile.Substring(0, configInfoFile.Length - 10));
+                if (IOHelper.MapPathExists(fileName))
+                {
+                    mapPath = IOHelper.GetMapPath(fileName);
+                }
+            }
+            else if (configInfoFile.ToLower().EndsWith("config"))
+            {
+                fileName = string.Format("/App_Data/{0}.config", configInfoFile.Substring(0, configInfoFile.Length - 6));
                 if (IOHelper.MapPathExists(fileName))
                 {
                     mapPath = IOHelper.GetMapPath(fileName);
@@ -70,7 +78,7 @@ namespace SharedUtilitys.ConfigInfo
     /// <summary>
     /// 基于文件的配置策略
     /// </summary>
-    public class ConfigInfoOperater<T> where T : IConfigInfo
+    public class ConfigInfoOperator<T> where T : IConfigInfo
     {
 
         #region 帮助方法
@@ -80,7 +88,7 @@ namespace SharedUtilitys.ConfigInfo
             //var tp = typeof(T);
             //string configInfoFile = tp.Name;
             //return LoadConfigInfo(configInfoFile);
-            return ConfigInfoOperater.LoadConfigInfo<T>();
+            return ConfigInfoOperator.LoadConfigInfo<T>();
         }
         /// <summary>
         /// 从文件中加载配置信息
@@ -98,7 +106,7 @@ namespace SharedUtilitys.ConfigInfo
             //{
             //    throw new FileNotFoundException();
             //}
-            return ConfigInfoOperater.LoadConfigInfo<T>(configInfoFile);
+            return ConfigInfoOperator.LoadConfigInfo<T>(configInfoFile);
         }
 
         /// <summary>
@@ -110,7 +118,7 @@ namespace SharedUtilitys.ConfigInfo
         public bool SaveConfigInfo(T configInfo, string configInfoFile)
         {
             //return IOHelper.SerializeToXml(configInfo, configInfoFile);
-            return ConfigInfoOperater.SaveConfigInfo(configInfo, configInfoFile);
+            return ConfigInfoOperator.SaveConfigInfo(configInfo, configInfoFile);
         }
 
         #endregion

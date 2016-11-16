@@ -39,13 +39,13 @@ namespace SharedUtilitys.Strategy
                 {
                     return _classname;
                 }
-                var names= _assemblyname.Split(new char[]{'.'});
+                var names = AssemblyName.Split(new char[] { '.' });
                 if (names.Length > 2)
                 {
-                    return string.Format("{0}.{1}{2}", _assemblyname, names[names.Length - 1], names[names.Length - 2]);
+                    return string.Format("{0}.{1}{2}", AssemblyName, names[names.Length - 1], names[names.Length - 2]);
                 }
                 else {
-                    return string.Format("{0}.{1}", _assemblyname, "Strategy");
+                    return string.Format("{0}.{1}", AssemblyName, "Strategy");
                 }
             }
             set
@@ -57,7 +57,11 @@ namespace SharedUtilitys.Strategy
         {
             get
             {
-                return _assemblyname;
+                if (!string.IsNullOrEmpty(_assemblyname))
+                {
+                    return _assemblyname;
+                }
+                return string.Format("Pasys.Strategy.{0}", StrategyName);
             }
             set
             {

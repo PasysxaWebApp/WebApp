@@ -25,7 +25,7 @@ namespace Pasys.Web.Core
         {
             if (_rdbsconfiginfo == null)
             {
-                _rdbsconfiginfo = ConfigInfoOperater.LoadConfigInfo<RDBSConfigInfo>();
+                _rdbsconfiginfo = ConfigInfoOperator.LoadConfigInfo<RDBSConfigInfo>();
             }
             return _rdbsconfiginfo;
         }
@@ -38,7 +38,7 @@ namespace Pasys.Web.Core
         {
             if (_globalconfiginfo == null)
             {
-                _globalconfiginfo = ConfigInfoOperater.LoadConfigInfo<GlobalConfigInfo>();
+                _globalconfiginfo = ConfigInfoOperator.LoadConfigInfo<GlobalConfigInfo>();
             }
             return _globalconfiginfo;
         }
@@ -50,7 +50,7 @@ namespace Pasys.Web.Core
         {
             if (_smsconfiginfo == null)
             {
-                _smsconfiginfo = ConfigInfoOperater.LoadConfigInfo<SMSConfigInfo>();
+                _smsconfiginfo = ConfigInfoOperator.LoadConfigInfo<SMSConfigInfo>();
             }
             return _smsconfiginfo;
         }
@@ -63,10 +63,20 @@ namespace Pasys.Web.Core
         {
             if (_weixinmpconfiginfo == null)
             {
-                _weixinmpconfiginfo = ConfigInfoOperater.LoadConfigInfo<WeiXinMPConfigInfo>();
+                _weixinmpconfiginfo = ConfigInfoOperator.LoadConfigInfo<WeiXinMPConfigInfo>();
             }
             return _weixinmpconfiginfo;
         }
 
+        public static T GetConfig<T>() where T : IConfigInfo
+        {
+                return ConfigInfoOperator.LoadConfigInfo<T>();
+        }
+
+        public static T GetConfig<T>(string configFileName) where T : IConfigInfo
+        {
+            var fileName = string.Format("/App_Data/{0}.config", configFileName);
+            return ConfigInfoOperator.LoadConfigInfo<T>(fileName);
+        }
     }
 }
