@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 namespace Pasys.Web.Core.EntityManager
 {
     public interface IEntity<TKey> {
-        string EntityName { get;  }
     }
+
+    public interface IMasterEntity<TKey> : IEntity<TKey>
+    {
+        string EntityName { get; }
+    }
+
 
     public interface IEntityStore<TEntity, TKey>:IDisposable
     {
@@ -47,7 +52,7 @@ namespace Pasys.Web.Core.EntityManager
     {
         private bool _disposed;
         private IEntityValidator<TEntity> _entityValidator;
-        protected IEntityStore<TEntity, TKey> Store { get; private set; }
+        protected virtual IEntityStore<TEntity, TKey> Store { get; private set; }
 
         public EntityManagerBase(IEntityStore<TEntity, TKey> store)
         {
@@ -165,22 +170,6 @@ namespace Pasys.Web.Core.EntityManager
         }
 
         /// <summary>
-        ///     Returns true if the entity exists
-        /// </summary>
-        /// <param name="entityName"></param>
-        /// <returns></returns>
-        public virtual async Task<bool> EntityExistsAsync(string entityName)
-        {
-            ThrowIfDisposed();
-            if (entityName == null)
-            {
-                throw new ArgumentNullException("entityName");
-            }
-
-            return await FindByNameAsync(entityName).WithCurrentCulture() != null;
-        }
-
-        /// <summary>
         ///     Find a entity by id
         /// </summary>
         /// <param name="entityId"></param>
@@ -189,22 +178,6 @@ namespace Pasys.Web.Core.EntityManager
         {
             ThrowIfDisposed();
             return await Store.FindByIdAsync(entityId).WithCurrentCulture();
-        }
-
-        /// <summary>
-        ///     Find a entity by name
-        /// </summary>
-        /// <param name="entityName"></param>
-        /// <returns></returns>
-        public virtual async Task<TEntity> FindByNameAsync(string entityName)
-        {
-            ThrowIfDisposed();
-            if (entityName == null)
-            {
-                throw new ArgumentNullException("entityName");
-            }
-
-            return await Store.FindByNameAsync(entityName).WithCurrentCulture();
         }
 
 
@@ -227,6 +200,50 @@ namespace Pasys.Web.Core.EntityManager
                 Store.Dispose();
             }
             _disposed = true;
+        }
+
+    }
+
+
+    public abstract class MasterEntityManagerBase<TEntity, TKey> : EntityManagerBase<TEntity, TKey>
+        where TEntity : class, IMasterEntity<TKey>
+        where TKey : IEquatable<TKey>
+    {
+
+        public MasterEntityManagerBase(IEntityStore<TEntity, TKey> store):base(store)
+        {
+        }
+
+        /// <summary>
+        ///     Returns true if the entity exists
+        /// </summary>
+        /// <param name="entityName"></param>
+        /// <returns></returns>
+        public virtual async Task<bool> EntityExistsAsync(string entityName)
+        {
+            ThrowIfDisposed();
+            if (entityName == null)
+            {
+                throw new ArgumentNullException("entityName");
+            }
+
+            return await FindByNameAsync(entityName).WithCurrentCulture() != null;
+        }
+
+        /// <summary>
+        ///     Find a entity by name
+        /// </summary>
+        /// <param name="entityName"></param>
+        /// <returns></returns>
+        public virtual async Task<TEntity> FindByNameAsync(string entityName)
+        {
+            ThrowIfDisposed();
+            if (entityName == null)
+            {
+                throw new ArgumentNullException("entityName");
+            }
+
+            return await Store.FindByNameAsync(entityName).WithCurrentCulture();
         }
 
     }

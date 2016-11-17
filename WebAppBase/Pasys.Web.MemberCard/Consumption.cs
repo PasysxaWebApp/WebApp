@@ -75,13 +75,6 @@ namespace Pasys.Web.MemberCard
         // Navigation properties
         public virtual MemberCard MemberCard { get; set; }
         
-        public string EntityName
-        {
-            get
-            {
-                return "";
-            }
-        }
     }
 
     public class ConsumptionEntityValidator : EntityValidatorBase<Consumption, long>
@@ -99,51 +92,53 @@ namespace Pasys.Web.MemberCard
 
     public class ConsumptionManager : EntityManagerBase<Consumption, long>
     {
+        public ConsumptionStore BizStore
+        {
+            get
+            {
+                return (ConsumptionStore)this.Store;
+            }
+        }
         public ConsumptionManager(ConsumptionStore store)
             : base(store)
         {
             this.EntityValidator = new ConsumptionEntityValidator(this);
         }
 
-        public bool AddConsume(string MemberCardId,ConsueType consueType, long amount, string ProductName, string CreateUserId, string Note)
-        {
-            using (var utility = DbUtility.GetInstance())
+        public bool AddConsume(string memberCardId,ConsueType consueType, long amount, string productName, string createUserId, string note)
+        {            
+            var consu=  new Consumption(){
+                MemberCardId=memberCardId,
+                ConsueType = Convert.ToInt32(consueType),
+                CreateUserId=createUserId,
+                CreateDateTime=DateTime.Now,
+                Note=note
+            };
+            if (consueType == ConsueType.Consume )
             {
-                var sql = new StringBuilder();
-                sql.Append(@"
-                    Insert into mc_t_consumptions 
-                        `t_notice`.`NoticeID`,
-                        `t_notice`.`OrganizationID`,
-                        `t_notice`.`Title`,
-                        `t_notice`.`ContentTxt`,
-                        `t_notice`.`CreateUserID`,
-                        `t_notice`.`CreateDateTime`,
-                        `t_notice`.`LastUserID`,
-                        `t_notice`.`LastUpdatetime`,
-                        `t_notice`.`Sticky`,
-                        createUser.UserName as CreateUserName,
-                        updateUser.UserName as UpdateUserName
-                    FROM `t_notice` 
-                    left join m_user createUser on createUser.Guid=`t_notice`.`CreateUserID`
-                    left join m_user updateUser on updateUser.Guid=`t_notice`.`LastUserID`
-                    where ");
-               
-
-                utility.BeginTransaction();
-                try
-                {
-                    utility.AddParameter("MemberCardId", MemberCardId);
-                    utility.ExecuteNonQuery(sql.ToString());
-                    utility.Commit();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    utility.Rollback();
-                    return false;
-                }
-                
+                consu.Amount = amount;
             }
+            else if (consueType == ConsueType.Charge)
+            {
+                consu.Amount = amount * -1;
+            }
+            var sql= new StringBuilder();
+            sql.Append(@"Update mc_m_membercards set Balance=Balance-@Amount where MemberCardId=@MemberCardId");
+
+            var dbcontex = BizStore.Context;
+            var trans= dbcontex.Database.BeginTransaction();
+            try
+            {
+                dbcontex.Set<Consumption>().Add(consu);
+                dbcontex.Database.ExecuteSqlCommand(sql.ToString(), new object[] { consu.Amount, memberCardId });
+                trans.Commit();
+                return true;
+            }
+            catch (Exception)
+            {
+                trans.Rollback();
+                return false;
+            }            
         }
 
     }

@@ -39,7 +39,6 @@ namespace Pasys.Web.MemberCard
 
             var consumption = modelBuilder.Entity<Consumption>()
             .HasKey(m => m.ConsumptionId)
-            .Ignore(m => m.EntityName)
             .ToTable("mc_t_consumptions");
             consumption.Property(m => m.MemberCardId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 

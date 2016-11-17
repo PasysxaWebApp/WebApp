@@ -28,22 +28,6 @@ namespace Pasys.Web.Core.EntityManager
             return AsyncHelper.RunSync(() => manager.FindByIdAsync(entityId));
         }
 
-        /// <summary>
-        ///     Find a entity by name
-        /// </summary>
-        /// <param name="manager"></param>
-        /// <param name="entityName"></param>
-        /// <returns></returns>
-        public static TEntity FindByName<TEntity, TKey>(this EntityManagerBase<TEntity, TKey> manager, string entityName)
-            where TKey : IEquatable<TKey>
-            where TEntity : class, IEntity<TKey>
-        {
-            if (manager == null)
-            {
-                throw new ArgumentNullException("manager");
-            }
-            return AsyncHelper.RunSync(() => manager.FindByNameAsync(entityName));
-        }
 
         /// <summary>
         ///     Create a entity
@@ -95,6 +79,26 @@ namespace Pasys.Web.Core.EntityManager
             }
             return AsyncHelper.RunSync(() => manager.DeleteAsync(entity));
         }
+    }
+
+    public static class MasterEntityManagerExtensions
+    {
+        /// <summary>
+        ///     Find a entity by name
+        /// </summary>
+        /// <param name="manager"></param>
+        /// <param name="entityName"></param>
+        /// <returns></returns>
+        public static TEntity FindByName<TEntity, TKey>(this MasterEntityManagerBase<TEntity, TKey> manager, string entityName)
+            where TKey : IEquatable<TKey>
+            where TEntity : class, IMasterEntity<TKey>
+        {
+            if (manager == null)
+            {
+                throw new ArgumentNullException("manager");
+            }
+            return AsyncHelper.RunSync(() => manager.FindByNameAsync(entityName));
+        }
 
         /// <summary>
         ///     Returns true if the entity exists
@@ -102,9 +106,9 @@ namespace Pasys.Web.Core.EntityManager
         /// <param name="manager"></param>
         /// <param name="entityName"></param>
         /// <returns></returns>
-        public static bool RoleExists<TEntity, TKey>(this EntityManagerBase<TEntity, TKey> manager, string entityName)
+        public static bool RoleExists<TEntity, TKey>(this MasterEntityManagerBase<TEntity, TKey> manager, string entityName)
             where TKey : IEquatable<TKey>
-            where TEntity : class, IEntity<TKey>
+            where TEntity : class, IMasterEntity<TKey>
         {
             if (manager == null)
             {
@@ -112,6 +116,6 @@ namespace Pasys.Web.Core.EntityManager
             }
             return AsyncHelper.RunSync(() => manager.EntityExistsAsync(entityName));
         }
-    }
 
+    }
 }

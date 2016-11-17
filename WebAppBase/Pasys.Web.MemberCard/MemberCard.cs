@@ -30,7 +30,7 @@ namespace Pasys.Web.MemberCard
         Invalided
     }
 
-    public class MemberCard:IEntity<string>
+    public class MemberCard:IMasterEntity<string>
     {
         public string MemberCardId { get; set; }
         public string OrganizationId { get; set; }
@@ -98,7 +98,7 @@ namespace Pasys.Web.MemberCard
         public MemberCardStore(DbContext context) : base(context) { }
     }
 
-    public class MemberCardManager : EntityManagerBase<MemberCard, string>
+    public class MemberCardManager : MasterEntityManagerBase<MemberCard, string>
     {
         public MemberCardManager(MemberCardStore store)
             : base(store)
