@@ -176,6 +176,7 @@
     <Compile Include="Controllers\Shared\SystemLogManager.cs" />
     <Compile Include="Controllers\Sorts\SortsController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
+    <Compile Include="Controllers\UserRolesController.cs" />
     <Compile Include="Enums\OperationTypeEnum.cs" />
     <Compile Include="Enums\SystemRollEnum.cs" />
     <Compile Include="Global.asax.cs">
@@ -550,6 +551,7 @@
     <Content Include="Views\Chart\DeadReportChart.cshtml" />
     <Content Include="Views\Chart\Index.cshtml" />
     <Content Include="Views\Sorts\SortList.cshtml" />
+    <Content Include="Views\UserRoles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\PriceAdjust\" />

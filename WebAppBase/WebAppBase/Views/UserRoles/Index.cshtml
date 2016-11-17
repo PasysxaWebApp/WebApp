@@ -1,0 +1,60 @@
+﻿@model WebAppBase.Models.UserRolesViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="form-group">
+    <div class="col-md-5">
+        <table>
+            <thead>
+                <tr>
+                    <th>选择</th>
+                    <th>角色名</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Roles.Count(); i++)
+                {
+                    <tr id="@Model.Roles.ToList()[i].Id">
+                        <td>
+                            <input id="@Model.Roles.ToList()[i].Id" type="checkbox" />
+                        </td>
+                        <td>
+                            @Model.Roles.ToList()[i].Name
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-5">
+        <table>
+            <thead>
+                <tr>
+                    <th>选择</th>
+                    <th>角色名</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Roles.Count(); i++)
+                {
+                    <tr id="@Model.Roles.ToList()[i].Id">
+                        <td>
+                            <input id="@Model.Roles.ToList()[i].Id" type="checkbox" />
+                        </td>
+                        <td>
+                            @Model.Roles.ToList()[i].Name
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+

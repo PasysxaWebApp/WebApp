@@ -133,8 +133,9 @@ namespace WebAppBase.Controllers
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
 
-                UserManager.RemoveFromRolesAsync(user.Id, UserManager.GetRoles(user.Id).ToArray());
-                UserManager.AddToRolesAsync(user.Id, userEditViewModel.UserRoles.ToArray());
+                var userRoles = UserManager.GetRoles(user.Id).ToArray();
+                UserManager.RemoveFromRoles(user.Id, userRoles);
+                UserManager.AddToRoles(user.Id, userEditViewModel.UserRoles.ToArray());
 
                 return RedirectToAction("Index");
             }

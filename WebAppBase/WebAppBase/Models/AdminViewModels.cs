@@ -32,4 +32,12 @@ namespace WebAppBase.Models
 
         public IEnumerable<RoleViewModel> RolesList { get; set; }
     }
+
+    public class UserRolesViewModel
+    {
+        public string UserId { get; set; }
+        public string RoleId { get; set; }
+        public IEnumerable<RoleViewModel> Roles { get; set; }
+        public IEnumerable<RoleViewModel> UserRoles { get; set; }
+    }
 }

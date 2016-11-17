@@ -268,7 +268,7 @@ namespace Pasys.Web.Identity.Models
             roleManager.CreateMenu(m);
             m = new ApplicationMenu { MenuId = 64, ParentMenuId = 11, MenuName = "事業所設定", ActionName = "Index", ControllerName = "Organization", CssClass = "", ActionParam = "" };
             roleManager.CreateMenu(m);
-            m = new ApplicationMenu { MenuId = 65, ParentMenuId = 11, MenuName = "ユーザー管理", ActionName = "UserList", ControllerName = "User", CssClass = "", ActionParam = "" };
+            m = new ApplicationMenu { MenuId = 65, ParentMenuId = 11, MenuName = "ユーザー管理", ActionName = "Index", ControllerName = "UserManage", CssClass = "", ActionParam = "" };
             roleManager.CreateMenu(m);
             //m = new ApplicationMenu { MenuId = 66, ParentMenuId = 11, MenuName = "--", ActionName = "", ControllerName = "", CssClass = "", ActionParam = "" };
             //roleManager.CreateMenu(m);
