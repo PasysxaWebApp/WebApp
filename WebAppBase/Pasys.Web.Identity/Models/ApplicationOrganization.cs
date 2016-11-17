@@ -9,10 +9,31 @@ using System.Threading.Tasks;
 
 namespace Pasys.Web.Identity.Models
 {
+    public enum OrganizationStatus
+    {
+        /// <summary>
+        /// 初始
+        /// </summary>
+        Init,
+        /// <summary>
+        /// 审核中
+        /// </summary>
+        Checking,
+        /// <summary>
+        /// 运营中
+        /// </summary>
+        Open,
+        /// <summary>
+        /// 已关闭
+        /// </summary>
+        Closed
+    }
+
+
     public class ApplicationOrganization
     {
-        public string OrganizationID { get; set; }
-        public string ParentOrganizationID { get; set; }
+        public string OrganizationId { get; set; }
+        public string ParentOrganizationId { get; set; }
         public string OrganizationCode { get; set; }
         /// <summary>
         /// 利用状态
@@ -57,12 +78,12 @@ namespace Pasys.Web.Identity.Models
 
         public bool Create(ApplicationOrganization organization)
         {
-            if (string.IsNullOrEmpty(organization.OrganizationID))
+            if (string.IsNullOrEmpty(organization.OrganizationId))
             {
                 throw new ArgumentException();
             }
 
-            var org= _roleStore.Find(organization.OrganizationID);
+            var org= _roleStore.Find(organization.OrganizationId);
             if (org == null)
             {
                 _roleStore.Add(organization);
@@ -74,12 +95,12 @@ namespace Pasys.Web.Identity.Models
 
         public bool Update(ApplicationOrganization organization)
         {
-            if (string.IsNullOrEmpty(organization.OrganizationID))
+            if (string.IsNullOrEmpty(organization.OrganizationId))
             {
                 throw new ArgumentException();
             }
 
-            var org= _roleStore.Find(organization.OrganizationID);
+            var org= _roleStore.Find(organization.OrganizationId);
             if (org==null)
             {
                 throw new ArgumentException();

@@ -19,7 +19,7 @@ namespace Pasys.Web.Identity.Models
             // ここにカスタム ユーザー クレームを追加します
             return userIdentity;
         }
-        public virtual string OrganizationID { get; set; }
+        public virtual string OrganizationId { get; set; }
 
         //public virtual List<ApplicationRoleMenu> RoleMenus { get; set; }
         public virtual ApplicationOrganization Organization { get; set; }

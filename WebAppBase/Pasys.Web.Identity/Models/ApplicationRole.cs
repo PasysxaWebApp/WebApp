@@ -10,13 +10,13 @@ namespace Pasys.Web.Identity.Models
     public class ApplicationRole : IdentityRole
     {
         public ApplicationRole() : base() { }
-        public ApplicationRole( string organizationID, string name, string description) : base(name)
+        public ApplicationRole( string organizationId, string name, string description) : base(name)
         {
-            this.OrganizationID = organizationID;
+            this.OrganizationId = organizationId;
             this.Description = description; 
         }
 
-        public virtual string OrganizationID { get; set; }
+        public virtual string OrganizationId { get; set; }
         public virtual string Description { get; set; }
 
         public virtual List<ApplicationRoleMenu> RoleMenus { get; set; }
