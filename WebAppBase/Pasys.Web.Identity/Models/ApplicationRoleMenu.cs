@@ -14,6 +14,7 @@ namespace Pasys.Web.Identity.Models
         List<ApplicationRole> GetAllowRolesByMenuId(int MenuId);
         List<ApplicationRole> GetAllowRolesByControllNameActionName(string controllerName, string actionName);
         Task<List<ApplicationMenu>> GetMenusByRoleNameAsync(string RoleName);
+        List<ApplicationMenu> GetMenus();
         Task AddRoleMenuAsync(string RoleId, int MenuId, int? DisplayNo, bool ShowInMenu, bool SperateMenuFlag);
         Task SetMenuDisplayNoAsync(string RoleId, int MenuId, int DisplayNo);
         Task SetMenuAuthorizationStatusAsync(string RoleId, int MenuId, int AuthorizationStatus);
@@ -31,6 +32,7 @@ namespace Pasys.Web.Identity.Models
         public bool SeparateMenuFlag { get; set; }
         //public ApplicationMenu Menu { get; set; }
         public ApplicationRole Role { get; set; }
+        
     }
 
     public class RoleMenuStore : RoleStore<ApplicationRole>, IRoleMenuStore
@@ -75,6 +77,12 @@ namespace Pasys.Web.Identity.Models
                 }
             }
             return list;
+        }
+
+        public List<ApplicationMenu> GetMenus()
+        {
+            var menus = Context.Set<ApplicationMenu>();
+            return menus.ToList();
         }
 
         public List<ApplicationRole> GetAllowRolesByMenuId(int MenuId)

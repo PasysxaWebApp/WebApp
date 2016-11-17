@@ -40,4 +40,53 @@ namespace WebAppBase.Models
         public IEnumerable<RoleViewModel> Roles { get; set; }
         public IEnumerable<RoleViewModel> UserRoles { get; set; }
     }
+
+    public class RoleMenusViewModel
+    {
+        public string Role { get; set; }
+
+        private List<SelectListItem> _rolesSelectList;
+        private List<SystemMenus.SystemMenuModel> _menuList { get; set; }
+        private List<SystemMenus.SystemMenuModel> _roleMenuList { get; set; }
+
+        public List<SelectListItem> RolesSelectList {
+            get
+            {
+                if (_rolesSelectList==null)
+                {
+                    return new List<SelectListItem>();
+                }
+                return _rolesSelectList;
+            }
+            set { 
+                _rolesSelectList = value;
+            }
+        }
+        public List<SystemMenus.SystemMenuModel> MenuList { 
+            get {
+                if (_menuList==null)
+                {
+                    return new List<SystemMenus.SystemMenuModel>();  
+                }
+                return _menuList; 
+            } 
+            set{ 
+                _menuList = value; 
+            } 
+        }
+        public List<SystemMenus.SystemMenuModel> RoleMenuList {
+            get
+            {
+                if (_roleMenuList==null)
+                {
+                    return new List<SystemMenus.SystemMenuModel>();
+                }
+                return _roleMenuList;
+            }
+            set
+            {
+                _roleMenuList = value;
+            }
+        }
+    }
 }

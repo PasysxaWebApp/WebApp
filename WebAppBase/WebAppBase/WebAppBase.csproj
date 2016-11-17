@@ -172,6 +172,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PriceAdjustController.cs" />
     <Compile Include="Controllers\RoleManageController.cs" />
+    <Compile Include="Controllers\RoleMenusController.cs" />
     <Compile Include="Controllers\Shared\CommonController.cs" />
     <Compile Include="Controllers\Shared\SystemLogManager.cs" />
     <Compile Include="Controllers\Sorts\SortsController.cs" />
@@ -552,6 +553,7 @@
     <Content Include="Views\Chart\Index.cshtml" />
     <Content Include="Views\Sorts\SortList.cshtml" />
     <Content Include="Views\UserRoles\Index.cshtml" />
+    <Content Include="Views\RoleMenus\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\PriceAdjust\" />

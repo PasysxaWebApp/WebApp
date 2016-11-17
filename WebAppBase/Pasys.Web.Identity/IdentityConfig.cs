@@ -143,6 +143,11 @@ namespace Pasys.Web.Identity
             return await this.Store.GetMenusByRoleNameAsync(RoleName);
         }
 
+        public virtual List<ApplicationMenu> GetMenus()
+        {
+           return this.Store.GetMenus();
+        }
+
         public virtual  List<ApplicationMenu> GetMenusByRoleName(string RoleName)
         {
             var _myTaskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
