@@ -10,7 +10,11 @@ using System.Threading.Tasks;
 namespace Pasys.Web.MemberCard
 {
     public enum ConsueType
-    { 
+    {
+        /// <summary>
+        /// 初始状态
+        /// </summary>
+        Init,
         /// <summary>
         /// 开卡
         /// </summary>
@@ -22,7 +26,7 @@ namespace Pasys.Web.MemberCard
         /// <summary>
         /// 充值
         /// </summary>
-        Charge,
+        Recharge,
         /// <summary>
         /// 挂失
         /// </summary>
@@ -37,7 +41,7 @@ namespace Pasys.Web.MemberCard
         Invalid
     }
 
-    public class Consumption:IEntity<long>
+    public class Consumption : IEntity<long>
     {
         public long ConsumptionId { get; set; }
         // Foreign key
@@ -51,6 +55,10 @@ namespace Pasys.Web.MemberCard
         /// 消费日期时间
         /// </summary>
         public DateTime ConsueDateTime { get; set; }
+        /// <summary>
+        /// 现金总收入
+        /// </summary>
+        public long Cash { get; set; }
         /// <summary>
         /// 消费金额
         /// </summary>
@@ -74,7 +82,7 @@ namespace Pasys.Web.MemberCard
 
         // Navigation properties
         public virtual MemberCard MemberCard { get; set; }
-        
+
     }
 
     public class ConsumptionEntityValidator : EntityValidatorBase<Consumption, long>
@@ -104,33 +112,134 @@ namespace Pasys.Web.MemberCard
         {
             this.EntityValidator = new ConsumptionEntityValidator(this);
         }
+        /// <summary>
+        /// 开卡
+        /// </summary>
+        /// <param name="memberCardId"></param>
+        /// <param name="createUserId"></param>
+        /// <param name="note"></param>
+        /// <returns></returns>
+        public bool OpenCard(string memberCardId, string createUserId, string note)
+        {
+            return AddRecorde(memberCardId, ConsueType.Open, 0, 0, "开卡", createUserId, note);
+        }
+        /// <summary>
+        /// 挂失卡
+        /// </summary>
+        /// <param name="memberCardId"></param>
+        /// <param name="createUserId"></param>
+        /// <param name="note"></param>
+        /// <returns></returns>
+        public bool LossCard(string memberCardId, string createUserId, string note)
+        {
+            return AddRecorde(memberCardId, ConsueType.Loss, 0, 0, "挂失", createUserId, note);
+        }
+        /// <summary>
+        /// 解除挂失
+        /// </summary>
+        /// <param name="memberCardId"></param>
+        /// <param name="createUserId"></param>
+        /// <param name="note"></param>
+        /// <returns></returns>
+        public bool LiftLossCard(string memberCardId, string createUserId, string note)
+        {
+            return AddRecorde(memberCardId, ConsueType.LiftLoss, 0, 0, "解挂", createUserId, note);
+        }
+        /// <summary>
+        /// 作废卡
+        /// </summary>
+        /// <param name="memberCardId"></param>
+        /// <param name="createUserId"></param>
+        /// <param name="note"></param>
+        /// <returns></returns>
+        public bool InvalidCard(string memberCardId, string createUserId, string note)
+        {
+            return AddRecorde(memberCardId, ConsueType.Invalid, 0, 0, "作废", createUserId, note);
+        }
+        /// <summary>
+        /// 消费
+        /// </summary>
+        /// <param name="memberCardId"></param>
+        /// <param name="amount"></param>
+        /// <param name="productName"></param>
+        /// <param name="createUserId"></param>
+        /// <param name="note"></param>
+        /// <returns></returns>
+        public bool Consume(string memberCardId, long amount, string productName, string createUserId, string note)
+        {
+            return AddRecorde(memberCardId, ConsueType.Consume, 0, amount, productName, createUserId, note);
+        }
+        /// <summary>
+        /// 充值
+        /// </summary>
+        /// <param name="memberCardId"></param>
+        /// <param name="cash"></param>
+        /// <param name="amount"></param>
+        /// <param name="createUserId"></param>
+        /// <param name="note"></param>
+        /// <returns></returns>
+        public bool Recharge(string memberCardId, long cash, long amount, string createUserId, string note)
+        {
+            return AddRecorde(memberCardId, ConsueType.Recharge, cash, amount, "充值", createUserId, note);
+        }
 
-        public bool AddConsume(string memberCardId,ConsueType consueType, long amount, string productName, string createUserId, string note)
-        {            
-            var consu=  new Consumption(){
-                MemberCardId=memberCardId,
+        public bool AddRecorde(string memberCardId, ConsueType consueType, long cash, long amount, string productName, string createUserId, string note)
+        {
+            var consu = new Consumption()
+            {
+                MemberCardId = memberCardId,
                 ConsueType = Convert.ToInt32(consueType),
-                CreateUserId=createUserId,
-                CreateDateTime=DateTime.Now,
-                Note=note
+                Cash = 0,
+                Amount = 0,
+                ProductName = productName,
+                CreateUserId = createUserId,
+                CreateDateTime = DateTime.Now,
+                Note = note
             };
-            if (consueType == ConsueType.Consume )
+            if (consueType == ConsueType.Consume)
             {
                 consu.Amount = amount;
             }
-            else if (consueType == ConsueType.Charge)
+            else if (consueType == ConsueType.Recharge)
             {
                 consu.Amount = amount * -1;
+                consu.Cash = cash;
             }
-            var sql= new StringBuilder();
-            sql.Append(@"Update mc_m_membercards set Balance=Balance-@Amount where MemberCardId=@MemberCardId");
-
+            var sql = new StringBuilder();
             var dbcontex = BizStore.Context;
-            var trans= dbcontex.Database.BeginTransaction();
+            var trans = dbcontex.Database.BeginTransaction();
             try
             {
                 dbcontex.Set<Consumption>().Add(consu);
-                dbcontex.Database.ExecuteSqlCommand(sql.ToString(), new object[] { consu.Amount, memberCardId });
+                if (consu.Amount != 0 || consu.Cash != 0)
+                {
+                    sql.Append(@"Update mc_m_membercards set Balance=Balance-@Amount,CashSum=CashSum+@Cash where MemberCardId=@MemberCardId");
+                    dbcontex.Database.ExecuteSqlCommand(sql.ToString(), new object[] { consu.Amount, consu.Cash, memberCardId });
+                }
+                else {
+                    var cardStatus = MemberCardStatus.Init;
+                    if (consueType == ConsueType.Open)
+                    {
+                        cardStatus = MemberCardStatus.Opend;
+                    }
+                    else if (consueType == ConsueType.Loss)
+                    {
+                        cardStatus = MemberCardStatus.Losed;
+                    }
+                    else if (consueType == ConsueType.LiftLoss)
+                    {
+                        cardStatus = MemberCardStatus.Opend;
+                    }
+                    else if (consueType == ConsueType.Invalid)
+                    {
+                        cardStatus = MemberCardStatus.Invalided;
+                    }
+                    if (cardStatus != MemberCardStatus.Init)
+                    {
+                        sql.Append(@"Update mc_m_membercards set Status=@Status where MemberCardId=@MemberCardId");
+                        dbcontex.Database.ExecuteSqlCommand(sql.ToString(), new object[] { Convert.ToInt32(cardStatus), memberCardId });
+                    }
+                }
                 trans.Commit();
                 return true;
             }
@@ -138,7 +247,7 @@ namespace Pasys.Web.MemberCard
             {
                 trans.Rollback();
                 return false;
-            }            
+            }
         }
 
     }
