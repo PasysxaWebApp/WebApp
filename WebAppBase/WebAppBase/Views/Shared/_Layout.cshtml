@@ -3,10 +3,6 @@
 @{
     ViewBag.Title = "_Layout";
     var loginInfoSession = WebAppBase.Sessions.SessionLoginInfo.GetInstance(Session);
-
-    this.Response.Cookies.Remove("OrganizationID");
-    this.Response.Cookies.Add(new System.Web.HttpCookie("OrganizationID", loginInfoSession.OrganizationID));
-
 }
 
 <!DOCTYPE html>
