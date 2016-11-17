@@ -49,9 +49,9 @@ namespace Pasys.Web.Identity.Models
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             var organiation = modelBuilder.Entity<ApplicationOrganization>()
-                .HasKey(m => m.OrganizationID)
+                .HasKey(m => m.OrganizationId)
                 .ToTable("account_m_organizations");
-            organiation.Property(m => m.OrganizationID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            organiation.Property(m => m.OrganizationId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             modelBuilder.Entity<IdentityRole>().ToTable("account_m_roles");
             modelBuilder.Entity<IdentityUserRole>().ToTable("account_m_userroles");
@@ -59,7 +59,7 @@ namespace Pasys.Web.Identity.Models
             modelBuilder.Entity<IdentityUserClaim>().ToTable("account_m_userclaims");
 
             var role=modelBuilder.Entity<ApplicationRole>().ToTable("account_m_roles");
-            role.HasRequired(m => m.Organization).WithMany(c => c.Roles).HasForeignKey(c => c.OrganizationID);
+            role.HasRequired(m => m.Organization).WithMany(c => c.Roles).HasForeignKey(c => c.OrganizationId);
 
             var user= modelBuilder.Entity<ApplicationUser>()
                 .HasKey(p => p.Id)

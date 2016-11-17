@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppBase", "WebAppBase\WebAppBase.csproj", "{A69623D4-92E0-44C1-8702-1627F2EC561B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C65064FB-8865-421A-98D2-4539954F188D} = {C65064FB-8865-421A-98D2-4539954F188D}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedUtilitys", "SharedUtilitys\SharedUtilitys.csproj", "{BEB81503-77C0-4308-B197-0B2A52220D16}"
 EndProject
@@ -18,6 +21,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Strategy.SMS", "Pasys.Strategy.SMS\Pasys.Strategy.SMS.csproj", "{C65064FB-8865-421A-98D2-4539954F188D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Web.WeiXin", "Pasys.Web.WeiXin\Pasys.Web.WeiXin.csproj", "{8C35E6C3-668A-4446-A6FB-6CE823DB8DF0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C65064FB-8865-421A-98D2-4539954F188D} = {C65064FB-8865-421A-98D2-4539954F188D}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Web.MemberCard", "Pasys.Web.MemberCard\Pasys.Web.MemberCard.csproj", "{2855F040-916B-411D-AC69-2762F00CACEC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BEB81503-77C0-4308-B197-0B2A52220D16} = {BEB81503-77C0-4308-B197-0B2A52220D16}
+		{3F905868-F488-467F-B212-4E7A17A71881} = {3F905868-F488-467F-B212-4E7A17A71881}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +61,10 @@ Global
 		{8C35E6C3-668A-4446-A6FB-6CE823DB8DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C35E6C3-668A-4446-A6FB-6CE823DB8DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C35E6C3-668A-4446-A6FB-6CE823DB8DF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2855F040-916B-411D-AC69-2762F00CACEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2855F040-916B-411D-AC69-2762F00CACEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2855F040-916B-411D-AC69-2762F00CACEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2855F040-916B-411D-AC69-2762F00CACEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,5 +73,6 @@ Global
 		{2FB3C6A7-89BB-4048-A0AA-E7E1E3B01B93} = {DBF1DF28-605A-4711-908D-2D19D60431DE}
 		{3F905868-F488-467F-B212-4E7A17A71881} = {DBF1DF28-605A-4711-908D-2D19D60431DE}
 		{C65064FB-8865-421A-98D2-4539954F188D} = {9C3BAE2D-F4CD-4735-8264-C562099A671A}
+		{2855F040-916B-411D-AC69-2762F00CACEC} = {DBF1DF28-605A-4711-908D-2D19D60431DE}
 	EndGlobalSection
 EndGlobal

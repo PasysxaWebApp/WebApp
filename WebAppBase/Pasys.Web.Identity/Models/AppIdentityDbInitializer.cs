@@ -30,7 +30,7 @@ namespace Pasys.Web.Identity.Models
             
             var org = new ApplicationOrganization()
             {
-                OrganizationID = "DebugOrganizationID",
+                OrganizationId = "DebugOrganizationID",
                 OrganizationCode = "ABC",
                 OfficeName = "事業所名 0001",
                 StaffName = "責任者名001",
@@ -64,25 +64,25 @@ namespace Pasys.Web.Identity.Models
             var roleVisitor = roleManager.FindByName(VisitorName);
             if (roleVisitor == null)
             {
-                roleVisitor = new ApplicationRole(org.OrganizationID, VisitorName, "閲覧のみ");
+                roleVisitor = new ApplicationRole(org.OrganizationId, VisitorName, "閲覧のみ");
                 var roleresult = roleManager.Create(roleVisitor);
             }
             var roleOgnUser = roleManager.FindByName(OrganizationUserName);
             if (roleOgnUser == null)
             {
-                roleOgnUser = new ApplicationRole(org.OrganizationID, OrganizationUserName, "利用者");
+                roleOgnUser = new ApplicationRole(org.OrganizationId, OrganizationUserName, "利用者");
                 var roleresult = roleManager.Create(roleOgnUser);
             }
             var roleOgnAdmin = roleManager.FindByName(OrganizationAdminName);
             if (roleOgnAdmin == null)
             {
-                roleOgnAdmin = new ApplicationRole(org.OrganizationID, OrganizationAdminName, "管理者");
+                roleOgnAdmin = new ApplicationRole(org.OrganizationId, OrganizationAdminName, "管理者");
                 var roleresult = roleManager.Create(roleOgnAdmin);
             }
             var roleAdmin = roleManager.FindByName(AdminName);
             if (roleAdmin == null)
             {
-                roleAdmin = new ApplicationRole(org.OrganizationID, AdminName, "システム管理者");
+                roleAdmin = new ApplicationRole(org.OrganizationId, AdminName, "システム管理者");
                 var roleresult = roleManager.Create(roleAdmin);
             }
             //===============================================
@@ -90,7 +90,7 @@ namespace Pasys.Web.Identity.Models
             var user = userManager.FindByName(adminName);
             if (user == null)
             {
-                user = new ApplicationUser { OrganizationID = org.OrganizationID, UserName = adminName, Email = adminName };
+                user = new ApplicationUser { OrganizationId = org.OrganizationId, UserName = adminName, Email = adminName };
                 var result = userManager.Create(user, password);
                 result = userManager.SetLockoutEnabled(user.Id, false);
             }
@@ -107,7 +107,7 @@ namespace Pasys.Web.Identity.Models
             user = userManager.FindByName(ognAdminName);
             if (user == null)
             {
-                user = new ApplicationUser { OrganizationID = org.OrganizationID, UserName = ognAdminName, Email = ognAdminName };
+                user = new ApplicationUser { OrganizationId = org.OrganizationId, UserName = ognAdminName, Email = ognAdminName };
                 var result = userManager.Create(user, password);
                 result = userManager.SetLockoutEnabled(user.Id, false);
             }
@@ -124,7 +124,7 @@ namespace Pasys.Web.Identity.Models
             user = userManager.FindByName(ognUserName);
             if (user == null)
             {
-                user = new ApplicationUser { OrganizationID = org.OrganizationID, UserName = ognUserName, Email = ognUserName };
+                user = new ApplicationUser { OrganizationId = org.OrganizationId, UserName = ognUserName, Email = ognUserName };
                 var result = userManager.Create(user, password);
                 result = userManager.SetLockoutEnabled(user.Id, false);
             }
