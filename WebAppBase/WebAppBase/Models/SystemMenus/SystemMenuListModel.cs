@@ -22,7 +22,7 @@ namespace WebAppBase.Models.SystemMenus
         private StringBuilder _contentText = new StringBuilder();// String.Empty;
         private UrlHelper _helper;
 
-        public string GetResponsiveHtml(List<ApplicationMenu> menus, UrlHelper helper)
+        public string GetResponsiveHtml(List<ApplicationFunction> menus, UrlHelper helper)
         {
             _contentText = new StringBuilder();// String.Empty;
             _helper = helper;
@@ -40,7 +40,7 @@ namespace WebAppBase.Models.SystemMenus
             return _contentText.ToString();
         }
 
-        public string GetBootStrapHtml(List<ApplicationMenu> menus, UrlHelper helper)
+        public string GetBootStrapHtml(List<ApplicationFunction> menus, UrlHelper helper)
         {
             _contentText = new StringBuilder();// String.Empty;
             _helper = helper;
@@ -114,12 +114,12 @@ namespace WebAppBase.Models.SystemMenus
             }
         }
 
-        private void _createMenuList_ForBootstrap(List<ApplicationMenu> menus, int target, bool isRoot)
+        private void _createMenuList_ForBootstrap(List<ApplicationFunction> menus, int target, bool isRoot)
         {
             var systemMenuModels = menus.FindAll(model=>
             {
-                if ((isRoot && model.MenuId == model.ParentMenuId)
-                    || (!isRoot && model.MenuId != model.ParentMenuId && target == model.ParentMenuId))
+                if ((isRoot && model.FunctionId == model.ParentFunctionId)
+                    || (!isRoot && model.FunctionId != model.ParentFunctionId && target == model.ParentFunctionId))
                 {
                     return true;
                 }
@@ -143,7 +143,7 @@ namespace WebAppBase.Models.SystemMenus
                     url = _helper.Action(item.ActionName, item.ControllerName);
                 }
 
-                bool hasChildItem = menus.FindAll(m => m.ParentMenuId == item.MenuId && m.ParentMenuId != m.MenuId).Count > 0;
+                bool hasChildItem = menus.FindAll(m => m.ParentFunctionId == item.FunctionId && m.ParentFunctionId != m.FunctionId).Count > 0;
 
                 if (item.IsRootMenu)
                 {
@@ -161,7 +161,7 @@ namespace WebAppBase.Models.SystemMenus
                         _contentText.AppendLine("                            </div>");
                         _contentText.AppendLine("                        </a>");
                         _contentText.AppendLine("                        <ul class=\"dropdown-menu\" role=\"menu\">");
-                        _createMenuList_ForBootstrap(menus, item.MenuId, false);
+                        _createMenuList_ForBootstrap(menus, item.FunctionId, false);
                         _contentText.AppendLine("                        </ul>");
                         _contentText.AppendLine("        </li>  ");
                     }
@@ -196,12 +196,12 @@ namespace WebAppBase.Models.SystemMenus
             }
         }
 
-        private void _createMenuList_ForResponsivemenu(List<ApplicationMenu> menus, int target, bool isRoot)
+        private void _createMenuList_ForResponsivemenu(List<ApplicationFunction> menus, int target, bool isRoot)
         {
             var systemMenuModels = menus.FindAll(model =>
             {
-                if ((isRoot && model.MenuId == model.ParentMenuId)
-                    || (!isRoot && model.MenuId != model.ParentMenuId && target == model.ParentMenuId))
+                if ((isRoot && model.FunctionId == model.ParentFunctionId)
+                    || (!isRoot && model.FunctionId != model.ParentFunctionId && target == model.ParentFunctionId))
                 {
                     return true;
                 }
@@ -229,7 +229,7 @@ namespace WebAppBase.Models.SystemMenus
                     url = _helper.Action(item.ActionName, item.ControllerName);
                 }
 
-                bool hasChildItem = menus.FindAll(m => m.ParentMenuId == item.MenuId && m.ParentMenuId != m.MenuId).Count > 0;
+                bool hasChildItem = menus.FindAll(m => m.ParentFunctionId == item.FunctionId && m.ParentFunctionId != m.FunctionId).Count > 0;
 
                 if (item.IsRootMenu)
                 {
@@ -245,7 +245,7 @@ namespace WebAppBase.Models.SystemMenus
                         _contentText.AppendLine("");
                         _contentText.AppendLine("                           </a>");
                         _contentText.AppendLine("                        <ul class=\"dropdown-menu\" role=\"menu\">");
-                        _createMenuList_ForResponsivemenu(menus, item.MenuId, false);
+                        _createMenuList_ForResponsivemenu(menus, item.FunctionId, false);
                         _contentText.AppendLine("                        </ul>");
                         _contentText.AppendLine("        </li>  ");
 

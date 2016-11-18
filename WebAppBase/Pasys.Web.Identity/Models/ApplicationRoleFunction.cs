@@ -8,25 +8,25 @@ using System.Threading.Tasks;
 
 namespace Pasys.Web.Identity.Models
 {
-    public interface IRoleMenuStore : IRoleStore<ApplicationRole, string>
+    public interface IRoleFunctionStore : IRoleStore<ApplicationRole, string>
     {
-        void CreateMenu(ApplicationMenu menu);
-        List<ApplicationRole> GetAllowRolesByMenuId(int MenuId);
+        void CreateMenu(ApplicationFunction menu);
+        List<ApplicationRole> GetAllowRolesByFunctionId(int FunctionId);
         List<ApplicationRole> GetAllowRolesByControllNameActionName(string controllerName, string actionName);
-        Task<List<ApplicationMenu>> GetMenusByRoleNameAsync(string RoleName);
-        List<ApplicationMenu> GetMenus();
+        Task<List<ApplicationFunction>> GetMenusByRoleNameAsync(string RoleName);
+        List<ApplicationFunction> GetMenus();
         Task DeleteRoleMenus(string RoleName);
 
-        Task AddRoleMenuAsync(string RoleId, int MenuId, int? DisplayNo, bool ShowInMenu, bool SperateMenuFlag);
-        Task SetMenuDisplayNoAsync(string RoleId, int MenuId, int DisplayNo);
-        Task SetMenuAuthorizationStatusAsync(string RoleId, int MenuId, int AuthorizationStatus);
+        Task AddRoleMenuAsync(string RoleId, int FunctionId, int? DisplayNo, bool ShowInMenu, bool SperateMenuFlag);
+        Task SetMenuDisplayNoAsync(string RoleId, int FunctionId, int DisplayNo);
+        Task SetMenuAuthorizationStatusAsync(string RoleId, int FunctionId, int AuthorizationStatus);
     }
 
 
-    public class ApplicationRoleMenu
+    public class ApplicationRoleFunction
     {
-        //public int RoleMenuId { get; set; }
-        public int MenuId { get; set; }
+        //public int RoleFunctionId { get; set; }
+        public int FunctionId { get; set; }
         public string RoleId { get; set; }
         public int AuthorizationStatus { get; set; }
         public int DisplayNo { get; set; }
@@ -37,18 +37,18 @@ namespace Pasys.Web.Identity.Models
         
     }
 
-    public class RoleMenuStore : RoleStore<ApplicationRole>, IRoleMenuStore
+    public class RoleFunctionStore : RoleStore<ApplicationRole>, IRoleFunctionStore
     {
-        public RoleMenuStore(DbContext context)
+        public RoleFunctionStore(DbContext context)
             : base(context)
         {
 
         }
 
-        public void CreateMenu(ApplicationMenu menu)
+        public void CreateMenu(ApplicationFunction menu)
         {
-            var MenuSet = Context.Set<ApplicationMenu>();
-            var om = MenuSet.FirstOrDefault(m => m.MenuId.Equals(menu.MenuId));
+            var MenuSet = Context.Set<ApplicationFunction>();
+            var om = MenuSet.FirstOrDefault(m => m.FunctionId.Equals(menu.FunctionId));
             if (om == null)
             {
                 MenuSet.Add(menu);
@@ -56,7 +56,7 @@ namespace Pasys.Web.Identity.Models
             Context.SaveChanges();
         }
 
-        public async Task<List<ApplicationMenu>> GetMenusByRoleNameAsync(string RoleName)
+        public async Task<List<ApplicationFunction>> GetMenusByRoleNameAsync(string RoleName)
         {
             var role = await this.FindByNameAsync(RoleName);
             if (role == null)
@@ -64,12 +64,12 @@ namespace Pasys.Web.Identity.Models
                 return null;
             }
 
-            var menus = Context.Set<ApplicationMenu>();
-            List<ApplicationMenu> list = new List<ApplicationMenu>();
+            var menus = Context.Set<ApplicationFunction>();
+            List<ApplicationFunction> list = new List<ApplicationFunction>();
             role.RoleMenus.Sort((x, y) => x.DisplayNo.CompareTo(y.DisplayNo));
             foreach (var rm in role.RoleMenus)
             {
-                var m = menus.Find(rm.MenuId);
+                var m = menus.Find(rm.FunctionId);
                 if (m != null)
                 {
                     m.ShowInMenu = rm.ShowInMenu;
@@ -80,9 +80,9 @@ namespace Pasys.Web.Identity.Models
             return list;
         }
 
-        public List<ApplicationMenu> GetMenus()
+        public List<ApplicationFunction> GetMenus()
         {
-            var menus = Context.Set<ApplicationMenu>();
+            var menus = Context.Set<ApplicationFunction>();
             return menus.ToList();
         }
 
@@ -93,36 +93,36 @@ namespace Pasys.Web.Identity.Models
             {
                 return;
             }
-            var DbEntitySet = Context.Set<ApplicationRoleMenu>();
+            var DbEntitySet = Context.Set<ApplicationRoleFunction>();
             DbEntitySet.RemoveRange(role.RoleMenus);
             
             await Context.SaveChangesAsync();
         }
 
-        public List<ApplicationRole> GetAllowRolesByMenuId(int MenuId)
+        public List<ApplicationRole> GetAllowRolesByFunctionId(int FunctionId)
         {
-            var menus = Context.Set<ApplicationMenu>();
-            var menu = menus.Find(MenuId);
+            var menus = Context.Set<ApplicationFunction>();
+            var menu = menus.Find(FunctionId);
             if (menu == null)
             {
                 throw new KeyNotFoundException();
             }
-            var DbEntitySet = Context.Set<ApplicationRoleMenu>();
-            var roles = DbEntitySet.Where(m => m.MenuId.Equals(MenuId) && m.AuthorizationStatus == Convert.ToInt32(Authorization.Allow)).Select(m => m.Role).ToList();
+            var DbEntitySet = Context.Set<ApplicationRoleFunction>();
+            var roles = DbEntitySet.Where(m => m.FunctionId.Equals(FunctionId) && m.AuthorizationStatus == Convert.ToInt32(Authorization.Allow)).Select(m => m.Role).ToList();
             return roles;
         }
         public List<ApplicationRole> GetAllowRolesByControllNameActionName(string controllerName, string actionName)
         {
-            var menus = Context.Set<ApplicationMenu>();
+            var menus = Context.Set<ApplicationFunction>();
             var menu = menus.FirstOrDefault(m => m.ControllerName.ToLower().Equals(controllerName) && m.ActionName.ToLower().Equals(actionName));
             if (menu == null)
             {
                 throw new KeyNotFoundException();
             }
 
-            var DbEntitySet = Context.Set<ApplicationRoleMenu>();
+            var DbEntitySet = Context.Set<ApplicationRoleFunction>();
             var allowStatus = Convert.ToInt32(Authorization.Allow);
-            var roles = DbEntitySet.Where(m => m.MenuId.Equals(menu.MenuId) && m.AuthorizationStatus == allowStatus).Select(m => m.Role).ToList();
+            var roles = DbEntitySet.Where(m => m.FunctionId.Equals(menu.FunctionId) && m.AuthorizationStatus == allowStatus).Select(m => m.Role).ToList();
             return roles;
 
         }
@@ -135,11 +135,11 @@ namespace Pasys.Web.Identity.Models
                 throw new Exception();
             }
             //var roleMenu = await DbEntitySet.FindAsync(RoleId, MenuId);
-            var DbEntitySet = Context.Set<ApplicationRoleMenu>();
-            var roleMenu = await DbEntitySet.SingleOrDefaultAsync(m => m.RoleId.Equals(RoleId) && m.MenuId.Equals(MenuId));
+            var DbEntitySet = Context.Set<ApplicationRoleFunction>();
+            var roleMenu = await DbEntitySet.SingleOrDefaultAsync(m => m.RoleId.Equals(RoleId) && m.FunctionId.Equals(MenuId));
             if (roleMenu == null)
             {
-                ApplicationRoleMenu rm = new ApplicationRoleMenu { MenuId = MenuId, RoleId = RoleId, DisplayNo = DisplayNo ?? MenuId, AuthorizationStatus = Convert.ToInt32(Authorization.Allow), ShowInMenu = ShowInMenu, SeparateMenuFlag = SperateMenuFlag };
+                ApplicationRoleFunction rm = new ApplicationRoleFunction { FunctionId = MenuId, RoleId = RoleId, DisplayNo = DisplayNo ?? MenuId, AuthorizationStatus = Convert.ToInt32(Authorization.Allow), ShowInMenu = ShowInMenu, SeparateMenuFlag = SperateMenuFlag };
                 DbEntitySet.Add(rm);
             }
             await Context.SaveChangesAsync();
@@ -154,8 +154,8 @@ namespace Pasys.Web.Identity.Models
                 throw new Exception();
             }
 
-            var DbEntitySet = Context.Set<ApplicationRoleMenu>();
-            var roleMenu = await DbEntitySet.SingleOrDefaultAsync(m => m.RoleId.Equals(RoleId) && m.MenuId.Equals(MenuId));
+            var DbEntitySet = Context.Set<ApplicationRoleFunction>();
+            var roleMenu = await DbEntitySet.SingleOrDefaultAsync(m => m.RoleId.Equals(RoleId) && m.FunctionId.Equals(MenuId));
             if (roleMenu != null)
             {
                 roleMenu.DisplayNo = DisplayNo;
@@ -174,8 +174,8 @@ namespace Pasys.Web.Identity.Models
                 throw new Exception();
             }
 
-            var DbEntitySet = Context.Set<ApplicationRoleMenu>();
-            var roleMenu = await DbEntitySet.SingleOrDefaultAsync(m => m.RoleId.Equals(RoleId) && m.MenuId.Equals(MenuId));
+            var DbEntitySet = Context.Set<ApplicationRoleFunction>();
+            var roleMenu = await DbEntitySet.SingleOrDefaultAsync(m => m.RoleId.Equals(RoleId) && m.FunctionId.Equals(MenuId));
             if (roleMenu != null)
             {
                 roleMenu.AuthorizationStatus = AuthorizationStatus;
@@ -188,15 +188,15 @@ namespace Pasys.Web.Identity.Models
 
     }
 
-    public class RoleMenuManager : RoleManager<ApplicationRole>
+    public class RoleFunctionManager : RoleManager<ApplicationRole>
     {
-        public RoleMenuManager(IRoleMenuStore store) : base(store) { }
+        public RoleFunctionManager(IRoleFunctionStore store) : base(store) { }
 
-        protected new IRoleMenuStore Store
+        protected new IRoleFunctionStore Store
         {
             get
             {
-                return (IRoleMenuStore)base.Store;
+                return (IRoleFunctionStore)base.Store;
             }
         }
 
