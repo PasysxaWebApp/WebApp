@@ -2,6 +2,15 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Style{
+    <style type="text/css">
+        .groupHeight{
+            height: 500px;
+            overflow:scroll;
+        }
+    </style>
+        
+    }
 @section Script{
     <script type="text/javascript">
         $(function () {
@@ -17,6 +26,7 @@
         });
 
         function setMenuListFrom(list) {
+            $("#tbodyFrom").empty();
             $(list).each(function (index, obj) {
                 var html = "";
                 html += '<tr id="' + obj.MenuID + '">\r\n';
@@ -32,6 +42,7 @@
         }
 
         function setMenuListTo(list) {
+            $("#tbodyTo").empty();
             $(list).each(function (index, obj) {
                 var html = "";
                 html += '<tr id="' + obj.MenuID + '">\r\n';
@@ -52,7 +63,7 @@
 </div>
 <div class="form-group">
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-5 groupHeight">
             <table>
                 <thead>
                     <tr>
@@ -63,11 +74,11 @@
                 <tbody id="tbodyFrom"></tbody>
             </table>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 groupHeight">
             <div><button id="btnAdd" type="button">➡</button></div>
             <div><button id="btnDelete" type="button">⇦</button></div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 groupHeight">
             <table>
                 <thead>
                     <tr>
@@ -79,4 +90,7 @@
             </table>
         </div>
     </div>
+</div>
+<div class="form-group">
+    <button type="button" onclick="btnSave_Click();">提交</button>
 </div>
