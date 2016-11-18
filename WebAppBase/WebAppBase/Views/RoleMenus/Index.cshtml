@@ -1,6 +1,6 @@
 ﻿@model WebAppBase.Models.RoleMenusViewModel
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
 }
 @section Style{
     <style type="text/css">
@@ -16,9 +16,9 @@
         $(function () {
             $("#selRole").on("change", function () {
                 $.get("@Url.Action("AjaxGetRoleMenu", "RoleMenus")"
-                            , { "roleId": $(this).val() }
+                            , { "roleName": $(this).find("option:selected").text() }
                             , function (data){
-                                setMenuListFrom(data.MenuList);
+                                setMenuListFrom(data.MenuList, data.RoleMenuList);
                                 setMenuListTo(data.RoleMenuList);
                             }
                         , "json");
@@ -46,10 +46,20 @@
             });
         });
 
-        function setMenuListFrom(list) {
+        function setMenuListFrom(list,listOut) {
             $("#tbodyFrom").empty();
             $(list).each(function (index, obj) {
-                appendRoleMenuTr($("#tbodyFrom"), obj);
+                var has = false;
+                $(listOut).each(function (index2, outObj) {
+                    has = false;
+                    if ($(obj).MenuID == $(outObj).MenuID) {
+                        has = true;
+                        return;
+                    }
+                });
+                if (has==false) {
+                    appendRoleMenuTr($("#tbodyFrom"), obj);
+                }
             });
         }
 

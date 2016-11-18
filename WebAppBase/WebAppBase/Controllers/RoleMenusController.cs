@@ -9,10 +9,12 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebAppBase.Models;
+using WebAppBase.MvcLibrary;
 
 namespace WebAppBase.Controllers
 {
-    public class RoleMenusController : Controller
+    [AutoRoleAuthorize]
+    public class RoleMenusController : WorkController
     {
         private AppIdentityDbContext db = new AppIdentityDbContext();
 
@@ -56,9 +58,10 @@ namespace WebAppBase.Controllers
         {
             var mdl = new RoleMenusViewModel();
             
-            RoleMenuManager.GetMenus().Where(
-                    witem => !RoleMenuManager.GetMenusByRoleName(roleName).Select(s => s.FunctionId).Contains(witem.FunctionId)
-                    ).ToList().ForEach(item =>
+            //RoleMenuManager.GetMenus().Where(
+            //        witem => !RoleMenuManager.GetMenusByRoleName(roleName).Select(s => s.MenuId).Contains(witem.MenuId)
+            //        ).ToList().ForEach(item =>
+            RoleMenuManager.GetMenus().ToList().ForEach(item =>
             {
                 mdl.MenuList.Add(new ApplicationFunction
                 {
