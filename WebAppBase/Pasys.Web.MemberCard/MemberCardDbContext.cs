@@ -19,9 +19,18 @@ namespace Pasys.Web.MemberCard
         DbSet<Consumption> Consumptions { get; set; }
         DbSet<MemberCard> MemberCards { get; set; }
 
+        public static void CreateForce()
+        {
+            var db = new MemberCardDbContext();
+            db.Database.Initialize(false);
+            MemberCardDbInitializer.InitializeIdentityForEF(db);
+        }
+
+
         public static MemberCardDbContext Create()
         {
-            // 在第一次启动网站时初始化数据库添加管理员用户凭据和admin 角色到数据库            
+            // 在第一次启动网站时初始化数据库            
+            //Database.SetInitializer<MemberCardDbContext>(new MemberCardDbInitializer());
             return new MemberCardDbContext();
         }
 
@@ -32,15 +41,16 @@ namespace Pasys.Web.MemberCard
 
             var membercard = modelBuilder.Entity<MemberCard>()
             .HasKey(m => m.MemberCardId)
-            .Ignore(m=>m.EntityName)
+            .Ignore(m => m.EntityName)
             .ToTable("mc_m_membercards");
-            membercard.Property(m => m.MemberCardId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            //membercard.Property(m => m.MemberCardId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
 
 
             var consumption = modelBuilder.Entity<Consumption>()
             .HasKey(m => m.ConsumptionId)
+            .Ignore(m => m.EntityName)
             .ToTable("mc_t_consumptions");
-            consumption.Property(m => m.MemberCardId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            //consumption.Property(m => m.ConsumptionId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             consumption.HasRequired(m => m.MemberCard).WithMany().HasForeignKey(m => m.MemberCardId);
 

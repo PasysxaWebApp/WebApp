@@ -47,11 +47,10 @@ namespace Pasys.Web.Identity.Models
         {
             var MenuSet = Context.Set<ApplicationMenu>();
             var om = MenuSet.FirstOrDefault(m => m.MenuId.Equals(menu.MenuId));
-            if (om != null)
+            if (om == null)
             {
-                throw new ArgumentException(string.Format("{0}", menu.MenuId));
+                MenuSet.Add(menu);
             }
-            MenuSet.Add(menu);
             Context.SaveChanges();
         }
 

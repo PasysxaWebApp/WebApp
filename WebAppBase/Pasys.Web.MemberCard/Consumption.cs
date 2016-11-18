@@ -1,5 +1,7 @@
 ﻿using Pasys.Web.Core.EntityManager;
 using SharedUtilitys.DataBases;
+using SharedUtilitys.DataBases.Converters;
+using SharedUtilitys.DataBases.Base;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -43,7 +45,22 @@ namespace Pasys.Web.MemberCard
 
     public class Consumption : IEntity<long>
     {
+        public Consumption()
+        {
+            Cash = 0;
+            Amount = 0;
+            ConsueDateTime = DateTime.Now;
+            CreateDateTime = DateTime.Now;
+        }
         public long ConsumptionId { get; set; }
+        public string EntityName
+        {
+            get
+            {
+                return string.Format("{0}", ConsumptionId);
+            }
+        }
+
         // Foreign key
         public string MemberCardId { get; set; }
 
@@ -85,13 +102,13 @@ namespace Pasys.Web.MemberCard
 
     }
 
-    public class ConsumptionEntityValidator : EntityValidatorBase<Consumption, long>
-    {
-        public ConsumptionEntityValidator(ConsumptionManager manager)
-            : base(manager)
-        {
-        }
-    }
+    //public class ConsumptionEntityValidator : EntityValidatorBase<Consumption, long>
+    //{
+    //    public ConsumptionEntityValidator(ConsumptionManager manager)
+    //        : base(manager)
+    //    {
+    //    }
+    //}
 
     public class ConsumptionStore : EntityStore<Consumption, long>
     {
@@ -107,10 +124,16 @@ namespace Pasys.Web.MemberCard
                 return (ConsumptionStore)this.Store;
             }
         }
+
+        public ConsumptionManager(MemberCardDbContext dbContext)
+            : this(new ConsumptionStore(dbContext))
+        {
+        }
+
         public ConsumptionManager(ConsumptionStore store)
             : base(store)
         {
-            this.EntityValidator = new ConsumptionEntityValidator(this);
+            //this.EntityValidator = new ConsumptionEntityValidator(this);
         }
         /// <summary>
         /// 开卡
@@ -193,7 +216,6 @@ namespace Pasys.Web.MemberCard
                 Amount = 0,
                 ProductName = productName,
                 CreateUserId = createUserId,
-                CreateDateTime = DateTime.Now,
                 Note = note
             };
             if (consueType == ConsueType.Consume)
@@ -211,12 +233,17 @@ namespace Pasys.Web.MemberCard
             try
             {
                 dbcontex.Set<Consumption>().Add(consu);
+                dbcontex.SaveChanges();
                 if (consu.Amount != 0 || consu.Cash != 0)
                 {
                     sql.Append(@"Update mc_m_membercards set Balance=Balance-@Amount,CashSum=CashSum+@Cash where MemberCardId=@MemberCardId");
-                    dbcontex.Database.ExecuteSqlCommand(sql.ToString(), new object[] { consu.Amount, consu.Cash, memberCardId });
+                    var p_amount = DbParamConverter.Convert(new SqlParamWrapper("Amount", Convert.ToInt32(consu.Amount)));
+                    var p_cash = DbParamConverter.Convert(new SqlParamWrapper("Cash", Convert.ToInt32(consu.Cash)));
+                    var p_memberCardId = DbParamConverter.Convert(new SqlParamWrapper("MemberCardId", memberCardId));
+                    dbcontex.Database.ExecuteSqlCommand(sql.ToString(), new object[] { p_amount, p_cash, p_memberCardId });
                 }
-                else {
+                else
+                {
                     var cardStatus = MemberCardStatus.Init;
                     if (consueType == ConsueType.Open)
                     {
@@ -237,7 +264,10 @@ namespace Pasys.Web.MemberCard
                     if (cardStatus != MemberCardStatus.Init)
                     {
                         sql.Append(@"Update mc_m_membercards set Status=@Status where MemberCardId=@MemberCardId");
-                        dbcontex.Database.ExecuteSqlCommand(sql.ToString(), new object[] { Convert.ToInt32(cardStatus), memberCardId });
+
+                        var p_status = DbParamConverter.Convert(new SqlParamWrapper("Status", Convert.ToInt32(cardStatus)));
+                        var p_memberCardId = DbParamConverter.Convert(new SqlParamWrapper("MemberCardId", memberCardId));
+                        dbcontex.Database.ExecuteSqlCommand(sql.ToString(), p_status, p_memberCardId);
                     }
                 }
                 trans.Commit();

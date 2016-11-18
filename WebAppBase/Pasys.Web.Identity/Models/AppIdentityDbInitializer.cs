@@ -12,6 +12,11 @@ namespace Pasys.Web.Identity.Models
             base.Seed(context);
         }
 
+        public override void InitializeDatabase(AppIdentityDbContext context)
+        {
+            base.InitializeDatabase(context);
+        }
+
         //创建用户名为admin@123.com，密码为“Admin@123456”并把该用户添加到角色组"Admin"中
         public static void InitializeIdentityForEF(AppIdentityDbContext db)
         {

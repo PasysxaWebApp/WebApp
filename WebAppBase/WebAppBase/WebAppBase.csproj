@@ -575,6 +575,10 @@
       <Project>{2fb3c6a7-89bb-4048-a0aa-e7e1e3b01b93}</Project>
       <Name>Pasys.Web.Identity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Pasys.Web.MemberCard\Pasys.Web.MemberCard.csproj">
+      <Project>{2855f040-916b-411d-ac69-2762f00cacec}</Project>
+      <Name>Pasys.Web.MemberCard</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SharedUtilitys\SharedUtilitys.csproj">
       <Project>{beb81503-77c0-4308-b197-0b2a52220d16}</Project>
       <Name>SharedUtilitys</Name>

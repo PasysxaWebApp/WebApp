@@ -27,20 +27,23 @@ namespace Pasys.Web.Identity.Models
         {
         }
 
-        //static ApplicationDbContext()
-        //{         
-        //}
 
         DbSet<ApplicationMenu> Menus { get; set; }
         DbSet<ApplicationRoleMenu> RoleMenus { get; set; }
         DbSet<ApplicationOrganization> Organizations { get; set; }
 
-        public static AppIdentityDbContext Create(IdentityFactoryOptions<AppIdentityDbContext> options, IOwinContext context)
+        public static void CreateForce()
+        {
+            var db = new AppIdentityDbContext();
+            db.Database.Initialize(false);
+            AppIdentityDbInitializer.InitializeIdentityForEF(db);
+        }
+
+        public static AppIdentityDbContext Create()
         {
             // 在第一次启动网站时初始化数据库添加管理员用户凭据和admin 角色到数据库
-            var db = new AppIdentityDbContext();
-            Database.SetInitializer<AppIdentityDbContext>(new AppIdentityDbInitializer());
-            return db;
+            //Database.SetInitializer<AppIdentityDbContext>(new AppIdentityDbInitializer());
+            return new AppIdentityDbContext(); ;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

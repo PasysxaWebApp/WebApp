@@ -17,7 +17,7 @@ namespace Pasys.Web.WeiXin
         public void ConfigureAuth(IAppBuilder app)
         {
             // 1 要求につき 1 インスタンスのみを使用するように DB コンテキスト、ユーザー マネージャー、サインイン マネージャーを構成します。
-            app.CreatePerOwinContext<AppIdentityDbContext>(AppIdentityDbContext.Create);
+            app.CreatePerOwinContext(AppIdentityDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 

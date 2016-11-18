@@ -7,13 +7,8 @@ using System.Threading.Tasks;
 namespace Pasys.Web.Core.EntityManager
 {
     public interface IEntity<TKey> {
-    }
-
-    public interface IMasterEntity<TKey> : IEntity<TKey>
-    {
         string EntityName { get; }
     }
-
 
     public interface IEntityStore<TEntity, TKey>:IDisposable
     {
@@ -51,7 +46,7 @@ namespace Pasys.Web.Core.EntityManager
         where TKey : IEquatable<TKey>
     {
         private bool _disposed;
-        private IEntityValidator<TEntity> _entityValidator;
+        //private IEntityValidator<TEntity> _entityValidator;
         protected virtual IEntityStore<TEntity, TKey> Store { get; private set; }
 
         public EntityManagerBase(IEntityStore<TEntity, TKey> store)
@@ -68,18 +63,18 @@ namespace Pasys.Web.Core.EntityManager
         /// <summary>
         ///     Used to validate entitys before persisting changes
         /// </summary>
-        public IEntityValidator<TEntity> EntityValidator
-        {
-            get { return _entityValidator; }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value");
-                }
-                _entityValidator = value;
-            }
-        }
+        //public IEntityValidator<TEntity> EntityValidator
+        //{
+        //    get { return _entityValidator; }
+        //    set
+        //    {
+        //        if (value == null)
+        //        {
+        //            throw new ArgumentNullException("value");
+        //        }
+        //        _entityValidator = value;
+        //    }
+        //}
 
 
         /// <summary>
@@ -121,11 +116,11 @@ namespace Pasys.Web.Core.EntityManager
                 throw new ArgumentNullException("entity");
             }
 
-            var result = await EntityValidator.ValidateAsync(entity).WithCurrentCulture();
-            if (!result.Succeeded)
-            {
-                return result;
-            }
+            //var result = await EntityValidator.ValidateAsync(entity).WithCurrentCulture();
+            //if (!result.Succeeded)
+            //{
+            //    return result;
+            //}
             await Store.CreateAsync(entity).WithCurrentCulture();
             return ValidatorResult.Success;
         }
@@ -143,11 +138,11 @@ namespace Pasys.Web.Core.EntityManager
                 throw new ArgumentNullException("entity");
             }
 
-            var result = await EntityValidator.ValidateAsync(entity).WithCurrentCulture();
-            if (!result.Succeeded)
-            {
-                return result;
-            }
+            //var result = await EntityValidator.ValidateAsync(entity).WithCurrentCulture();
+            //if (!result.Succeeded)
+            //{
+            //    return result;
+            //}
             await Store.UpdateAsync(entity).WithCurrentCulture();
             return ValidatorResult.Success;
         }
@@ -180,40 +175,6 @@ namespace Pasys.Web.Core.EntityManager
             return await Store.FindByIdAsync(entityId).WithCurrentCulture();
         }
 
-
-        protected void ThrowIfDisposed()
-        {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(GetType().Name);
-            }
-        }
-
-        /// <summary>
-        ///     When disposing, actually dipose the store
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing && !_disposed)
-            {
-                Store.Dispose();
-            }
-            _disposed = true;
-        }
-
-    }
-
-
-    public abstract class MasterEntityManagerBase<TEntity, TKey> : EntityManagerBase<TEntity, TKey>
-        where TEntity : class, IMasterEntity<TKey>
-        where TKey : IEquatable<TKey>
-    {
-
-        public MasterEntityManagerBase(IEntityStore<TEntity, TKey> store):base(store)
-        {
-        }
-
         /// <summary>
         ///     Returns true if the entity exists
         /// </summary>
@@ -244,6 +205,28 @@ namespace Pasys.Web.Core.EntityManager
             }
 
             return await Store.FindByNameAsync(entityName).WithCurrentCulture();
+        }
+
+
+        protected void ThrowIfDisposed()
+        {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(GetType().Name);
+            }
+        }
+
+        /// <summary>
+        ///     When disposing, actually dipose the store
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing && !_disposed)
+            {
+                Store.Dispose();
+            }
+            _disposed = true;
         }
 
     }

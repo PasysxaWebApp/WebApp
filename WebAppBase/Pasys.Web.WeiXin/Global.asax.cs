@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Pasys.Web.Identity.Models;
+using Pasys.Web.MemberCard;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +18,13 @@ namespace Pasys.Web.WeiXin
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            CreateDb();
         }
+
+        private void CreateDb()
+        {
+        }
+
     }
 }
