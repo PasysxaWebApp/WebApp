@@ -8,6 +8,8 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    @RenderSection("Style", false)
+    @RenderSection("PrepareScript", false)
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -36,7 +38,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("script", required: false)
+    @RenderSection("Script", required: false)
     @RenderSection("scripts", required: false)
 </body>
 </html>
