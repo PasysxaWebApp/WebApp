@@ -5,11 +5,11 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using Pasys.Web.WeiXin.Models;
+using Pasys.Web.WeiXin.UI.Models;
 using Pasys.Web.Identity;
 using Pasys.Web.Identity.Models;
 
-namespace Pasys.Web.WeiXin
+namespace Pasys.Web.WeiXin.UI
 {
     public partial class Startup
     {

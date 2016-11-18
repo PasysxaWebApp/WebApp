@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Pasys.Web.WeiXin
+namespace Pasys.Web.WeiXin.UI
 {
     public class BundleConfig
     {

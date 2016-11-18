@@ -5,9 +5,9 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Pasys.Web.WeiXin.Controllers
+namespace Pasys.Web.WeiXin.UI.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : WorkController
     {
         public ActionResult Index()
         {

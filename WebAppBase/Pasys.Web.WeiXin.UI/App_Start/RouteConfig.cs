@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Pasys.Web.WeiXin
+namespace Pasys.Web.WeiXin.UI
 {
     public class RouteConfig
     {

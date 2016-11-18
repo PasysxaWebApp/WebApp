@@ -8,25 +8,24 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Pasys.Web.WeiXin.Models;
+using Pasys.Web.WeiXin.UI.Models;
 using Pasys.Web.Identity;
 using Pasys.Web.Identity.Models;
 
-namespace Pasys.Web.WeiXin.Controllers
+namespace Pasys.Web.WeiXin.UI.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : WorkController
     {
         private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+            : base(userManager)
         {
-            UserManager = userManager;
             SignInManager = signInManager;
         }
 
@@ -39,18 +38,6 @@ namespace Pasys.Web.WeiXin.Controllers
             private set 
             { 
                 _signInManager = value; 
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
             }
         }
 
@@ -409,12 +396,6 @@ namespace Pasys.Web.WeiXin.Controllers
         {
             if (disposing)
             {
-                if (_userManager != null)
-                {
-                    _userManager.Dispose();
-                    _userManager = null;
-                }
-
                 if (_signInManager != null)
                 {
                     _signInManager.Dispose();
