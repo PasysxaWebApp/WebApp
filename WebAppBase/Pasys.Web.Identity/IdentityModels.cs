@@ -28,8 +28,8 @@ namespace Pasys.Web.Identity.Models
         }
 
 
-        DbSet<ApplicationMenu> Menus { get; set; }
-        DbSet<ApplicationRoleMenu> RoleMenus { get; set; }
+        DbSet<ApplicationFunction> Menus { get; set; }
+        DbSet<ApplicationRoleFunction> RoleMenus { get; set; }
         DbSet<ApplicationOrganization> Organizations { get; set; }
 
         public static void CreateForce()
@@ -68,25 +68,25 @@ namespace Pasys.Web.Identity.Models
                 .HasKey(p => p.Id)
                 .ToTable("account_m_users");
 
-            var menu = modelBuilder.Entity<ApplicationMenu>()
-                .HasKey(m => m.MenuId)
+            var menu = modelBuilder.Entity<ApplicationFunction>()
+                .HasKey(m => m.FunctionId)
                 .Ignore(m => m.IsRootMenu)
                 .Ignore(m => m.ShowInMenu)
                 .Ignore(m => m.SeparateMenuFlag)
-                .ToTable("account_m_menus");
-            menu.Property(m => m.MenuId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+                .ToTable("account_m_funtions");
+            menu.Property(m => m.FunctionId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            modelBuilder.Entity<ApplicationRoleMenu>().HasRequired(m => m.Role).WithMany(c => c.RoleMenus).HasForeignKey(c => c.RoleId);
-            //modelBuilder.Entity<ApplicationRoleMenu>().HasRequired(m => m.Menu).WithMany().HasForeignKey(c => c.MenuId);
+            modelBuilder.Entity<ApplicationRoleFunction>().HasRequired(m => m.Role).WithMany(c => c.RoleMenus).HasForeignKey(c => c.RoleId);
+            //modelBuilder.Entity<ApplicationRoleMenu>().HasRequired(m => m.Menu).WithMany().HasForeignKey(c => c.FunctionId);
 
-            //modelBuilder.Entity<ApplicationMenu>().HasRequired(m => m.ParentMenu).WithMany(c => c.SubMenus).HasForeignKey(c => c.MenuId);
+            //modelBuilder.Entity<ApplicationMenu>().HasRequired(m => m.ParentMenu).WithMany(c => c.SubMenus).HasForeignKey(c => c.FunctionId);
 
-            var roleMenu = modelBuilder.Entity<ApplicationRoleMenu>()
-                .HasKey(m => new { m.RoleId, m.MenuId })
-                .ToTable("account_m_rolemenus");
+            var roleMenu = modelBuilder.Entity<ApplicationRoleFunction>()
+                .HasKey(m => new { m.RoleId, FunctionId = m.FunctionId })
+                .ToTable("account_m_rolefunctions");
 
 
-            //roleMenu.Property(m => m.RoleMenuId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            //roleMenu.Property(m => m.RoleFunctionId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             //// Keep this:
             //modelBuilder.Entity<IdentityUser>().ToTable("AspNetUsers");

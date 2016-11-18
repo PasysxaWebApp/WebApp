@@ -123,27 +123,27 @@ namespace Pasys.Web.Identity
 
     //}
 
-    public class ApplicationRoleMenuManager : RoleMenuManager
+    public class ApplicationRoleMenuManager : RoleFunctionManager
     {
-        public ApplicationRoleMenuManager(IRoleMenuStore roleStore)
+        public ApplicationRoleMenuManager(IRoleFunctionStore roleStore)
             : base(roleStore)
         {
         }
 
         public static ApplicationRoleMenuManager Create(IdentityFactoryOptions<ApplicationRoleMenuManager> options, IOwinContext context)
         {
-            return new ApplicationRoleMenuManager(new RoleMenuStore(context.Get<AppIdentityDbContext>()));
+            return new ApplicationRoleMenuManager(new RoleFunctionStore(context.Get<AppIdentityDbContext>()));
         }
-        public virtual void CreateMenu(ApplicationMenu menu)
+        public virtual void CreateMenu(ApplicationFunction menu)
         {
             this.Store.CreateMenu(menu);
         }
-        public virtual async Task<List<ApplicationMenu>> GetMenusByRoleNameAsync(string RoleName)
+        public virtual async Task<List<ApplicationFunction>> GetMenusByRoleNameAsync(string RoleName)
         {
             return await this.Store.GetMenusByRoleNameAsync(RoleName);
         }
 
-        public virtual List<ApplicationMenu> GetMenus()
+        public virtual List<ApplicationFunction> GetMenus()
         {
            return this.Store.GetMenus();
         }
@@ -155,22 +155,22 @@ namespace Pasys.Web.Identity
             _myTaskFactory.StartNew(() => { return this.Store.DeleteRoleMenus(RoleName); }).Unwrap().GetAwaiter().GetResult();
         }
 
-        public virtual List<ApplicationMenu> GetMenusByRoleName(string RoleName)
+        public virtual List<ApplicationFunction> GetMenusByRoleName(string RoleName)
         {
             var _myTaskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
             return _myTaskFactory.StartNew(() => { return this.Store.GetMenusByRoleNameAsync(RoleName); }).Unwrap().GetAwaiter().GetResult();
         }
 
-        public virtual void AddRoleMenu(string RoleId, int MenuId, int? DisplayNo, bool ShowInMenu, bool SperateMenuFlag)
+        public virtual void AddRoleMenu(string RoleId, int FunctionId, int? DisplayNo, bool ShowInMenu, bool SperateMenuFlag)
         {
-            //var task = this.Store.AddRoleMenuAsync(RoleId, MenuId, DisplayNo);
+            //var task = this.Store.AddRoleMenuAsync(RoleId, FunctionId, DisplayNo);
             var _myTaskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
-            _myTaskFactory.StartNew(() => { return this.Store.AddRoleMenuAsync(RoleId, MenuId, DisplayNo, ShowInMenu, SperateMenuFlag); }).Unwrap().GetAwaiter().GetResult();
+            _myTaskFactory.StartNew(() => { return this.Store.AddRoleMenuAsync(RoleId, FunctionId, DisplayNo, ShowInMenu, SperateMenuFlag); }).Unwrap().GetAwaiter().GetResult();
         }
 
-        public virtual void SetRoleMenuAsync(string RoleId, int MenuId, Authorization auth)
+        public virtual void SetRoleMenuAsync(string RoleId, int FunctionId, Authorization auth)
         {
-            this.Store.SetMenuAuthorizationStatusAsync(RoleId, MenuId, Convert.ToInt32(auth));
+            this.Store.SetMenuAuthorizationStatusAsync(RoleId, FunctionId, Convert.ToInt32(auth));
         }
 
         public virtual List<ApplicationRole> GetAllowRolesByControllNameActionName(string controllerName, string actionName)
@@ -189,9 +189,9 @@ namespace Pasys.Web.Identity
             }
         }
 
-        public virtual List<ApplicationRole> GetAllowRolesByMenuId(int MenuId)
+        public virtual List<ApplicationRole> GetAllowRolesByFunctionId(int FunctionId)
         {
-            return this.Store.GetAllowRolesByMenuId(MenuId);
+            return this.Store.GetAllowRolesByFunctionId(FunctionId);
         }
 
     }

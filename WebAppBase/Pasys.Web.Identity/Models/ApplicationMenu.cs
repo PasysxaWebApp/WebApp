@@ -6,11 +6,27 @@ using System.Threading.Tasks;
 
 namespace Pasys.Web.Identity.Models
 {
-    public class ApplicationMenu
+    public class ApplicationFunction
     {
-        public int MenuId { get; set; }
+        private string _functionName;
+        public int FunctionId { get; set; }
+        public string FunctionName
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_functionName))
+                {
+                    return _functionName;
+                }
+                return MenuName;
+            }
+            set
+            {
+                _functionName = value;
+            }
+        }
         public string MenuName { get; set; }
-        public int ParentMenuId { get; set; }
+        public int ParentFunctionId { get; set; }
         public string ActionName { get; set; }
         public string ControllerName { get; set; }
         public string CssClass { get; set; }
@@ -19,7 +35,7 @@ namespace Pasys.Web.Identity.Models
         {
             get
             {
-                return this.MenuId == ParentMenuId;
+                return this.FunctionId == ParentFunctionId;
             }
         }
         public bool ShowInMenu { get; set; }

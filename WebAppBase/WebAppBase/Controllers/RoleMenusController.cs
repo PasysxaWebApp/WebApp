@@ -57,12 +57,12 @@ namespace WebAppBase.Controllers
             var mdl = new RoleMenusViewModel();
             
             RoleMenuManager.GetMenus().Where(
-                    witem => !RoleMenuManager.GetMenusByRoleName(roleName).Select(s => s.MenuId).Contains(witem.MenuId)
+                    witem => !RoleMenuManager.GetMenusByRoleName(roleName).Select(s => s.FunctionId).Contains(witem.FunctionId)
                     ).ToList().ForEach(item =>
             {
                 mdl.MenuList.Add(new Models.SystemMenus.SystemMenuModel
                 {
-                    MenuID = item.MenuId,
+                    MenuID = item.FunctionId,
                     MenuName = item.MenuName
                 });
             });
@@ -70,7 +70,7 @@ namespace WebAppBase.Controllers
             {
                 mdl.RoleMenuList.Add(new Models.SystemMenus.SystemMenuModel
                 {
-                    MenuID = item.MenuId,
+                    MenuID = item.FunctionId,
                     MenuName = item.MenuName
                 });
             });
