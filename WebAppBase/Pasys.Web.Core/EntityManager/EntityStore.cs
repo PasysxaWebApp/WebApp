@@ -62,7 +62,7 @@ namespace Pasys.Web.Core.EntityManager
         public Task<TEntity> FindByNameAsync(string entityName)
         {
             ThrowIfDisposed();
-            return _entityStore.EntitySet.FirstOrDefaultAsync(u => u.EntityName.ToUpper() == entityName.ToUpper());
+            return _entityStore.EntitySet.FirstOrDefaultAsync(u => (u as IMasterEntity<TKey>).EntityName.ToUpper() == entityName.ToUpper());
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Pasys.Web.Core.EntityManager
         /// <summary>
         ///     Dispose the store
         /// </summary>
-        public void Dispose()
+        public virtual void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
@@ -150,4 +150,5 @@ namespace Pasys.Web.Core.EntityManager
             _entityStore = null;
         }
     }
+
 }

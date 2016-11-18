@@ -30,7 +30,7 @@ namespace Pasys.Web.MemberCard
         Invalided
     }
 
-    public class MemberCard:IEntity<string>
+    public class MemberCard:IMasterEntity<string>
     {
         public string MemberCardId { get; set; }
         public string OrganizationId { get; set; }
@@ -98,7 +98,7 @@ namespace Pasys.Web.MemberCard
         public MemberCardStore(DbContext context) : base(context) { }
     }
 
-    public class MemberCardManager : EntityManagerBase<MemberCard, string>
+    public class MemberCardManager : MasterEntityManagerBase<MemberCard, string>
     {
         public MemberCardManager(MemberCardStore store)
             : base(store)
@@ -124,5 +124,35 @@ namespace Pasys.Web.MemberCard
             }
             return await this.Entities.Where(m => m.OrganizationId.Equals(organizationId, StringComparison.CurrentCultureIgnoreCase) && m.CardNo.Equals(cardNo, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefaultAsync().WithCurrentCulture();             
         }
+        /// <summary>
+        /// 将会员卡与用户绑定
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <param name="cardNo"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public async Task BindUser(string organizationId, string cardNo,string userId)
+        {
+            if (organizationId == null)
+            {
+                throw new ArgumentNullException("organizationId");
+            }
+            if (cardNo == null)
+            {
+                throw new ArgumentNullException("cardNo");
+            }
+            if (userId == null)
+            {
+                throw new ArgumentNullException("userId");
+            }
+            var cards=  this.Entities.Where(m => m.OrganizationId.Equals(organizationId, StringComparison.CurrentCultureIgnoreCase) && m.CardNo.Equals(cardNo, StringComparison.CurrentCultureIgnoreCase));
+            foreach (var card in cards)
+            {
+                card.UserId = userId;
+                await this.UpdateAsync(card);
+            }
+        }
+
+
     }
 }
