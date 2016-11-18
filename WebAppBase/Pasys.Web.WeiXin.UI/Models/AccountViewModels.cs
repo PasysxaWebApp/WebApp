@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Pasys.Web.WeiXin.Models
+namespace Pasys.Web.WeiXin.UI.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

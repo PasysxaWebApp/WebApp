@@ -20,16 +20,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Web.Core", "Pasys.Web
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Strategy.SMS", "Pasys.Strategy.SMS\Pasys.Strategy.SMS.csproj", "{C65064FB-8865-421A-98D2-4539954F188D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Web.WeiXin", "Pasys.Web.WeiXin\Pasys.Web.WeiXin.csproj", "{8C35E6C3-668A-4446-A6FB-6CE823DB8DF0}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C65064FB-8865-421A-98D2-4539954F188D} = {C65064FB-8865-421A-98D2-4539954F188D}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Web.MemberCard", "Pasys.Web.MemberCard\Pasys.Web.MemberCard.csproj", "{2855F040-916B-411D-AC69-2762F00CACEC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BEB81503-77C0-4308-B197-0B2A52220D16} = {BEB81503-77C0-4308-B197-0B2A52220D16}
 		{3F905868-F488-467F-B212-4E7A17A71881} = {3F905868-F488-467F-B212-4E7A17A71881}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Web.WeiXin.UI", "Pasys.Web.WeiXin.UI\Pasys.Web.WeiXin.UI.csproj", "{8C35E6C3-668A-4446-A6FB-6CE823DB8DF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,14 +54,14 @@ Global
 		{C65064FB-8865-421A-98D2-4539954F188D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C65064FB-8865-421A-98D2-4539954F188D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C65064FB-8865-421A-98D2-4539954F188D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C35E6C3-668A-4446-A6FB-6CE823DB8DF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C35E6C3-668A-4446-A6FB-6CE823DB8DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C35E6C3-668A-4446-A6FB-6CE823DB8DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C35E6C3-668A-4446-A6FB-6CE823DB8DF0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2855F040-916B-411D-AC69-2762F00CACEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2855F040-916B-411D-AC69-2762F00CACEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2855F040-916B-411D-AC69-2762F00CACEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2855F040-916B-411D-AC69-2762F00CACEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C35E6C3-668A-4446-A6FB-6CE823DB8DF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C35E6C3-668A-4446-A6FB-6CE823DB8DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C35E6C3-668A-4446-A6FB-6CE823DB8DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C35E6C3-668A-4446-A6FB-6CE823DB8DF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

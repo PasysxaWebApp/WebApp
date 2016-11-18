@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Web;
 
-namespace WebAppBase.Utility
+namespace Pasys.Web.WeiXin.UI.Utility
 {
     public partial class WebUtils
     {
