@@ -24,6 +24,8 @@ namespace Pasys.Web.WeiXin.UI
 
         private void CreateDb()
         {
+            AppIdentityDbContext.CreateForce();
+            MemberCardDbContext.CreateForce();
         }
 
     }
