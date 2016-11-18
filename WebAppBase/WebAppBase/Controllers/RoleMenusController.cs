@@ -43,7 +43,7 @@ namespace WebAppBase.Controllers
             {
                 roles.Add(new SelectListItem
                 {
-                     Value=item.Name,
+                     Value=item.Id,
                      Text =item.Name
                 });
             });
@@ -52,34 +52,40 @@ namespace WebAppBase.Controllers
             return View(mdl);
         }
 
-        public ActionResult AjaxGetRoleMenu(string roleId)
+        public ActionResult AjaxGetRoleMenu(string roleName)
         {
             var mdl = new RoleMenusViewModel();
-            var lstMenu = new List<Models.SystemMenus.SystemMenuModel>();
-            var lstRoleMenu = new List<Models.SystemMenus.SystemMenuModel>();
-            var lstMenuTemp = new List<Models.SystemMenus.SystemMenuModel>();
-            var lstRoleMenuTemp = new List<Models.SystemMenus.SystemMenuModel>();
+            
             RoleMenuManager.GetMenus().Where(
-                    witem=>!RoleMenuManager.GetMenusByRoleName(roleId).Select(s=>s.MenuId).Contains(witem.MenuId)
+                    witem => !RoleMenuManager.GetMenusByRoleName(roleName).Select(s => s.MenuId).Contains(witem.MenuId)
                     ).ToList().ForEach(item =>
             {
-                lstMenuTemp.Add(new Models.SystemMenus.SystemMenuModel
+                mdl.MenuList.Add(new Models.SystemMenus.SystemMenuModel
                 {
                     MenuID = item.MenuId,
                     MenuName = item.MenuName
                 });
             });
-            RoleMenuManager.GetMenusByRoleName(roleId).ForEach(item =>
+            RoleMenuManager.GetMenusByRoleName(roleName).ForEach(item =>
             {
-                lstRoleMenuTemp.Add(new Models.SystemMenus.SystemMenuModel
+                mdl.RoleMenuList.Add(new Models.SystemMenus.SystemMenuModel
                 {
                     MenuID = item.MenuId,
                     MenuName = item.MenuName
                 });
             });
-            mdl.MenuList = lstMenuTemp;
-            mdl.RoleMenuList = lstRoleMenuTemp;
             return Json(mdl, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AjaxUpdateRoleMenu(RoleMenusViewModel mdl)
+        {
+            var roleMenus = mdl.RoleMenuList;
+            RoleMenuManager.DeleteRoleMenus(mdl.Role);
+            roleMenus.ForEach(item =>
+            {
+                RoleMenuManager.AddRoleMenu(mdl.Role, item.MenuID,1,true,false);
+            });
+            return Json("", JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -148,7 +148,14 @@ namespace Pasys.Web.Identity
            return this.Store.GetMenus();
         }
 
-        public virtual  List<ApplicationMenu> GetMenusByRoleName(string RoleName)
+        public virtual void DeleteRoleMenus(string RoleName)
+        {
+            //return this.Store.DeleteRoleMenus(RoleName);
+            var _myTaskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
+            _myTaskFactory.StartNew(() => { return this.Store.DeleteRoleMenus(RoleName); }).Unwrap().GetAwaiter().GetResult();
+        }
+
+        public virtual List<ApplicationMenu> GetMenusByRoleName(string RoleName)
         {
             var _myTaskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
             return _myTaskFactory.StartNew(() => { return this.Store.GetMenusByRoleNameAsync(RoleName); }).Unwrap().GetAwaiter().GetResult();

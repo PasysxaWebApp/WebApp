@@ -15,6 +15,8 @@ namespace Pasys.Web.Identity.Models
         List<ApplicationRole> GetAllowRolesByControllNameActionName(string controllerName, string actionName);
         Task<List<ApplicationMenu>> GetMenusByRoleNameAsync(string RoleName);
         List<ApplicationMenu> GetMenus();
+        Task DeleteRoleMenus(string RoleName);
+
         Task AddRoleMenuAsync(string RoleId, int MenuId, int? DisplayNo, bool ShowInMenu, bool SperateMenuFlag);
         Task SetMenuDisplayNoAsync(string RoleId, int MenuId, int DisplayNo);
         Task SetMenuAuthorizationStatusAsync(string RoleId, int MenuId, int AuthorizationStatus);
@@ -83,6 +85,19 @@ namespace Pasys.Web.Identity.Models
         {
             var menus = Context.Set<ApplicationMenu>();
             return menus.ToList();
+        }
+
+        public async Task DeleteRoleMenus(string RoleName)
+        {
+            var role = await this.FindByNameAsync(RoleName);
+            if (role == null)
+            {
+                return;
+            }
+            var DbEntitySet = Context.Set<ApplicationRoleMenu>();
+            DbEntitySet.RemoveRange(role.RoleMenus);
+            
+            await Context.SaveChangesAsync();
         }
 
         public List<ApplicationRole> GetAllowRolesByMenuId(int MenuId)

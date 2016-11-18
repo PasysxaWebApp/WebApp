@@ -54,7 +54,7 @@ namespace WebAppBase.Models
             {
                 if (_rolesSelectList==null)
                 {
-                    return new List<SelectListItem>();
+                    _rolesSelectList = new List<SelectListItem>();
                 }
                 return _rolesSelectList;
             }
@@ -66,7 +66,7 @@ namespace WebAppBase.Models
             get {
                 if (_menuList==null)
                 {
-                    return new List<SystemMenus.SystemMenuModel>();  
+                    _menuList = new List<SystemMenus.SystemMenuModel>();  
                 }
                 return _menuList; 
             } 
@@ -79,7 +79,7 @@ namespace WebAppBase.Models
             {
                 if (_roleMenuList==null)
                 {
-                    return new List<SystemMenus.SystemMenuModel>();
+                    _roleMenuList = new List<SystemMenus.SystemMenuModel>();
                 }
                 return _roleMenuList;
             }

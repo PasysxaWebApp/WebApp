@@ -23,38 +23,70 @@
                             }
                         , "json");
             });
+
+            $("#btnAdd").on("click", function () {
+                $("#tbodyFrom :checkbox:checked").each(function (index,obj) {
+                    var menuId = $(obj).attr("id");
+                    var menuName = $(obj).closest("td").next().html();
+                    $(obj).prop("checked", false);
+                    $(obj).closest("tr").css("display", "none");
+
+                    appendRoleMenuTr($("#tbodyTo"), {MenuID:menuId,MenuName:menuName});
+                });
+            });
+            $("#btnDelete").on("click", function () {
+                $("#tbodyTo :checkbox:checked").each(function (index, obj) {
+                    var menuId = $(obj).attr("id");
+                    var menuName = $(obj).closest("td").next().html();
+                    $(obj).closest("tr").remove();
+                    $("#tbodyFrom [id='" + menuId + "']:checkbox").closest("tr").css("display", "table-row");
+                    //$(obj).closest("tr").css("display", "none");
+                    //appendRoleMenuTr($("#tbodyTo"), { MenuID: menuId, MenuName: menuName });
+                });
+            });
         });
 
         function setMenuListFrom(list) {
             $("#tbodyFrom").empty();
             $(list).each(function (index, obj) {
-                var html = "";
-                html += '<tr id="' + obj.MenuID + '">\r\n';
-                html += '    <td>';
-                html += '        <input id="' + obj.MenuID + '" type="checkbox" />\r\n';
-                html += '    </td>\r\n';
-                html += '    <td>\r\n';
-                html += '        ' + obj.MenuName + '\r\n';
-                html += '    </td>\r\n';
-                html += '</tr>\r\n';
-                $("#tbodyFrom").append(html);
+                appendRoleMenuTr($("#tbodyFrom"), obj);
             });
         }
 
         function setMenuListTo(list) {
             $("#tbodyTo").empty();
             $(list).each(function (index, obj) {
-                var html = "";
-                html += '<tr id="' + obj.MenuID + '">\r\n';
-                html += '    <td>';
-                html += '        <input id="' + obj.MenuID + '" type="checkbox" />\r\n';
-                html += '    </td>\r\n';
-                html += '    <td>\r\n';
-                html += '        ' + obj.MenuName + '\r\n';
-                html += '    </td>\r\n';
-                html += '</tr>\r\n';
-                $("#tbodyTo").append(html);
+                appendRoleMenuTr($("#tbodyTo"), obj);
             });
+        }
+
+        function appendRoleMenuTr(toTarget,model) {
+            var html = "";
+            html += '<tr>\r\n';
+            html += '    <td>\r\n';
+            html += '        <input id="' + model.MenuID + '" type="checkbox" />\r\n';
+            html += '    </td>\r\n';
+            html += '    <td>\r\n';
+            html += '        ' + model.MenuName + '\r\n';
+            html += '    </td>\r\n';
+            html += '</tr>\r\n';
+            $(toTarget).append(html);
+        }
+
+        function btnSave_Click() {
+            var mdl = { "Role": $("#selRole").val() };
+            var roleMenus = [];
+            $("#tbodyTo :checkbox").each(function (index, obj) {
+                var menuMdl = {};
+                menuMdl.MenuID = $(obj).attr("id");
+                roleMenus.push(menuMdl);
+            });
+            mdl.RoleMenuList = roleMenus;
+            $.post("@Url.Action("AjaxUpdateRoleMenu", "RoleMenus")"
+                , mdl, function (responseData) {
+
+                }
+                ,"json");
         }
     </script>
 }
@@ -75,8 +107,11 @@
             </table>
         </div>
         <div class="col-md-2 groupHeight">
-            <div><button id="btnAdd" type="button">➡</button></div>
-            <div><button id="btnDelete" type="button">⇦</button></div>
+            <center style="margin-top:250px;">
+                <div><button id="btnAdd" type="button">➡</button></div>
+                <div><button id="btnDelete" type="button">⇦</button></div>
+            </center>
+            
         </div>
         <div class="col-md-5 groupHeight">
             <table>
