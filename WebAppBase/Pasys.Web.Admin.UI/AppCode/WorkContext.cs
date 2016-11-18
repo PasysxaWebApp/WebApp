@@ -10,6 +10,8 @@ namespace Pasys.Web.Admin.UI
 {
     public class WorkContext:IWorkContext
     {
+        public string Area { get; protected set; } //注册区域
+
         public GlobalConfigInfo GlobalConfig;//全局配置信息
 
         public bool IsHttpAjax;//当前请求是否为ajax请求
@@ -35,6 +37,7 @@ namespace Pasys.Web.Admin.UI
         public WorkContext()
         {
            GlobalConfig= Pasys.Web.Core.ConfigManager.GetGlobalConfig();
+           Area = "";
         }
     }
 }

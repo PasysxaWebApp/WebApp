@@ -8,8 +8,8 @@ using System.Web.Mvc;
 namespace Pasys.Web.Core
 {
     public interface IWorkContext 
-    { 
-    
+    {
+        string Area { get; }
     }
 
     public interface IWorkController<T> where T : IWorkContext
