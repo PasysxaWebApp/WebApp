@@ -1,0 +1,141 @@
+﻿@model Pasys.Web.Admin.UI.Models.RoleMenusViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+@section Style{
+    <style type="text/css">
+        .groupHeight{
+            height: 500px;
+            overflow:scroll;
+        }
+    </style>
+        
+    }
+@section Script{
+    <script type="text/javascript">
+        $(function () {
+            $("#selRole").on("change", function () {
+                $.get("@Url.Action("AjaxGetRoleMenu", "RoleMenus")"
+                            , { "roleName": $(this).find("option:selected").text() }
+                            , function (data){
+                                setMenuListFrom(data.MenuList, data.RoleMenuList);
+                                setMenuListTo(data.RoleMenuList);
+                            }
+                        , "json");
+            });
+
+            $("#btnAdd").on("click", function () {
+                $("#tbodyFrom :checkbox:checked").each(function (index,obj) {
+                    var menuId = $(obj).attr("id");
+                    var menuName = $(obj).closest("td").next().html();
+                    $(obj).prop("checked", false);
+                    $(obj).closest("tr").css("display", "none");
+
+                    appendRoleMenuTr($("#tbodyTo"), {MenuID:menuId,MenuName:menuName});
+                });
+            });
+            $("#btnDelete").on("click", function () {
+                $("#tbodyTo :checkbox:checked").each(function (index, obj) {
+                    var menuId = $(obj).attr("id");
+                    var menuName = $(obj).closest("td").next().html();
+                    $(obj).closest("tr").remove();
+                    $("#tbodyFrom [id='" + menuId + "']:checkbox").closest("tr").css("display", "table-row");
+                    //$(obj).closest("tr").css("display", "none");
+                    //appendRoleMenuTr($("#tbodyTo"), { MenuID: menuId, MenuName: menuName });
+                });
+            });
+        });
+
+        function setMenuListFrom(list,listOut) {
+            $("#tbodyFrom").empty();
+            $(list).each(function (index, obj) {
+                var has = false;
+                $(listOut).each(function (index2, outObj) {
+                    has = false;
+                    if ($(obj).MenuID == $(outObj).MenuID) {
+                        has = true;
+                        return;
+                    }
+                });
+                if (has==false) {
+                    appendRoleMenuTr($("#tbodyFrom"), obj);
+                }
+            });
+        }
+
+        function setMenuListTo(list) {
+            $("#tbodyTo").empty();
+            $(list).each(function (index, obj) {
+                appendRoleMenuTr($("#tbodyTo"), obj);
+            });
+        }
+
+        function appendRoleMenuTr(toTarget,model) {
+            var html = "";
+            html += '<tr>\r\n';
+            html += '    <td>\r\n';
+            html += '        <input id="' + model.MenuID + '" type="checkbox" />\r\n';
+            html += '    </td>\r\n';
+            html += '    <td>\r\n';
+            html += '        ' + model.MenuName + '\r\n';
+            html += '    </td>\r\n';
+            html += '</tr>\r\n';
+            $(toTarget).append(html);
+        }
+
+        function btnSave_Click() {
+            var mdl = { "Role": $("#selRole").val() };
+            var roleMenus = [];
+            $("#tbodyTo :checkbox").each(function (index, obj) {
+                var menuMdl = {};
+                menuMdl.MenuID = $(obj).attr("id");
+                roleMenus.push(menuMdl);
+            });
+            mdl.RoleMenuList = roleMenus;
+            $.post("@Url.Action("AjaxUpdateRoleMenu", "RoleMenus")"
+                , mdl, function (responseData) {
+
+                }
+                ,"json");
+        }
+    </script>
+}
+<div class="form-group">
+    @Html.DropDownListFor(m => m.Role, Model.RolesSelectList, new { @id = "selRole" })
+</div>
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-5 groupHeight">
+            <table>
+                <thead>
+                    <tr>
+                        <th>选择</th>
+                        <th>功能名称</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyFrom"></tbody>
+            </table>
+        </div>
+        <div class="col-md-2 groupHeight">
+            <center style="margin-top:250px;">
+                <div><button id="btnAdd" type="button">➡</button></div>
+                <div><button id="btnDelete" type="button">⇦</button></div>
+            </center>
+            
+        </div>
+        <div class="col-md-5 groupHeight">
+            <table>
+                <thead>
+                    <tr>
+                        <th>选择</th>
+                        <th>功能名称</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyTo"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <button type="button" onclick="btnSave_Click();">提交</button>
+</div>
