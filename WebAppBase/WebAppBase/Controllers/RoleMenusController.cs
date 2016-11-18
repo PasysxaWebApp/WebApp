@@ -60,17 +60,17 @@ namespace WebAppBase.Controllers
                     witem => !RoleMenuManager.GetMenusByRoleName(roleName).Select(s => s.FunctionId).Contains(witem.FunctionId)
                     ).ToList().ForEach(item =>
             {
-                mdl.MenuList.Add(new Models.SystemMenus.SystemMenuModel
+                mdl.MenuList.Add(new ApplicationFunction
                 {
-                    MenuID = item.FunctionId,
+                    FunctionId = item.FunctionId,
                     MenuName = item.MenuName
                 });
             });
             RoleMenuManager.GetMenusByRoleName(roleName).ForEach(item =>
             {
-                mdl.RoleMenuList.Add(new Models.SystemMenus.SystemMenuModel
+                mdl.RoleMenuList.Add(new ApplicationFunction
                 {
-                    MenuID = item.FunctionId,
+                    FunctionId = item.FunctionId,
                     MenuName = item.MenuName
                 });
             });
@@ -83,7 +83,7 @@ namespace WebAppBase.Controllers
             RoleMenuManager.DeleteRoleMenus(mdl.Role);
             roleMenus.ForEach(item =>
             {
-                RoleMenuManager.AddRoleMenu(mdl.Role, item.MenuID,1,true,false);
+                RoleMenuManager.AddRoleMenu(mdl.Role, item.FunctionId, 1, true, false);
             });
             return Json("", JsonRequestBehavior.AllowGet);
         }

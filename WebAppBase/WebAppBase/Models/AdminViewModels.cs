@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Pasys.Web.Identity.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -46,8 +47,8 @@ namespace WebAppBase.Models
         public string Role { get; set; }
 
         private List<SelectListItem> _rolesSelectList;
-        private List<SystemMenus.SystemMenuModel> _menuList { get; set; }
-        private List<SystemMenus.SystemMenuModel> _roleMenuList { get; set; }
+        private List<ApplicationFunction> _menuList { get; set; }
+        private List<ApplicationFunction> _roleMenuList { get; set; }
 
         public List<SelectListItem> RolesSelectList {
             get
@@ -62,11 +63,12 @@ namespace WebAppBase.Models
                 _rolesSelectList = value;
             }
         }
-        public List<SystemMenus.SystemMenuModel> MenuList { 
+        public List<ApplicationFunction> MenuList
+        { 
             get {
                 if (_menuList==null)
                 {
-                    _menuList = new List<SystemMenus.SystemMenuModel>();  
+                    _menuList = new List<ApplicationFunction>();  
                 }
                 return _menuList; 
             } 
@@ -74,12 +76,13 @@ namespace WebAppBase.Models
                 _menuList = value; 
             } 
         }
-        public List<SystemMenus.SystemMenuModel> RoleMenuList {
+        public List<ApplicationFunction> RoleMenuList
+        {
             get
             {
                 if (_roleMenuList==null)
                 {
-                    _roleMenuList = new List<SystemMenus.SystemMenuModel>();
+                    _roleMenuList = new List<ApplicationFunction>();
                 }
                 return _roleMenuList;
             }

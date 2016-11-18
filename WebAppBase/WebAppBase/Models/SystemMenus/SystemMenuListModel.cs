@@ -55,12 +55,12 @@ namespace WebAppBase.Models.SystemMenus
         }
 
 
-        private void _createMenuList(List<SystemMenuModel> menus, int target, bool isRoot)
+        private void _createMenuList(List<ApplicationFunction> menus, int target, bool isRoot)
         {
-            var systemMenuModels = menus.FindAll(delegate(SystemMenuModel model)
+            var systemMenuModels = menus.FindAll(model=>
             {
-                if ((isRoot && model.MenuID == model.ParentMenuID)
-                    || (!isRoot && model.MenuID != model.ParentMenuID && target == model.ParentMenuID))
+                if ((isRoot && model.FunctionId == model.ParentFunctionId)
+                    || (!isRoot && model.FunctionId != model.ParentFunctionId && target == model.ParentFunctionId))
                 {
                     return true;
                 }
@@ -104,7 +104,7 @@ namespace WebAppBase.Models.SystemMenus
                 {
                     _contentText.AppendLine(String.Format("            <li{2}><a href=\"{0}\" >{1}</a> " + Environment.NewLine, url, item.MenuName, last));
                 }
-                _createMenuList(menus, item.MenuID, false);
+                _createMenuList(menus, item.FunctionId, false);
                 _contentText.AppendLine(string.Format("            </li> " + Environment.NewLine, url));
             }
 
