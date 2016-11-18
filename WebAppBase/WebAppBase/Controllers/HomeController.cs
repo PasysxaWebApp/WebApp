@@ -115,7 +115,7 @@ namespace WebAppBase.Controllers
 
         public ActionResult GetMenuHTML()
         {
-            var at = "OrganizationAdmin";
+            var at = this.WorkContext.GlobalConfig.DefaultRole;
             if (User.Identity.IsAuthenticated)
             {
                 var user = UserManager.FindById(User.Identity.GetUserId());
@@ -132,7 +132,7 @@ namespace WebAppBase.Controllers
 
         public ActionResult GetBootStrapMenuHTML()
         {
-            var at = "OrganizationAdmin";
+            var at = this.WorkContext.GlobalConfig.DefaultRole;
             if (User.Identity.IsAuthenticated)
             {
                 var user = UserManager.FindById(User.Identity.GetUserId());

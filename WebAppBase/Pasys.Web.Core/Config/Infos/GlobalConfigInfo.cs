@@ -87,6 +87,7 @@ namespace Pasys.Web.Core
             get { return _islicensed; }
             set { _islicensed = value; }
         }
+        public string DefaultRole { get; set; }
 
         #endregion
 
