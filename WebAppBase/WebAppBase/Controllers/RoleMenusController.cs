@@ -65,7 +65,7 @@ namespace WebAppBase.Controllers
             {
                 mdl.MenuList.Add(new Models.SystemMenus.SystemMenuModel
                 {
-                    MenuID = item.MenuId,
+                    MenuID = item.FunctionId,
                     MenuName = item.MenuName
                 });
             });
@@ -73,7 +73,7 @@ namespace WebAppBase.Controllers
             {
                 mdl.RoleMenuList.Add(new Models.SystemMenus.SystemMenuModel
                 {
-                    MenuID = item.MenuId,
+                    MenuID = item.FunctionId,
                     MenuName = item.MenuName
                 });
             });
