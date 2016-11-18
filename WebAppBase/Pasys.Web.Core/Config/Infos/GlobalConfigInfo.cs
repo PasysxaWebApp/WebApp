@@ -13,22 +13,22 @@ namespace Pasys.Web.Core
 
         #region 站点信息
 
-        private string _mallname = "网上商城";//商城名称
-        private string _siteurl = "http://www.ddd.com";//网站网址
-        private string _sitetitle = "网上商城";//网站标题
-        private string _seokeyword = "";//seo关键字
-        private string _seodescription = "";//seo描述
-        private string _icp = "冀ICP22222";//备案编号
-        private string _script = "";//脚本
-        private int _islicensed = 1;//是否显示版权(0代表不显示，1代表显示)
+        private string _sitename = "网站名称";              //网站名称
+        private string _siteurl = "http://www.ddd.com";     //网站网址
+        private string _sitetitle = "网站名称";             //网站标题
+        private string _seokeyword = "";                    //seo关键字
+        private string _seodescription = "";                //seo描述
+        private string _icp = "冀ICP-ABCDEFG";              //备案编号
+        private string _script = "";                        //脚本
+        private int _islicensed = 1;                        //是否显示版权(0代表不显示，1代表显示)
 
         /// <summary>
         /// 商城名称
         /// </summary>
-        public string MallName
+        public string SiteName
         {
-            get { return _mallname; }
-            set { _mallname = value; }
+            get { return _sitename; }
+            set { _sitename = value; }
         }
         /// <summary>
         /// 网站网址
@@ -46,6 +46,7 @@ namespace Pasys.Web.Core
             get { return _sitetitle; }
             set { _sitetitle = value; }
         }
+        public string SiteCopyRight { get; set; }
         /// <summary>
         /// seo关键字
         /// </summary>

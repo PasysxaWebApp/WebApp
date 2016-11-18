@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 using WebAppBase.Configs;
 using WebAppBase.Models.SystemMenus;
-using WebAppBase.Sessions;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -16,7 +15,7 @@ using System.Text;
 
 namespace WebAppBase.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : WorkController
     {
         public HomeController()
         {
@@ -24,23 +23,9 @@ namespace WebAppBase.Controllers
 
 
         public HomeController(ApplicationUserManager userManager,
-            ApplicationRoleMenuManager roleManager)
+            ApplicationRoleMenuManager roleManager):base(userManager)
         {
-            UserManager = userManager;
             RoleManager = roleManager;
-        }
-
-        private ApplicationUserManager _userManager;
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            set
-            {
-                _userManager = value;
-            }
         }
 
         private ApplicationRoleMenuManager _roleManager;
@@ -93,9 +78,8 @@ namespace WebAppBase.Controllers
 
                     if (ex != null)
                     {
-                        var loginInfoSession = SessionLoginInfo.GetInstance(Session);
-
-                        SystemLogManager.GetInstance().SetSystemErrorLog(SystemConfig.SystemTitle, loginInfoSession.OrganizationID, loginInfoSession.LoginID, loginInfoSession.UserName, ex.Message, ex.StackTrace);
+                        //var loginInfoSession = SessionLoginInfo.GetInstance(Session);
+                        SystemLogManager.GetInstance().SetSystemErrorLog(this.WorkContext.GlobalConfig.SiteName, this.WorkContext.UserInfo.OrganizationId, this.WorkContext.UserId, this.WorkContext.UserName, ex.Message, ex.StackTrace);
                     }
                 }
             }
