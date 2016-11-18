@@ -75,5 +75,20 @@ namespace WebAppBase
 
         }
 
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_userManager != null)
+                {
+                    _userManager.Dispose();
+                    _userManager = null;
+                }
+            }
+
+            base.Dispose(disposing);
+        }
+
     }
 }

@@ -126,7 +126,24 @@ namespace WebAppBase.Controllers
                 }
             }
             var menus =  RoleManager.GetMenusByRoleName(at);
-            var menuHtml = SystemMenuListModel.GetInstance().GetHtml(menus, Url);
+            var menuHtml = SystemMenuListModel.GetInstance().GetResponsiveHtml(menus, Url);
+            return Content(menuHtml);
+        }
+
+        public ActionResult GetBootStrapMenuHTML()
+        {
+            var at = "OrganizationAdmin";
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = UserManager.FindById(User.Identity.GetUserId());
+                var roles = UserManager.GetRoles(User.Identity.GetUserId());
+                if (roles.Count > 0)
+                {
+                    at = roles[0];
+                }
+            }
+            var menus =  RoleManager.GetMenusByRoleName(at);
+            var menuHtml = SystemMenuListModel.GetInstance().GetBootStrapHtml(menus, Url);
             return Content(menuHtml);
         }
 
