@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MemberCardDbInitializer.cs" />
     <Compile Include="Consumption.cs" />
     <Compile Include="MemberCard.cs" />
     <Compile Include="MemberCardDbContext.cs" />

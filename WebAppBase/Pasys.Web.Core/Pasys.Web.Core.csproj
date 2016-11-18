@@ -36,6 +36,10 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\github\WebAppBase\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,14 +56,14 @@
     <Compile Include="EntityManager\EntityManager.cs" />
     <Compile Include="EntityManager\EntityManagerExtensions.cs" />
     <Compile Include="EntityManager\EntityStore.cs" />
-    <Compile Include="EntityManager\EntityValidator.cs" />
-    <Compile Include="EntityManager\EntityValidators.cs" />
     <Compile Include="EntityManager\ValidatorResult.cs" />
     <Compile Include="EntityManager\BaseEntityStore.cs" />
+    <Compile Include="Strategy\Strategies\IInitDbContextStratety.cs" />
     <Compile Include="Strategy\Strategies\ISMSStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strategy\StrategyManager.cs" />
     <Compile Include="TaskExtensions.cs" />
+    <Compile Include="WorkController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedUtilitys\SharedUtilitys.csproj">

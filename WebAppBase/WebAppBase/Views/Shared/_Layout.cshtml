@@ -1,8 +1,7 @@
 ﻿@using WebAppBase.Configs
 @using Resources
 @{
-    ViewBag.Title = "_Layout";
-    var loginInfoSession = WebAppBase.Sessions.SessionLoginInfo.GetInstance(Session);
+    ViewBag.Title = WorkContext.GlobalConfig.SiteTitle;
 }
 
 <!DOCTYPE html>
@@ -29,7 +28,7 @@
     <script src="@Url.Content("~/Contents/responsive-menu/js/responsive-menu.js")" type="text/javascript"></script>
 
     <!--bootstrap css-->
-    <link href="@Url.Content("~/Contents/bootstrap-3.0.0/bootstrap.css")" rel="stylesheet" type="text/css" />
+    @*<link href="@Url.Content("~/Contents/bootstrap-3.0.0/bootstrap.css")" rel="stylesheet" type="text/css" />*@
     <!-- Wijmo Bootstrap CSS -->
     @*<link href="@Url.Content("~/Contents/bootstrap-3.0.0/bootstrap-wijmo.css")" rel="stylesheet" type="text/css" />*@
 
@@ -47,7 +46,7 @@
     <script src="@Url.Content("~/Contents/jquery-wijmo/interop/wijmo.data.ajax.3.20133.29.js")" type="text/javascript"></script>
 
     <!--bootstrap js-->
-    <script src="@Url.Content("~/Contents/bootstrap-3.0.0/bootstrap.js")" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Contents/bootstrap-3.0.0/bootstrap.js")" type="text/javascript"></script>*@
 
     <!--knockout-->
     <script src="@Url.Content("~/Contents/jquery-wijmo/external/knockout-2.2.0.js")" type="text/javascript"></script>
@@ -165,18 +164,6 @@
     });
 
 
-    function logoutSystem() {
-        var bl = confirm("ログアウトします。よろしいですか？");
-        if (bl) {
-            $("Form[name=LogOffForm]").submit();
-        }
-    }
-
-    function loginSystem() {
-        var url = '@Url.Action("Index", "Account", new { OrganizationID =@loginInfoSession.OrganizationID })';
-        this.window.location = url;
-    }
-
     function SetDateFormatOnSubmit(selector) {
         $("Form").submit(function () {
             SetDateFormatDirect(selector);
@@ -215,7 +202,7 @@
     <div id="wrapper" style="width:95%;  min-width:960px;">
         <header role="banner" style="z-index:1000; width:100%;margin:0 auto;position:inherit;">
             <div style="float:left; font-size:30px;  margin-left:20px; margin-right:10px; color:white; line-height:70px; vertical-align:middle; ">
-                @SystemConfig.SystemTitle
+                @WorkContext.GlobalConfig.SiteTitle
             </div>
 
             <div class="rm-container">
@@ -226,20 +213,20 @@
 
 
             <div style="height:30px; margin-top:40px; margin-right:5px; float:right;color:white;">
-                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "", @name = "LogOffForm", style = "margin-right: 0px;" }))
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "", id = "logoutForm", @name = "logoutForm", style = "margin-right: 0px;" }))
                 {
-                    @Html.Hidden("OrganizationID", loginInfoSession.OrganizationID);
-                    <span>こんにちは</span>
-                    <span>
-                        @if (loginInfoSession != null)
-                        {@Html.Raw(string.Format("{0}さん", loginInfoSession.UserName));
-                        }
-                        else
-                        { @Html.Raw("○○○さん");
-                        }
-                    </span>
-
-                    <a href="#" style="margin-bottom:5px; margin-left:20px;color:white;margin-right:10px;" onclick="logoutSystem()">ログアウト</a>
+                    @Html.AntiForgeryToken()
+                    if (WorkContext.UserInfo != null)
+                    {
+                        <span>こんにちは</span>
+                        @Html.ActionLink(string.Format("{0}さん", this.WorkContext.UserName), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", style = "margin-bottom:5px; margin-left:5px;color:white;" })
+                        <a href="javascript:document.getElementById('logoutForm').submit()" style="margin-bottom:5px; margin-left:5px;color:white;margin-right:10px;">ログアウト</a>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("登録", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", style = "margin-bottom:5px; margin-left:10px;color:white;margin-right:10px;" })
+                        @Html.ActionLink("ログイン", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", style = "margin-bottom:5px; margin-left:10px;color:white;margin-right:10px;" })
+                    }
                 }
             </div>
             <div style="clear:both;"></div>
@@ -252,7 +239,7 @@
         </div>
         <footer style="z-index:99">
             <div id="copyright">
-                Copyright(C) 2014 Pacific System Co.,Ltd. All rights reserved.
+                @Html.Raw(WorkContext.GlobalConfig.SiteCopyRight)
             </div>
             <div id="pagetop">
                 <img src='@Url.Content("~/Contents/images/System/Pagetop_off.gif")' alt="pagetop">

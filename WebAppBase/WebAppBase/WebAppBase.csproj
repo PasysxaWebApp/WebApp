@@ -154,6 +154,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfig\LocalConfigInfo.cs" />
+    <Compile Include="Utility\WebUtils.cs" />
+    <Compile Include="AppCode\WorkContext.cs" />
+    <Compile Include="AppCode\WorkController.cs" />
+    <Compile Include="AppCode\WorkWebViewPage.cs" />
     <Compile Include="App_GlobalResources\LanguageResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -164,7 +168,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SessionKeyConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="App_Start\SystemConfig.cs" />
     <Compile Include="App_Start\SystemMenuConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChartController.cs" />
@@ -199,8 +202,6 @@
     <Compile Include="Models\SystemMenus\SystemMenuModelReg.cs" />
     <Compile Include="MvcLibrary\AutoRoleAuthorizeAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sessions\Base\BaseSessionModel.cs" />
-    <Compile Include="Sessions\SessionLoginInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -504,7 +505,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -554,6 +557,7 @@
     <Content Include="Views\Sorts\SortList.cshtml" />
     <Content Include="Views\UserRoles\Index.cshtml" />
     <Content Include="Views\RoleMenus\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutDefault.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\PriceAdjust\" />
@@ -574,6 +578,10 @@
     <ProjectReference Include="..\Pasys.Web.Identity\Pasys.Web.Identity.csproj">
       <Project>{2fb3c6a7-89bb-4048-a0aa-e7e1e3b01b93}</Project>
       <Name>Pasys.Web.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pasys.Web.MemberCard\Pasys.Web.MemberCard.csproj">
+      <Project>{2855f040-916b-411d-ac69-2762f00cacec}</Project>
+      <Name>Pasys.Web.MemberCard</Name>
     </ProjectReference>
     <ProjectReference Include="..\SharedUtilitys\SharedUtilitys.csproj">
       <Project>{beb81503-77c0-4308-b197-0b2a52220d16}</Project>

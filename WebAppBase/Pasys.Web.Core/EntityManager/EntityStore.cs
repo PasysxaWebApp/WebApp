@@ -62,7 +62,7 @@ namespace Pasys.Web.Core.EntityManager
         public Task<TEntity> FindByNameAsync(string entityName)
         {
             ThrowIfDisposed();
-            return _entityStore.EntitySet.FirstOrDefaultAsync(u => (u as IMasterEntity<TKey>).EntityName.ToUpper() == entityName.ToUpper());
+            return _entityStore.EntitySet.FirstOrDefaultAsync(u =>u.EntityName.ToUpper() == entityName.ToUpper());
         }
 
         /// <summary>

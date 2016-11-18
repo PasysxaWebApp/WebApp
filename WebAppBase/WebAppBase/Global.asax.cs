@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Pasys.Web.Identity.Models;
+using Pasys.Web.MemberCard;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +19,8 @@ namespace WebAppBase
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            CreateDb();
+
             //var globalConfig = Pasys.Web.Core.ConfigManager.GetGlobalConfig();
             //var rdbs= Pasys.Web.Core.ConfigManager.GetRDBSConfig();
             //var smsConfig = Pasys.Web.Core.ConfigManager.GetSMSConfigInfo();
@@ -26,6 +30,13 @@ namespace WebAppBase
             //var localConfig2= Pasys.Web.Core.ConfigManager.GetConfig<WebAppBase.AppConfig.LocalConfig>();
 
             //var smsStrategy= Pasys.Web.Core.StrategyManager.GetSMSStrategy();
+        }
+
+
+        private void CreateDb()
+        {
+            AppIdentityDbContext.CreateForce();
+            MemberCardDbContext.CreateForce();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace WebAppBase.Models.SystemMenus
         private StringBuilder _contentText = new StringBuilder();// String.Empty;
         private UrlHelper _helper;
 
-        public string GetHtml(List<ApplicationMenu> menus, UrlHelper helper)
+        public string GetResponsiveHtml(List<ApplicationMenu> menus, UrlHelper helper)
         {
             _contentText = new StringBuilder();// String.Empty;
             _helper = helper;
@@ -39,6 +39,21 @@ namespace WebAppBase.Models.SystemMenus
 
             return _contentText.ToString();
         }
+
+        public string GetBootStrapHtml(List<ApplicationMenu> menus, UrlHelper helper)
+        {
+            _contentText = new StringBuilder();// String.Empty;
+            _helper = helper;
+
+            //_createMenuList(SystemMenuConfig.GetMenus(rollEnum), 0, true);
+
+            _contentText.AppendLine("                <ul class=\"nav navbar-nav\">");
+            _createMenuList_ForBootstrap(menus, 0, true);
+            _contentText.AppendLine("                </ul>");
+
+            return _contentText.ToString();
+        }
+
 
         private void _createMenuList(List<SystemMenuModel> menus, int target, bool isRoot)
         {
@@ -99,12 +114,12 @@ namespace WebAppBase.Models.SystemMenus
             }
         }
 
-        private void _createMenuList_ForBootstrap(List<SystemMenuModel> menus, int target, bool isRoot)
+        private void _createMenuList_ForBootstrap(List<ApplicationMenu> menus, int target, bool isRoot)
         {
-            var systemMenuModels = menus.FindAll(delegate(SystemMenuModel model)
+            var systemMenuModels = menus.FindAll(model=>
             {
-                if ((isRoot && model.MenuID == model.ParentMenuID)
-                    || (!isRoot && model.MenuID != model.ParentMenuID && target == model.ParentMenuID))
+                if ((isRoot && model.MenuId == model.ParentMenuId)
+                    || (!isRoot && model.MenuId != model.ParentMenuId && target == model.ParentMenuId))
                 {
                     return true;
                 }
@@ -128,7 +143,7 @@ namespace WebAppBase.Models.SystemMenus
                     url = _helper.Action(item.ActionName, item.ControllerName);
                 }
 
-                bool hasChildItem = menus.FindAll(m => m.ParentMenuID == item.MenuID && m.ParentMenuID != m.MenuID).Count > 0;
+                bool hasChildItem = menus.FindAll(m => m.ParentMenuId == item.MenuId && m.ParentMenuId != m.MenuId).Count > 0;
 
                 if (item.IsRootMenu)
                 {
@@ -146,7 +161,7 @@ namespace WebAppBase.Models.SystemMenus
                         _contentText.AppendLine("                            </div>");
                         _contentText.AppendLine("                        </a>");
                         _contentText.AppendLine("                        <ul class=\"dropdown-menu\" role=\"menu\">");
-                        _createMenuList_ForBootstrap(menus, item.MenuID, false);
+                        _createMenuList_ForBootstrap(menus, item.MenuId, false);
                         _contentText.AppendLine("                        </ul>");
                         _contentText.AppendLine("        </li>  ");
                     }
@@ -169,15 +184,13 @@ namespace WebAppBase.Models.SystemMenus
                 }
                 else
                 {
-                    if (item.MenuName.StartsWith("--") && url.Equals("#"))
+                    if (item.SeparateMenuFlag)
                     {
-                        _contentText.AppendLine("       <li class=\"divider\"></li>");
+                        _contentText.AppendLine("                   <li class=\"divider\"></li>");
                     }
-                    else
-                    {
-                        _contentText.AppendFormat("       <li><a href=\"{0}\">{1}</a></li>", url, item.MenuName);
-                        _contentText.AppendLine("");
-                    }
+
+                    _contentText.AppendFormat("       <li><a href=\"{0}\">{1}</a></li>", url, item.MenuName);
+                    _contentText.AppendLine("");
                 }
 
             }
