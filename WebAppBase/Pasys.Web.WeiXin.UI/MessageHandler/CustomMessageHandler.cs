@@ -21,7 +21,7 @@ using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Helpers;
 using System.Collections.Generic;
-using Pasys.Web.Core;
+using Pasys.Web.WeiXin;
 
 namespace Pasys.Web.WeiXin.UI.MessageHandler
 {
