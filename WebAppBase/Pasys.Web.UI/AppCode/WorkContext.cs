@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Pasys.Web.Identity.Models;
 
-namespace Pasys.Web.WeiXin.UI
+namespace Pasys.Web.UI
 {
     public class WorkContext:IWorkContext
     {
-        public static GlobalConfigInfo GLOBALCONFIG;//全局配置信息
+        public static  GlobalConfigInfo GLOBALCONFIG;//全局配置信息
 
         static WorkContext()
         {
@@ -28,8 +28,7 @@ namespace Pasys.Web.WeiXin.UI
         //全局配置信息
         public GlobalConfigInfo GlobalConfig
         {
-            get
-            {
+            get {
                 return GLOBALCONFIG;
             }
         }
@@ -53,7 +52,7 @@ namespace Pasys.Web.WeiXin.UI
         public string Action;//动作方法
 
         public string PageKey;//页面标示符
-        
+
         public WorkContext()
         {
         }

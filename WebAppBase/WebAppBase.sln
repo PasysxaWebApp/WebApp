@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Strategy.SMS", "Strat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "plugins", "plugins", "{4C8AE01F-92C5-4F85-BD3D-C29FD35412D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Web.UI", "Pasys.Web.UI\Pasys.Web.UI.csproj", "{F277695D-EA15-452D-A892-9A56E1846A55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{C65064FB-8865-421A-98D2-4539954F188D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C65064FB-8865-421A-98D2-4539954F188D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C65064FB-8865-421A-98D2-4539954F188D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F277695D-EA15-452D-A892-9A56E1846A55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F277695D-EA15-452D-A892-9A56E1846A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F277695D-EA15-452D-A892-9A56E1846A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F277695D-EA15-452D-A892-9A56E1846A55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
