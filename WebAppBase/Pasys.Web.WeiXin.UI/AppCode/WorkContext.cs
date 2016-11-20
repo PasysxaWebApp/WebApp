@@ -8,20 +8,22 @@ using Pasys.Web.Identity.Models;
 
 namespace Pasys.Web.WeiXin.UI
 {
-    public class WorkContext:IWorkContext
+    public class WorkContext : IWorkContext
     {
-        public static GlobalConfigInfo GLOBALCONFIG;//全局配置信息
+        public static GlobalConfigInfo GLOBAL_CONFIG;//全局配置信息
+        public static WeiXinMPConfigInfo WEIXINMP_CONFIG;
 
         static WorkContext()
         {
-            GLOBALCONFIG = Pasys.Web.Core.ConfigManager.GetGlobalConfig();
+            GLOBAL_CONFIG = Pasys.Web.Core.ConfigManager.GetGlobalConfig();
+            WEIXINMP_CONFIG = Pasys.Web.Core.ConfigManager.GetWeiXinMPConfigInfo();
         }
 
         public string Area  //注册区域
         {
             get
             {
-                return GLOBALCONFIG.WorkContextArea;
+                return GLOBAL_CONFIG.WorkContextArea;
             }
         }
 
@@ -30,7 +32,14 @@ namespace Pasys.Web.WeiXin.UI
         {
             get
             {
-                return GLOBALCONFIG;
+                return GLOBAL_CONFIG;
+            }
+        }
+        public WeiXinMPConfigInfo WeiXinMPConfig
+        {
+            get
+            {
+                return WEIXINMP_CONFIG;
             }
         }
 
@@ -43,7 +52,7 @@ namespace Pasys.Web.WeiXin.UI
         public string Url;//当前url
 
         public string UrlReferrer;//上一次访问的url
-        
+
         public string UserId = "";//用户id
 
         public string UserName;//用户名
@@ -53,7 +62,7 @@ namespace Pasys.Web.WeiXin.UI
         public string Action;//动作方法
 
         public string PageKey;//页面标示符
-        
+
         public WorkContext()
         {
         }

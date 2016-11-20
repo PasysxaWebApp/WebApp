@@ -102,9 +102,9 @@ namespace Pasys.Web.WeiXin.UI
         /// <returns></returns>
         public static string AreaContent(this UrlHelper Url, string contentPath)
         {
-            if (contentPath.StartsWith("~") && !string.IsNullOrEmpty(WorkContext.GLOBALCONFIG.WorkContextArea))
+            if (contentPath.StartsWith("~") && !string.IsNullOrEmpty(WorkContext.GLOBAL_CONFIG.WorkContextArea))
             {
-                contentPath = string.Format("~/{0}/{1}", WorkContext.GLOBALCONFIG.WorkContextArea, contentPath.Substring(2));
+                contentPath = string.Format("~/{0}/{1}", WorkContext.GLOBAL_CONFIG.WorkContextArea, contentPath.Substring(2));
             }
             return Url.Content(contentPath);
         }
