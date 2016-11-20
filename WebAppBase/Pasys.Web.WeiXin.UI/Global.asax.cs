@@ -23,7 +23,6 @@ namespace Pasys.Web.WeiXin.UI
 
             RegisterWeixinThreads();//激活微信缓存（必须）
             RegisterWeixinPay();//注册微信支付
-
             Senparc.Weixin.Config.IsDebug = false;//这里设为Debug状态时，/App_Data/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
 
         }
@@ -47,7 +46,7 @@ namespace Pasys.Web.WeiXin.UI
         private void RegisterWeixinPay()
         {
             //提供微信支付信息
-            var WeiXinMPConfig = Pasys.Web.Core.ConfigManager.GetWeiXinMPConfigInfo();
+            var WeiXinMPConfig = WorkContext.WEIXINMP_CONFIG;
             var weixinPay_PartnerId = WeiXinMPConfig.WeixinPay_PartnerId;
             var weixinPay_Key = WeiXinMPConfig.WeixinPay_Key;
             var weixinPay_AppId = WeiXinMPConfig.WeixinPay_AppId;
