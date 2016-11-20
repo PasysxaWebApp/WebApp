@@ -89,6 +89,7 @@ namespace Pasys.Web.Core
         }
         public string DefaultRole { get; set; }
 
+        public string WorkContextArea { get; set; }
         #endregion
 
         #region 账号设置

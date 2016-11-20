@@ -21,13 +21,14 @@ namespace Pasys.Web.Admin.UI
 
         public WorkContext WorkContext
         {
-            get {
+            get
+            {
                 return _workContext;
             }
-        }       
+        }
 
         public WorkController()
-        { 
+        {
         }
 
         public WorkController(ApplicationUserManager userManager)
@@ -66,12 +67,12 @@ namespace Pasys.Web.Admin.UI
             {
                 _workContext.UserInfo = UserManager.FindById(_workContext.UserId);
             }
-            
+
             //当前控制器类名
             _workContext.Controller = requestContext.RouteData.Values["controller"].ToString().ToLower();
             //当前动作方法名
             _workContext.Action = RouteData.Values["action"].ToString().ToLower();
-            _workContext.PageKey = string.Format("/{0}/{1}", _workContext.Controller, _workContext.Action);
+            _workContext.PageKey = string.Format("/{0}/{1}/{2}", _workContext.Area, _workContext.Controller, _workContext.Action);
 
         }
 
@@ -91,4 +92,24 @@ namespace Pasys.Web.Admin.UI
         }
 
     }
+
+
+    public static class UrlExtensions
+    {
+        /// <summary>
+        /// Converts a virtual (relative) path to an application absolute path.
+        /// </summary>
+        /// <param name="Url"></param>
+        /// <param name="contentPath"></param>
+        /// <returns></returns>
+        public static string AreaContent(this UrlHelper Url, string contentPath)
+        {
+            if (contentPath.StartsWith("~") && !string.IsNullOrEmpty(WorkContext.GLOBALCONFIG.WorkContextArea))
+            {
+                contentPath = string.Format("~/{0}/{1}", WorkContext.GLOBALCONFIG.WorkContextArea, contentPath.Substring(2));
+            }
+            return Url.Content(contentPath);
+        }
+    }
+
 }

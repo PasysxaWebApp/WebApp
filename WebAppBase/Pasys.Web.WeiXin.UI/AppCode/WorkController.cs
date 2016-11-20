@@ -91,4 +91,23 @@ namespace Pasys.Web.WeiXin.UI
         }
 
     }
+
+    public static class UrlExtensions
+    {
+        /// <summary>
+        /// Converts a virtual (relative) path to an application absolute path.
+        /// </summary>
+        /// <param name="Url"></param>
+        /// <param name="contentPath"></param>
+        /// <returns></returns>
+        public static string AreaContent(this UrlHelper Url, string contentPath)
+        {
+            if (contentPath.StartsWith("~") && !string.IsNullOrEmpty(WorkContext.GLOBALCONFIG.WorkContextArea))
+            {
+                contentPath = string.Format("~/{0}/{1}", WorkContext.GLOBALCONFIG.WorkContextArea, contentPath.Substring(2));
+            }
+            return Url.Content(contentPath);
+        }
+    }
+
 }

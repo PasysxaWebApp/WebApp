@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="description" content="@WorkContext.GlobalConfig.SEODescription">
-    <link rel="stylesheet" href="@Url.Content("~/Contents/jqueryweui/lib/weui.min.css")">
-    <link rel="stylesheet" href="@Url.Content("~/Contents/jqueryweui/css/jquery-weui.css")">
-    <link rel="stylesheet" href="@Url.Content("~/Contents/demo/css/demos.css")">
+    <link rel="stylesheet" href="@Url.AreaContent("~/Contents/jqueryweui/lib/weui.min.css")">
+    <link rel="stylesheet" href="@Url.AreaContent("~/Contents/jqueryweui/css/jquery-weui.css")">
+    <link rel="stylesheet" href="@Url.AreaContent("~/Contents/demo/css/demos.css")">
 
     @RenderSection("Style", false)
     @RenderSection("PrepareScript", false)
@@ -17,16 +17,16 @@
 </head>
 <body ontouchstart>
     @RenderBody()    
-    <script src="@Url.Content("~/Contents/jqueryweui/lib/jquery-2.1.4.js")"></script>
-    <script src="@Url.Content("~/Contents/jqueryweui/lib/fastclick.js")"></script>
+    <script src="@Url.AreaContent("~/Contents/jqueryweui/lib/jquery-2.1.4.js")"></script>
+    <script src="@Url.AreaContent("~/Contents/jqueryweui/lib/fastclick.js")"></script>
     <script>
         $(function () {
             FastClick.attach(document.body);
         });
     </script>
-    <script src="@Url.Content("~/Contents/jqueryweui/js/jquery-weui.js")"></script>
-    <script src="@Url.Content("~/Contents/jqueryweui/js/city-picker.js")"></script>
-    <script src="@Url.Content("~/Contents/jqueryweui/js/swiper.js")"></script>
+    <script src="@Url.AreaContent("~/Contents/jqueryweui/js/jquery-weui.js")"></script>
+    <script src="@Url.AreaContent("~/Contents/jqueryweui/js/city-picker.js")"></script>
+    <script src="@Url.AreaContent("~/Contents/jqueryweui/js/swiper.js")"></script>
 
     @RenderSection("Script", required: false)
 </body>
