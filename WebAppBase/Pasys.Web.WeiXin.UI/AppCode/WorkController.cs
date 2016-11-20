@@ -11,6 +11,7 @@ using Pasys.Web.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Web;
+using Senparc.Weixin.MP.Containers;
 
 namespace Pasys.Web.WeiXin.UI
 {
@@ -21,13 +22,14 @@ namespace Pasys.Web.WeiXin.UI
 
         public WorkContext WorkContext
         {
-            get {
+            get
+            {
                 return _workContext;
             }
-        }       
+        }
 
         public WorkController()
-        { 
+        {
         }
 
         public WorkController(ApplicationUserManager userManager)
@@ -66,7 +68,7 @@ namespace Pasys.Web.WeiXin.UI
             {
                 _workContext.UserInfo = UserManager.FindById(_workContext.UserId);
             }
-            
+
             //当前控制器类名
             _workContext.Controller = requestContext.RouteData.Values["controller"].ToString().ToLower();
             //当前动作方法名
@@ -75,6 +77,30 @@ namespace Pasys.Web.WeiXin.UI
 
         }
 
+        public string GetToken()
+        {
+            try
+            {
+                var config = this.WorkContext.WeiXinMPConfig;
+                string appId = config.WeixinAppId;
+                string appSecret = config.WeixinAppSecret;
+                var access_token = Senparc.Weixin.MP.CommonAPIs.CommonApi.GetToken(appId, appSecret);
+                //return access_token.access_token;// result.access_token;// Json(result, JsonRequestBehavior.AllowGet);
+                //if (!AccessTokenContainer.CheckRegistered(appId))
+                //{
+                //    AccessTokenContainer.Register(appId, appSecret);
+                //}
+                //var result = Senparc.Weixin.MP.CommonAPIs.CommonApi.GetToken(appId, appSecret);//AccessTokenContainer.GetTokenResult(appId);                
+
+                //也可以直接一步到位：
+                return AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+            }
+            catch (Exception ex)
+            {
+                //TODO:为简化代码，这里不处理异常（如Token过期）
+                throw ex;// Json(new { error = "执行过程发生错误！" }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         protected override void Dispose(bool disposing)
         {

@@ -173,18 +173,24 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\DemoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MPMenuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MessageHandler\CustomMessageContext.cs" />
-    <Compile Include="MessageHandler\CustomMessageHandler.cs" />
+    <Compile Include="MessageHandler\MessageContext.cs" />
+    <Compile Include="MessageHandler\MessageHandler.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MPMenuViewModel.cs" />
+    <Compile Include="Models\SMSValidateInfo.cs" />
+    <Compile Include="Models\VerificationCodeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utility\SMSes.cs" />
     <Compile Include="Utility\WebUtils.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -319,8 +325,11 @@
     <Content Include="Views\Demo\select.cshtml" />
     <Content Include="Views\Demo\popup.cshtml" />
     <Content Include="Views\Demo\photobrowser.cshtml" />
+    <Content Include="Views\MPMenu\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Common\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

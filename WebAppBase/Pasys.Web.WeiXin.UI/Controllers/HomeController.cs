@@ -69,7 +69,7 @@ namespace Pasys.Web.WeiXin.UI.Controllers
             var maxRecordCount = 10;
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new MessageHandler.CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
+            var messageHandler = new MessageHandler.MessageHandler(Request.InputStream, postModel, maxRecordCount);
             try
             {
 

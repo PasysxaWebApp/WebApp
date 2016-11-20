@@ -29,7 +29,7 @@ namespace Pasys.Web.WeiXin.UI.MessageHandler
     /// 自定义MessageHandler
     /// 把MessageHandler作为基类，重写对应请求的处理方法
     /// </summary>
-    public partial class CustomMessageHandler : MessageHandler<CustomMessageContext>
+    public partial class MessageHandler : MessageHandler<MessageContext>
     {
         /*
          * 重要提示：v1.5起，MessageHandler提供了一个DefaultResponseMessage的抽象方法，
@@ -46,7 +46,7 @@ namespace Pasys.Web.WeiXin.UI.MessageHandler
         private string appId =WorkContext.WEIXINMP_CONFIG.WeixinAppId;// WebConfigurationManager.AppSettings["WeixinAppId"];
         private string appSecret = WorkContext.WEIXINMP_CONFIG.WeixinAppSecret;// WebConfigurationManager.AppSettings["WeixinAppSecret"];
 
-        public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
+        public MessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)
         {
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，

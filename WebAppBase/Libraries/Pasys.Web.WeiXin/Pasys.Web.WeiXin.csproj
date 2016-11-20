@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MP.cs" />
+    <Compile Include="MPMenuInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WeiXinAutoHandlerMsgInfo.cs" />
   </ItemGroup>
