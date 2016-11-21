@@ -190,7 +190,6 @@
     <Compile Include="Models\VerificationCodeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Utility\SMSes.cs" />
     <Compile Include="Utility\WebUtils.cs" />
   </ItemGroup>
   <ItemGroup>

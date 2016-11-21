@@ -11,7 +11,7 @@ namespace SharedUtilitys.Helper
         //邮件正则表达式
         private static Regex _emailregex = new Regex(@"^[a-z0-9]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$", RegexOptions.IgnoreCase);
         //手机号正则表达式
-        private static Regex _mobileregex = new Regex("^(13|14|15|17|18)[0-9]{9}$");
+        //private static Regex _mobileregex = new Regex("^(13|14|15|17|18)[0-9]{9}$");
         //固话号正则表达式
         private static Regex _phoneregex = new Regex(@"^(\d{3,4}-?)?\d{7,8}$");
         //IP正则表达式
@@ -38,9 +38,13 @@ namespace SharedUtilitys.Helper
         /// </summary>
         public static bool IsMobile(string s)
         {
-            if (string.IsNullOrEmpty(s))
-                return true;
-            return _mobileregex.IsMatch(s);
+            if (string.IsNullOrEmpty(s) || s.Length != 11)
+            {
+                return false;
+            }
+
+            System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex(@"1[34578]\d{9}");
+            return reg.Match(s).Success;
         }
 
         /// <summary>

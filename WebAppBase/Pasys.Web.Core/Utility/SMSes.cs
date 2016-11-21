@@ -3,27 +3,42 @@ using System;
 using System.Text;
 
 
-namespace Pasys.Web.WeiXin.UI.Utility
+namespace Pasys.Web.Core
 {
     /// <summary>
     /// 短信操作管理类
     /// </summary>
-    public partial class SMSes
+    public class SMSes
     {
-        private static ISMSStrategy smsStrategy = null;
-        static SMSes()
+        private ISMSStrategy smsStrategy = null;
+        private GlobalConfigInfo globalConfig = null;
+        private SMSConfigInfo smsConfig = null;
+
+        private SMSes()
         {
-            smsStrategy = Pasys.Web.Core.StrategyManager.GetSMSStrategy();
+            globalConfig = ConfigManager.GetGlobalConfig();
+            smsConfig = ConfigManager.GetSMSConfigInfo();
+            smsStrategy = StrategyManager.GetSMSStrategy();
         }
+
+        private static SMSes _instance = new SMSes();
+        public static SMSes Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
+
         /// <summary>
         /// 发送找回密码短信
         /// </summary>
         /// <param name="to">接收手机</param>
         /// <param name="code">验证值</param>
         /// <returns></returns>
-        public static bool SendFindPwdMobile(string to, string code)
+        public bool SendFindPwdMobile(string to, string code)
         {
-            StringBuilder body = CreatePlaceholderStringBuilder(WorkContext.SMS_CONFIG.FindPwdBody);
+            StringBuilder body = CreatePlaceholderStringBuilder(smsConfig.FindPwdBody);
             body.Replace("{code}", code);
             return smsStrategy.Send(to, body.ToString());
         }
@@ -34,17 +49,17 @@ namespace Pasys.Web.WeiXin.UI.Utility
         /// <param name="to">接收手机</param>
         /// <param name="code">验证值</param>
         /// <returns></returns>
-        public static bool SendSCVerifySMS(string to, string code)
+        public bool SendSCVerifySMS(string to, string code)
         {
-            StringBuilder body = CreatePlaceholderStringBuilder(WorkContext.SMS_CONFIG.SCVerifyBody);            
+            StringBuilder body = CreatePlaceholderStringBuilder(smsConfig.SCVerifyBody);
             body.Replace("{code}", code);
             return smsStrategy.Send(to, body.ToString());
         }
 
-        private static StringBuilder CreatePlaceholderStringBuilder(string configBody)
+        private StringBuilder CreatePlaceholderStringBuilder(string configBody)
         {
-            var body = new StringBuilder(configBody);          
-            body.Replace("{mallname}", WorkContext.GLOBAL_CONFIG.SiteTitle);
+            var body = new StringBuilder(configBody);
+            body.Replace("{mallname}", globalConfig.SiteTitle);
             body.Replace("{regtime}", SharedUtilitys.Helper.CommonHelper.GetDateTime());
             return body;
         }
@@ -55,9 +70,9 @@ namespace Pasys.Web.WeiXin.UI.Utility
         /// <param name="to">接收手机</param>
         /// <param name="code">验证值</param>
         /// <returns></returns>
-        public static bool SendSCUpdateSMS(string to, string code)
+        public bool SendSCUpdateSMS(string to, string code)
         {
-            StringBuilder body = CreatePlaceholderStringBuilder(WorkContext.SMS_CONFIG.SCUpdateBody);
+            StringBuilder body = CreatePlaceholderStringBuilder(smsConfig.SCUpdateBody);
             body.Replace("{code}", code);
             return smsStrategy.Send(to, body.ToString());
         }
@@ -67,14 +82,14 @@ namespace Pasys.Web.WeiXin.UI.Utility
         /// </summary>
         /// <param name="to">接收手机</param>
         /// <returns></returns>
-        public static bool SendWebcomeSMS(string to)
+        public bool SendWebcomeSMS(string to)
         {
-            StringBuilder body = CreatePlaceholderStringBuilder(WorkContext.SMS_CONFIG.WebcomeBody);
+            StringBuilder body = CreatePlaceholderStringBuilder(smsConfig.WebcomeBody);
             body.Replace("{mobile}", to);
             return smsStrategy.Send(to, body.ToString());
         }
 
-        public static bool SendMessageSMS(string to, string message)
+        public bool SendMessageSMS(string to, string message)
         {
             StringBuilder body = CreatePlaceholderStringBuilder(message);
             if (body.Length > 0)

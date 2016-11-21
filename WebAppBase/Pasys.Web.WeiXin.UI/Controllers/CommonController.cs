@@ -1,5 +1,7 @@
-﻿using Pasys.Web.WeiXin.UI.Models;
+﻿using Pasys.Web.Core;
+using Pasys.Web.WeiXin.UI.Models;
 using Pasys.Web.WeiXin.UI.Utility;
+using SharedUtilitys.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +14,11 @@ namespace Pasys.Web.WeiXin.UI.Controllers
     {
         // GET: Common
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult GenerateCode(VerificationCodeViewModel model)
         {
-            if (string.IsNullOrEmpty(model.Phone) || model.Phone.Length != 11)
-            {
-                var r = new { Successed = false, Message = "请检查手机号" };
-                return Json(r);
-            }
-
-            System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex(@"1[34578]\d{9}");
-            if (!reg.Match(model.Phone).Success)
+            if (!ValidateHelper.IsMobile (model.Phone))
             {
                 var r = new { Successed = false, Message = "请检查手机号" };
                 return Json(r);
@@ -45,7 +42,7 @@ namespace Pasys.Web.WeiXin.UI.Controllers
             }
             try
             {
-                bl = SMSes.SendSCVerifySMS(model.Phone, string.Format("{0}", mobile_code));
+                bl = SMSes.Instance.SendSCVerifySMS(model.Phone, string.Format("{0}", mobile_code));
                 if (!bl)
                 {
                     var r = new { Successed = false, Message = "发送失败" };
@@ -65,6 +62,8 @@ namespace Pasys.Web.WeiXin.UI.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult CheckVerificationCode(VerificationCodeViewModel model)
         {
             var validateInfo = new SMSValidateInfo()
