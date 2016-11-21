@@ -7,11 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Pasys.Web.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Web;
 using Senparc.Weixin.MP.Containers;
+using Pasys.Web.WeiXin.UI.Utility;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin;
+using System.Security.Claims;
 
 namespace Pasys.Web.WeiXin.UI
 {
@@ -51,11 +56,74 @@ namespace Pasys.Web.WeiXin.UI
             }
         }
 
+        public IAuthenticationManager AuthManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
 
+            /*
+            #region weixin
+
+            ExternalLoginInfo loginInfo = AuthManager.GetExternalLoginInfo();
+            var user =  UserManager.Find(loginInfo.Login);
+
+            var code = WebHelper.GetQueryString("code");
+            var state = WebHelper.GetQueryString("state");
+            var openId = WebUtils.GetCookie("openid");
+
+            if (string.IsNullOrWhiteSpace(openId) && !string.IsNullOrEmpty(code) && !string.IsNullOrEmpty(state) && state == "lxj")
+            {
+                //通过，用code换取access_token
+                var config = this._workContext.WeiXinMPConfig;
+                string appId = config.WeixinAppId;
+                string appSecret = config.WeixinAppSecret;
+                Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAccessTokenResult result = null;
+                try
+                {
+                    result = OAuthApi.GetAccessToken(appId, appSecret, code);
+                }
+                catch (Exception)
+                { }
+                if (result != null && result.errcode == ReturnCode.请求成功)
+                {
+                    _workContext.openId = result.openid;
+                }
+                else
+                {
+                    _workContext.openId = string.Empty;// (string)requestContext.HttpContext.Session["openId"];
+                }
+                WebUtils.SetCookie("openid", _workContext.openId);
+            }
+
+            //测试用
+#if DEBUG
+            if (string.IsNullOrWhiteSpace(_workContext.openId) && Request.Url.Host.ToLower().Equals("localhost"))
+            {
+                _workContext.openId = "ozZZ5t_VheKVfHlv03srm6ylieyU";
+                WebUtils.SetCookie("openid", _workContext.openId);
+            }
+#endif
+
+            if (_workContext.UserInfo == null)
+            {                
+                var claims = new List<Claim>();
+                claims.Add(new Claim(ClaimTypes.Name, _workContext.openId));
+                var identity= new ClaimsIdentity(claims,"weixin");
+                 
+                ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+                UserManager.AddClaim("",new System.Security.Claims.Claim("weixin",_workContext.UserId));
+            }
+
+            #endregion
+            */
+            #region workcontext
             //Reqeust
             _workContext.IsHttpAjax = WebHelper.IsAjax();
             _workContext.IP = WebHelper.GetIP();
@@ -74,6 +142,8 @@ namespace Pasys.Web.WeiXin.UI
             //当前动作方法名
             _workContext.Action = RouteData.Values["action"].ToString().ToLower();
             _workContext.PageKey = string.Format("/{0}/{1}", _workContext.Controller, _workContext.Action);
+            #endregion
+
 
         }
 

@@ -191,6 +191,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\WebUtils.cs" />
+    <Content Include="WeChatOAuth\WeChatAppBuilderExtensions.cs" />
+    <Content Include="WeChatOAuth\WeChatDefaults.cs" />
+    <Content Include="WeChatOAuth\WeChatHandler.cs" />
+    <Content Include="WeChatOAuth\WeChatMiddleware.cs" />
+    <Content Include="WeChatOAuth\WeChatOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Contents\demo\css\demos.css" />

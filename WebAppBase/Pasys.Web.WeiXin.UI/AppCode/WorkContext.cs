@@ -72,6 +72,7 @@ namespace Pasys.Web.WeiXin.UI
 
         public string PageKey;//页面标示符
 
+        public string openId;
         public WorkContext()
         {
         }

@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Pasys.Web.Identity.Models;
+using System.Net.Mail;
 
 namespace Pasys.Web.Identity
 {
@@ -28,7 +29,15 @@ namespace Pasys.Web.Identity
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // テキスト メッセージを送信するための SMS サービスをここにプラグインします。
+            // Plug in your email service here to send an email.
+            //配置
+            //var mailMessage = new System.Net.Mail.MailMessage("aaa@aaa.com",
+            //    message.Destination,
+            //    message.Subject,
+            //    message.Body);            
+            ////发送
+            //SmtpClient client = new SmtpClient();
+            //client.SendAsync(mailMessage, null);
             return Task.FromResult(0);
         }
     }
