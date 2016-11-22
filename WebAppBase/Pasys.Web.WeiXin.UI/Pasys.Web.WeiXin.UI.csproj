@@ -330,6 +330,7 @@
     <Content Include="Views\Demo\popup.cshtml" />
     <Content Include="Views\Demo\photobrowser.cshtml" />
     <Content Include="Views\MPMenu\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Common\" />

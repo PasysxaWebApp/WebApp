@@ -19,6 +19,7 @@ using Senparc.Weixin;
 using System.Security.Claims;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Pasys.Web.Identity.Models;
+using Pasys.Web.Core.EntityManager;
 
 namespace Pasys.Web.WeiXin.UI
 {
@@ -40,10 +41,11 @@ namespace Pasys.Web.WeiXin.UI
         {
         }
 
-        public WorkController(ApplicationUserManager userManager)
+        public WorkController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
             : this()
         {
-            UserManager = userManager;
+            this.UserManager = userManager;
+            this.SignInManager = signInManager;
         }
 
 
@@ -107,6 +109,27 @@ namespace Pasys.Web.WeiXin.UI
                     _workContext.openId = result.openid;
                 }
                 WebUtils.SetCookie("openid", _workContext.openId);
+
+                var access_token = GetToken();
+                OAuthUserInfo userInfo = OAuthApi.GetUserInfo(access_token, _workContext.openId);
+
+                var wxUserInfoManager = new UserInfoManager();
+                var wxUserInfo = wxUserInfoManager.FindById(_workContext.openId);
+                if (wxUserInfo == null)
+                {
+                    wxUserInfo = new WeiXinUserInfo()
+                    {
+                        OrganizationId = _workContext.UserInfo.OrganizationId,
+                    };
+                    FillOAuthUserInfoToWxUserInfo(userInfo, wxUserInfo);
+                    wxUserInfoManager.Create(wxUserInfo);
+                }
+                else
+                {
+                    FillOAuthUserInfoToWxUserInfo(userInfo, wxUserInfo);
+                    wxUserInfoManager.Update(wxUserInfo);
+                }
+                this._workContext.WxUserInfo = wxUserInfo;
             }
 
             //测试用
@@ -117,18 +140,14 @@ namespace Pasys.Web.WeiXin.UI
             //    WebUtils.SetCookie("openid", _workContext.openId);
             //}
 #endif
-
+            if (this._workContext.WxUserInfo == null && !string.IsNullOrEmpty(_workContext.openId))
+            {
+                var wxUserInfoManager = new UserInfoManager();
+                this._workContext.WxUserInfo = wxUserInfoManager.FindById(_workContext.openId);
+            }
             //UserInfo
             if (!requestContext.HttpContext.User.Identity.IsAuthenticated && !string.IsNullOrEmpty(_workContext.openId))
             {
-                //var userManager = new UserInfoManager();
-                //var wxUserInfo = UserManager.FindById(_workContext.openId);
-                //if (wxUserInfo == null)
-                //{
-                //    var access_token = GetToken();
-                //    OAuthUserInfo userInfo = OAuthApi.GetUserInfo(access_token, _workContext.openId);
-                //}
-
                 var bindMng = new UserBindManager();
                 var userId = bindMng.GetUserId(_workContext.openId);
                 if (!string.IsNullOrEmpty(userId))
@@ -140,6 +159,9 @@ namespace Pasys.Web.WeiXin.UI
                 {
                     string randomEmail = string.Format("{0}@xh2005.com", Guid.NewGuid());
                     var user = new ApplicationUser { OrganizationId = "DebugOrganizationID", UserName = randomEmail, Email = randomEmail };
+                    if (this._workContext.WxUserInfo != null) {
+                        user.NiceName = this._workContext.WxUserInfo.NickName;
+                    }
                     var result = UserManager.Create(user, Guid.NewGuid().ToString());
                     if (result.Succeeded)
                     {
@@ -148,6 +170,25 @@ namespace Pasys.Web.WeiXin.UI
                     }
                     _workContext.UserInfo = user;
                 }
+
+                //var access_token = GetToken();
+                //OAuthUserInfo userInfo = OAuthApi.GetUserInfo(access_token, _workContext.openId);
+
+                //var wxUserInfoManager = new UserInfoManager();
+                //var wxUserInfo = wxUserInfoManager.FindById(_workContext.openId);
+                //if (wxUserInfo == null)
+                //{
+                //    wxUserInfo = new WeiXinUserInfo()
+                //    {
+                //        OrganizationId = _workContext.UserInfo.OrganizationId,
+                //    };
+                //    FillOAuthUserInfoToWxUserInfo(userInfo, wxUserInfo);
+                //    wxUserInfoManager.Create(wxUserInfo);
+                //}
+                //else {
+                //    FillOAuthUserInfoToWxUserInfo(userInfo, wxUserInfo);
+                //    wxUserInfoManager.Update(wxUserInfo);
+                //}
 
                 //var claims = new List<Claim>();
                 //claims.Add(new Claim(ClaimTypes.NameIdentifier, userId));
@@ -185,6 +226,18 @@ namespace Pasys.Web.WeiXin.UI
             #endregion
 
 
+        }
+
+        private void FillOAuthUserInfoToWxUserInfo(OAuthUserInfo userInfo ,WeiXinUserInfo wxUserInfo)
+        {
+            wxUserInfo.City = userInfo.city;
+            wxUserInfo.Country = userInfo.country;
+            wxUserInfo.HeadImgUrl = userInfo.headimgurl;
+            wxUserInfo.NickName = userInfo.nickname;
+            wxUserInfo.OpenId = userInfo.openid;
+            wxUserInfo.Province = userInfo.province;
+            wxUserInfo.Sex = userInfo.sex;
+            wxUserInfo.UnionId = userInfo.unionid;
         }
 
         public string GetToken()

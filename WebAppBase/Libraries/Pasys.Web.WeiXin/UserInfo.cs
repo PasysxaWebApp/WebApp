@@ -17,7 +17,7 @@ namespace Pasys.Web.WeiXin
         Size1326 = 132,
     }
 
-    public class UserInfo : IEntity<string>
+    public class WeiXinUserInfo : IEntity<string>
     {
         /// <summary>
         /// 组织Id
@@ -111,23 +111,23 @@ namespace Pasys.Web.WeiXin
         }
     }
 
-    public class UserInfoStore : EntityStore<UserInfo, string>
+    public class WeiXinUserInfoStore : EntityStore<WeiXinUserInfo, string>
     {
-        public UserInfoStore(DbContext context) : base(context) { }
+        public WeiXinUserInfoStore(DbContext context) : base(context) { }
     }
 
-    public class UserInfoManager : EntityManagerBase<UserInfo, string>
+    public class UserInfoManager : EntityManagerBase<WeiXinUserInfo, string>
     {
         public UserInfoManager()
             : this(WeiXinDbContext.Create())
         { }
 
         public UserInfoManager(WeiXinDbContext dbContext)
-            : this(new UserInfoStore(dbContext))
+            : this(new WeiXinUserInfoStore(dbContext))
         {
         }
 
-        public UserInfoManager(UserInfoStore store)
+        public UserInfoManager(WeiXinUserInfoStore store)
             : base(store)
         {
             //this.EntityValidator = new MPEntityValidator(this);

@@ -17,28 +17,14 @@ namespace Pasys.Web.WeiXin.UI.Controllers
     [Authorize]
     public class AccountController : WorkController
     {
-        private ApplicationSignInManager _signInManager;
 
         public AccountController()
         {
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-            : base(userManager)
+            : base(userManager, signInManager)
         {
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
         }
 
         //
@@ -396,11 +382,6 @@ namespace Pasys.Web.WeiXin.UI.Controllers
         {
             if (disposing)
             {
-                if (_signInManager != null)
-                {
-                    _signInManager.Dispose();
-                    _signInManager = null;
-                }
             }
 
             base.Dispose(disposing);

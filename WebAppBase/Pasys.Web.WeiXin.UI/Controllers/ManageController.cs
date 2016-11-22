@@ -14,27 +14,14 @@ namespace Pasys.Web.WeiXin.UI.Controllers
     [Authorize]
     public class ManageController : WorkController
     {
-        private ApplicationSignInManager _signInManager;
 
         public ManageController()
         {
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager):base(userManager)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+            : base(userManager, signInManager)
         {
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
         }
 
         //

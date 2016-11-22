@@ -58,6 +58,8 @@ namespace Pasys.Web.WeiXin.UI
 
         public ApplicationUser UserInfo;
 
+        public WeiXinUserInfo WxUserInfo;
+
         public string Url;//当前url
 
         public string UrlReferrer;//上一次访问的url

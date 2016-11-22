@@ -118,7 +118,7 @@ namespace Pasys.Web.Admin.UI.Utility
                     sw.Write("------------------------------------");
                     sw.Write(Environment.NewLine);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //throw ex;
                 }

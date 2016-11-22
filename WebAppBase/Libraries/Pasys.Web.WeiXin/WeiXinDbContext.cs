@@ -18,7 +18,7 @@ namespace Pasys.Web.WeiXin
         DbSet<MP> MPs { get; set; }
         DbSet<MPMenuInfo> MPMenuInfos { get; set; }
         DbSet<UserBind> UserBinders { get; set; }
-        DbSet<UserInfo> UserInfos { get; set; }
+        DbSet<WeiXinUserInfo> UserInfos { get; set; }
 
 
         public static void CreateForce()
@@ -54,7 +54,7 @@ namespace Pasys.Web.WeiXin
             .ToTable("weixin_m_mpmenuinfos");
             //consumption.Property(m => m.ConsumptionId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            var userinfo = modelBuilder.Entity<UserInfo>()
+            var userinfo = modelBuilder.Entity<WeiXinUserInfo>()
             .HasKey(m => m.OpenId)
             .Ignore(m => m.EntityName)            
             .ToTable("weixin_m_userinfos");
