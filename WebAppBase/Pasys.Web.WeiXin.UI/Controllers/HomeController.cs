@@ -10,7 +10,6 @@ using System.Web.Mvc;
 
 namespace Pasys.Web.WeiXin.UI.Controllers
 {
-    [Authorize]
     public class HomeController : WorkController
     {
         public ActionResult Index()

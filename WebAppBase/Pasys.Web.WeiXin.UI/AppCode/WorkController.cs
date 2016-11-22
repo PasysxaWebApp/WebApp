@@ -111,11 +111,11 @@ namespace Pasys.Web.WeiXin.UI
 
             //测试用
 #if DEBUG
-            if (string.IsNullOrWhiteSpace(_workContext.openId) && Request.Url.Host.ToLower().Equals("localhost"))
-            {
-                _workContext.openId = "ozZZ5t_VheKVfHlv03srm6ylieyU";
-                WebUtils.SetCookie("openid", _workContext.openId);
-            }
+            //if (string.IsNullOrWhiteSpace(_workContext.openId) && Request.Url.Host.ToLower().Equals("localhost"))
+            //{
+            //    _workContext.openId = "ozZZ5t_VheKVfHlv03srm6ylieyU";
+            //    WebUtils.SetCookie("openid", _workContext.openId);
+            //}
 #endif
 
             //UserInfo
