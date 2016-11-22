@@ -16,8 +16,8 @@ namespace Pasys.Web.MemberCard
         {
             /*             
                 drop table [dbo].[__MigrationHistory];
-                drop table [dbo].[mc_m_membercards];
                 drop table [dbo].[mc_t_consumptions];
+                drop table [dbo].[mc_m_membercards];
              */
 
             var userId = "915ad524-3d85-4a09-9c3f-2a1468280209";

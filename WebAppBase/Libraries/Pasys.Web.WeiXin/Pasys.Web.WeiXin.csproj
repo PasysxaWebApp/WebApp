@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\..\..\github\WebAppBase\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,7 +45,17 @@
     <Compile Include="MP.cs" />
     <Compile Include="MPMenuInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserBinder.cs" />
+    <Compile Include="UserInfo.cs" />
     <Compile Include="WeiXinAutoHandlerMsgInfo.cs" />
+    <Compile Include="WeiXinDbContext.cs" />
+    <Compile Include="WeiXinDbInitializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Pasys.Web.Core\Pasys.Web.Core.csproj">
+      <Project>{3f905868-f488-467f-b212-4e7a17a71881}</Project>
+      <Name>Pasys.Web.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

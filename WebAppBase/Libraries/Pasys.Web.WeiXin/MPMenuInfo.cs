@@ -1,21 +1,23 @@
-﻿using System;
+﻿using Pasys.Web.Core.EntityManager;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Pasys.Web.WeiXin
 {
-    public class MPMenuInfo
+    public class MPMenuInfo : IEntity<string>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public string MenuId { get; set; }
         /// <summary>
         /// 组织Id
         /// </summary>
         public string OrganizationId { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int MenuId { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -80,6 +82,42 @@ namespace Pasys.Web.WeiXin
             DeleteFlag = false;
             CreateDate = DateTime.Now;
             UpdateDate = DateTime.Now;
+        }
+
+        /// <summary>
+        /// IEntity
+        /// </summary>
+        public string EntityName
+        {
+            get
+            {
+                return Name;
+            }
+        }
+
+    }
+
+    public class MPMenuInfoStore : EntityStore<MPMenuInfo, string>
+    {
+        public MPMenuInfoStore(DbContext context) : base(context) { }
+    }
+
+    public class MPMenuInfoManager : EntityManagerBase<MPMenuInfo, string>
+    {
+        public MPMenuInfoManager()
+            : this(WeiXinDbContext.Create())
+        { }
+
+        public MPMenuInfoManager(WeiXinDbContext dbContext)
+            : this(new MPMenuInfoStore(dbContext))
+        {
+        }
+
+        public MPMenuInfoManager(MPMenuInfoStore store)
+            : base(store)
+        {
+            //this.EntityValidator = new MPEntityValidator(this);
+
         }
     }
 

@@ -106,6 +106,9 @@ namespace Pasys.Web.MemberCard
 
     public class MemberCardManager : EntityManagerBase<MemberCard, string>
     {
+        public MemberCardManager()
+            : this(MemberCardDbContext.Create())
+        { }
 
         public MemberCardManager(MemberCardDbContext dbContext)
             : this(new MemberCardStore(dbContext))

@@ -31,6 +31,7 @@ namespace Pasys.Web.WeiXin.UI
         {
             AppIdentityDbContext.CreateForce();
             MemberCardDbContext.CreateForce();
+            WeiXinDbContext.CreateForce();
         }
         /// <summary>
         /// 激活微信缓存

@@ -125,6 +125,10 @@ namespace Pasys.Web.MemberCard
             }
         }
 
+        public ConsumptionManager()
+            : this(MemberCardDbContext.Create())
+        { }
+
         public ConsumptionManager(MemberCardDbContext dbContext)
             : this(new ConsumptionStore(dbContext))
         {

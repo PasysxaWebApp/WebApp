@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Pasys.Web.Core;
+using Pasys.Web.Core.EntityManager;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +12,7 @@ namespace Pasys.Web.WeiXin
     /// <summary>
     /// 微信公众号
     /// </summary>
-    public class MP
+    public class MP : IEntity<string>
     {
 		#region Model
 		private string _wxname;
@@ -294,5 +297,44 @@ namespace Pasys.Web.WeiXin
 		}
 	
 		#endregion Model
+
+        /// <summary>
+        /// IEntity
+        /// </summary>
+        public string EntityName
+        {
+            get
+            {
+                return wxName;
+            }
+        }
+
     }
+
+
+    public class MPStore : EntityStore<MP, string>
+    {
+        public MPStore(DbContext context) : base(context) { }
+    }
+
+    public class MPManager : EntityManagerBase<MP, string>
+    {
+        public MPManager()
+            : this(WeiXinDbContext.Create())
+        { }
+
+        public MPManager(WeiXinDbContext dbContext)
+            : this(new MPStore(dbContext))
+        {
+        }
+
+        public MPManager(MPStore store)
+            : base(store)
+        {
+            //this.EntityValidator = new MPEntityValidator(this);
+
+        }
+    }
+
+
 }

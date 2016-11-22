@@ -17,11 +17,14 @@ using Pasys.Web.WeiXin.UI.Utility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin;
 using System.Security.Claims;
+using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
+using Pasys.Web.Identity.Models;
 
 namespace Pasys.Web.WeiXin.UI
 {
     public class WorkController : Controller, IWorkController<WorkContext>
     {
+        private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private WorkContext _workContext = new WorkContext();
 
@@ -56,6 +59,18 @@ namespace Pasys.Web.WeiXin.UI
             }
         }
 
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
         public IAuthenticationManager AuthManager
         {
             get
@@ -68,36 +83,28 @@ namespace Pasys.Web.WeiXin.UI
         {
             base.Initialize(requestContext);
 
-            /*
+
             #region weixin
 
-            ExternalLoginInfo loginInfo = AuthManager.GetExternalLoginInfo();
-            var user =  UserManager.Find(loginInfo.Login);
+            //ExternalLoginInfo loginInfo = AuthManager.GetExternalLoginInfo();
+            //var user =  UserManager.Find(loginInfo.Login);
 
             var code = WebHelper.GetQueryString("code");
             var state = WebHelper.GetQueryString("state");
-            var openId = WebUtils.GetCookie("openid");
-
-            if (string.IsNullOrWhiteSpace(openId) && !string.IsNullOrEmpty(code) && !string.IsNullOrEmpty(state) && state == "lxj")
+            _workContext.openId = WebUtils.GetCookie("openid");
+            if (!string.IsNullOrEmpty(code) && !string.IsNullOrEmpty(state) && state == this.WorkContext.WeiXinMPConfig.AuthorizeState)
             {
-                //通过，用code换取access_token
-                var config = this._workContext.WeiXinMPConfig;
-                string appId = config.WeixinAppId;
-                string appSecret = config.WeixinAppSecret;
-                Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAccessTokenResult result = null;
+                OAuthAccessTokenResult result = null;
                 try
                 {
-                    result = OAuthApi.GetAccessToken(appId, appSecret, code);
+                    result = GetOAuthAccessTokenResult(code);
                 }
                 catch (Exception)
                 { }
+
                 if (result != null && result.errcode == ReturnCode.请求成功)
                 {
                     _workContext.openId = result.openid;
-                }
-                else
-                {
-                    _workContext.openId = string.Empty;// (string)requestContext.HttpContext.Session["openId"];
                 }
                 WebUtils.SetCookie("openid", _workContext.openId);
             }
@@ -111,31 +118,64 @@ namespace Pasys.Web.WeiXin.UI
             }
 #endif
 
-            if (_workContext.UserInfo == null)
-            {                
-                var claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.Name, _workContext.openId));
-                var identity= new ClaimsIdentity(claims,"weixin");
-                 
-                ClaimsPrincipal principal = new ClaimsPrincipal(identity);
-                UserManager.AddClaim("",new System.Security.Claims.Claim("weixin",_workContext.UserId));
+            //UserInfo
+            if (!requestContext.HttpContext.User.Identity.IsAuthenticated && !string.IsNullOrEmpty(_workContext.openId))
+            {
+                //var userManager = new UserInfoManager();
+                //var wxUserInfo = UserManager.FindById(_workContext.openId);
+                //if (wxUserInfo == null)
+                //{
+                //    var access_token = GetToken();
+                //    OAuthUserInfo userInfo = OAuthApi.GetUserInfo(access_token, _workContext.openId);
+                //}
+
+                var bindMng = new UserBindManager();
+                var userId = bindMng.GetUserId(_workContext.openId);
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    _workContext.UserInfo = UserManager.FindById(userId);
+                    SignInManager.SignInAsync(_workContext.UserInfo, isPersistent: true, rememberBrowser: true);
+                }
+                else
+                {
+                    string randomEmail = string.Format("{0}@xh2005.com", Guid.NewGuid());
+                    var user = new ApplicationUser { OrganizationId = "DebugOrganizationID", UserName = randomEmail, Email = randomEmail };
+                    var result = UserManager.Create(user, Guid.NewGuid().ToString());
+                    if (result.Succeeded)
+                    {
+                        bindMng.BindUser(user.Id, _workContext.openId);
+                        SignInManager.SignIn(user, isPersistent: true, rememberBrowser: true);
+                    }
+                    _workContext.UserInfo = user;
+                }
+
+                //var claims = new List<Claim>();
+                //claims.Add(new Claim(ClaimTypes.NameIdentifier, userId));
+                //claims.Add(new Claim(ClaimTypes.Name, _workContext.UserInfo.UserName));
+                //claims.Add(new Claim(ClaimTypes.Sid, _workContext.openId));
+                //var identity = new ClaimsIdentity(claims, "weixin");                
+                //var principal = new ClaimsPrincipal(identity);
+                //requestContext.HttpContext.User = principal;
+            }
+            else if (requestContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                _workContext.UserInfo = UserManager.FindByName(requestContext.HttpContext.User.Identity.Name);
+                _workContext.UserId = requestContext.HttpContext.User.Identity.GetUserId();
+                _workContext.UserName = requestContext.HttpContext.User.Identity.GetUserName();
+                var bindMng = new UserBindManager();
+                _workContext.openId = bindMng.GeOpenId(_workContext.UserId);
+                WebUtils.SetCookie("openid", _workContext.openId);
             }
 
+
             #endregion
-            */
+
             #region workcontext
             //Reqeust
             _workContext.IsHttpAjax = WebHelper.IsAjax();
             _workContext.IP = WebHelper.GetIP();
             _workContext.Url = WebHelper.GetUrl();
             _workContext.UrlReferrer = WebHelper.GetUrlReferrer();
-            //UserInfo
-            _workContext.UserId = requestContext.HttpContext.User.Identity.GetUserId();
-            _workContext.UserName = requestContext.HttpContext.User.Identity.GetUserName();
-            if (requestContext.HttpContext.User.Identity.IsAuthenticated)
-            {
-                _workContext.UserInfo = UserManager.FindById(_workContext.UserId);
-            }
 
             //当前控制器类名
             _workContext.Controller = requestContext.RouteData.Values["controller"].ToString().ToLower();
@@ -154,7 +194,8 @@ namespace Pasys.Web.WeiXin.UI
                 var config = this.WorkContext.WeiXinMPConfig;
                 string appId = config.WeixinAppId;
                 string appSecret = config.WeixinAppSecret;
-                var access_token = Senparc.Weixin.MP.CommonAPIs.CommonApi.GetToken(appId, appSecret);
+                return GetToken(appId, appSecret);
+                //var access_token = Senparc.Weixin.MP.CommonAPIs.CommonApi.GetToken(appId, appSecret);
                 //return access_token.access_token;// result.access_token;// Json(result, JsonRequestBehavior.AllowGet);
                 //if (!AccessTokenContainer.CheckRegistered(appId))
                 //{
@@ -163,13 +204,35 @@ namespace Pasys.Web.WeiXin.UI
                 //var result = Senparc.Weixin.MP.CommonAPIs.CommonApi.GetToken(appId, appSecret);//AccessTokenContainer.GetTokenResult(appId);                
 
                 //也可以直接一步到位：
-                return AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+                //return AccessTokenContainer.TryGetAccessToken(appId, appSecret);
             }
             catch (Exception ex)
             {
                 //TODO:为简化代码，这里不处理异常（如Token过期）
                 throw ex;// Json(new { error = "执行过程发生错误！" }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public string GetToken(string appId, string appSecret)
+        {
+            return AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+        }
+
+        public OAuthAccessTokenResult GetOAuthAccessTokenResult(string code)
+        {
+            var config = this.WorkContext.WeiXinMPConfig;
+            string appId = config.WeixinAppId;
+            string appSecret = config.WeixinAppSecret;
+            return GetOAuthAccessTokenResult(appId, appSecret, code);
+        }
+
+        public OAuthAccessTokenResult GetOAuthAccessTokenResult(string appId, string appSecret, string code)
+        {
+            if (!OAuthAccessTokenContainer.CheckRegistered(appId))
+            {
+                OAuthAccessTokenContainer.Register(appId, appSecret);
+            }
+            return OAuthAccessTokenContainer.GetOAuthAccessTokenResult(appId, code, false);
         }
 
         protected override void Dispose(bool disposing)
@@ -180,6 +243,11 @@ namespace Pasys.Web.WeiXin.UI
                 {
                     _userManager.Dispose();
                     _userManager = null;
+                }
+                if (_signInManager != null)
+                {
+                    _signInManager.Dispose();
+                    _signInManager = null;
                 }
             }
 
