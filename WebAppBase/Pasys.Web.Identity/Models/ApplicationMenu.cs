@@ -9,7 +9,24 @@ namespace Pasys.Web.Identity.Models
     public class ApplicationFunction
     {
         private string _functionName;
+        private string _functionKey;
         public int FunctionId { get; set; }
+        public string FunctionKey
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_functionKey))
+                {
+                    return _functionKey;
+                }
+                return string.Format("{0}_{1}", ControllerName, ActionName);
+            }
+            set
+            {
+                _functionKey = value;
+            }
+        }
+
         public string FunctionName
         {
             get
