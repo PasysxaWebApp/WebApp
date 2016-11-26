@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="MP.cs" />
     <Compile Include="MPMenuInfo.cs" />
+    <Compile Include="RequestRule.cs" />
     <Compile Include="ResponseMsg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestMsg.cs" />

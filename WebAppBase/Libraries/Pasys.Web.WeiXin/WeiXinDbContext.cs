@@ -40,8 +40,8 @@ namespace Pasys.Web.WeiXin
         DbSet<ApplicationResponseMessageTransferCustomerService> ResponseMessageTransferCustomerService { get; set; }
         DbSet<ApplicationResponseMessageVideo> ResponseMessageVideo { get; set; }
         DbSet<ApplicationResponseMessageVoice> ResponseMessageVoice { get; set; }
-        
 
+        DbSet<RequestRule> RequestRule { get; set; }
         public static void CreateForce()
         {
             var db = new WeiXinDbContext();
@@ -77,18 +77,18 @@ namespace Pasys.Web.WeiXin
 
             var userinfo = modelBuilder.Entity<WeiXinUserInfo>()
             .HasKey(m => m.OpenId)
-            .Ignore(m => m.EntityName)            
+            .Ignore(m => m.EntityName)
             .ToTable("weixin_m_userinfos");
 
             var userbind = modelBuilder.Entity<UserBind>()
-            .HasKey(m => m.UserBinderId)            
+            .HasKey(m => m.UserBinderId)
             .Ignore(m => m.EntityName)
             .ToTable("weixin_m_userbinds");
             //1：1，并且级联删除
             //userbind.HasRequired(m => m.WxUser).WithOptional().WillCascadeOnDelete();
             #region Reqeuest
             var requestMessageBase = modelBuilder.Entity<ApplicationRequestMessageBase>()
-            .HasKey(m => m.MsgId)            
+            .HasKey(m => m.MsgId)
             .Ignore(m => m.EntityName)
             .ToTable("weixin_t_request_logs");
 
@@ -110,7 +110,7 @@ namespace Pasys.Web.WeiXin
             .ToTable("weixin_t_request_logs");
             requestMessageShortVideo.Property(t => t.MediaId).HasColumnName("MediaId");
             requestMessageShortVideo.Property(t => t.ThumbMediaId).HasColumnName("ThumbMediaId");
-            
+
             var requestMessageText = modelBuilder.Entity<ApplicationRequestMessageText>()
             .HasKey(m => m.MsgId)
             .ToTable("weixin_t_request_logs");
@@ -192,6 +192,10 @@ namespace Pasys.Web.WeiXin
 
             #endregion
 
+            var requestRule = modelBuilder.Entity<RequestRule>()
+            .HasKey(m => m.RuleId)
+            .Ignore(m => m.EntityName)
+            .ToTable("weixin_t_request_rules");
         }
     }
 
