@@ -103,6 +103,9 @@
     <Compile Include="Logs\EventLogger.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\BaseRegistryModel.cs" />
+    <Compile Include="Plugin\IPlugin.cs" />
+    <Compile Include="Plugin\PluginExceptions.cs" />
+    <Compile Include="Plugin\PluginReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strategy\IStrategy.cs" />
     <Compile Include="Strategy\StrategyExceptions.cs" />

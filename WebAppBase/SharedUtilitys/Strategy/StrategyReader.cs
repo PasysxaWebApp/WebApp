@@ -87,7 +87,7 @@ namespace SharedUtilitys.Strategy
             }
             catch (FileNotFoundException)
             {
-                return null;
+                return new StrategyManifest() { Ver = "", StrategyInfos = new List<StrategyInfo>() };
             }
             catch (Exception ex)
             {

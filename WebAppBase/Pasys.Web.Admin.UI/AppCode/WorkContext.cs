@@ -11,10 +11,14 @@ namespace Pasys.Web.Admin.UI
     public class WorkContext:IWorkContext
     {
         public static  GlobalConfigInfo GLOBALCONFIG;//全局配置信息
+        public static WeiXinMPConfigInfo WEIXINMP_CONFIG;
+        public static SMSConfigInfo SMS_CONFIG;
 
         static WorkContext()
         {
             GLOBALCONFIG = Pasys.Web.Core.ConfigManager.GetGlobalConfig();
+            WEIXINMP_CONFIG = Pasys.Web.Core.ConfigManager.GetWeiXinMPConfigInfo();
+            SMS_CONFIG = Pasys.Web.Core.ConfigManager.GetSMSConfigInfo();
         }
 
         public string Area  //注册区域
@@ -30,6 +34,20 @@ namespace Pasys.Web.Admin.UI
         {
             get {
                 return GLOBALCONFIG;
+            }
+        }
+        public WeiXinMPConfigInfo WeiXinMPConfig
+        {
+            get
+            {
+                return WEIXINMP_CONFIG;
+            }
+        }
+        public SMSConfigInfo SMSConfig
+        {
+            get
+            {
+                return SMS_CONFIG;
             }
         }
 

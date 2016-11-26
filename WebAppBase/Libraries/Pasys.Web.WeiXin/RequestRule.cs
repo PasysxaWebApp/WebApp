@@ -2,6 +2,7 @@
 using Senparc.Weixin.MP;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,7 +48,10 @@ namespace Pasys.Web.WeiXin
         public string ResponseId { get; set; }
 
         public virtual ApplicationResponseMessageBase ResponseMessage { get; set; }
-
+        /// <summary>
+        /// 自定义的处理程序名字
+        /// </summary>
+        public string ModelFunctionName { get; set; }
         public string EntityName
         {
             get
@@ -59,5 +63,53 @@ namespace Pasys.Web.WeiXin
                 RuleName = value;
             }
         }
+        
     }
+
+    public class RequestRuleStore : EntityStore<RequestRule, string>
+    {
+        public RequestRuleStore(DbContext context) : base(context) { }
+    }
+
+    public class RequestRuleManager : EntityManagerBase<RequestRule, string>
+    {
+        public RequestRuleManager()
+            : this(WeiXinDbContext.Create())
+        { }
+
+        public RequestRuleManager(WeiXinDbContext dbContext)
+            : this(new RequestRuleStore(dbContext))
+        {
+        }
+
+        public RequestRuleManager(RequestRuleStore store)
+            : base(store)
+        {
+            //this.EntityValidator = new MPEntityValidator(this);
+        }
+
+        public  List<RequestRule> FindRules(string matchKey)
+        {
+            var rules = this.Entities.Where(m => (m.MatchKey.Equals(matchKey) && m.MatchType == RequestRuleMatchType.FullWord) || (m.MatchKey.Contains(matchKey) && m.MatchType == RequestRuleMatchType.Fuzzy));
+            return rules.ToList();
+        }
+
+        public List<RequestRule> FindRules(string matchKey, RequestRuleMatchType matchType)
+        {
+            IQueryable<RequestRule> rules;
+            if (matchType == RequestRuleMatchType.FullWord)
+            {
+                rules = this.Entities.Where(m => m.MatchKey.Equals(matchKey) && m.MatchType == RequestRuleMatchType.FullWord);
+            }
+            else
+            {
+                rules = this.Entities.Where(m => m.MatchKey.Contains(matchKey) && m.MatchType == RequestRuleMatchType.Fuzzy);
+            }
+            return rules.ToList();
+        }
+
+
+    }
+
+
 }

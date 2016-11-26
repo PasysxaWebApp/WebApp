@@ -3,9 +3,11 @@ using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Pasys.Web.Core.EntityManager;
 
 namespace Pasys.Web.WeiXin
 {
@@ -208,5 +210,61 @@ namespace Pasys.Web.WeiXin
         /// </summary>
         public string Recognition { get; set; }
     }
+
+
+    public class RequestMessageStore : EntityStore<ApplicationRequestMessageBase, string>
+    {
+        public RequestMessageStore(DbContext context) : base(context) { }
+    }
+
+    public class RequestMessageManager : EntityManagerBase<ApplicationRequestMessageBase, string>
+    {
+        public RequestMessageManager()
+            : this(WeiXinDbContext.Create())
+        { }
+
+        public RequestMessageManager(WeiXinDbContext dbContext)
+            : this(new RequestMessageStore(dbContext))
+        {
+        }
+
+        public RequestMessageManager(RequestMessageStore store)
+            : base(store)
+        {
+            //this.EntityValidator = new MPEntityValidator(this);
+        }
+
+
+        public void AddImageMessage(ApplicationRequestMessageImage request)
+        {
+            this.Create(request);
+        }
+        public void AddMusicMessage(ApplicationRequestMessageLink request)
+        {
+            this.Create(request);
+        }
+        public void AddNewsMessage(ApplicationRequestMessageLocation request)
+        {
+            this.Create(request);
+        }
+        public void AddTextMessage(ApplicationRequestMessageShortVideo request)
+        {
+            this.Create(request);
+        }
+        public void AddTransferCustomerServiceMessage(ApplicationRequestMessageText request)
+        {
+            this.Create(request);
+        }
+        public void AddVideoMessage(ApplicationRequestMessageVideo request)
+        {
+            this.Create(request);
+        }
+        public void AddVoiceMessage(ApplicationRequestMessageVoice request)
+        {
+            this.Create(request);
+        }
+
+    }
+
 
 }

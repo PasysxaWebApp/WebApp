@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senparc.Weixin.MP;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
@@ -33,13 +34,57 @@ namespace Pasys.Web.WeiXin
         DbSet<ApplicationArticle> Article { get; set; }
         DbSet<ApplicationCustomerServiceAccount> CustomerServiceAccount { get; set; }
         DbSet<ApplicationResponseMessageBase> AllResponseMessages { get; set; }
-        DbSet<ApplicationResponseMessageImage> ResponseMessageImage { get; set; }
-        DbSet<ApplicationResponseMessageMusic> ResponseMessageMusic { get; set; }
-        DbSet<ApplicationResponseMessageNews> ResponseMessageNews { get; set; }
-        DbSet<ApplicationResponseMessageText> ResponseMessageText { get; set; }
-        DbSet<ApplicationResponseMessageTransferCustomerService> ResponseMessageTransferCustomerService { get; set; }
-        DbSet<ApplicationResponseMessageVideo> ResponseMessageVideo { get; set; }
-        DbSet<ApplicationResponseMessageVoice> ResponseMessageVoice { get; set; }
+        
+        public IQueryable<ApplicationResponseMessageImage> ResponseMessageImage
+        {
+            get
+            {                
+                return AllResponseMessages.Where(m => m.MsgType == Convert.ToInt32(ResponseMsgType.Image)).Select(m => (ApplicationResponseMessageImage)m);
+            }
+        }
+
+        public IQueryable<ApplicationResponseMessageMusic> ResponseMessageMusic
+        {
+            get
+            {
+                return AllResponseMessages.Where(m => m.MsgType == Convert.ToInt32(ResponseMsgType.Music)).Select(m => (ApplicationResponseMessageMusic)m);
+            }
+        }
+        public IQueryable<ApplicationResponseMessageNews> ResponseMessageNews
+        {
+            get
+            {
+                return AllResponseMessages.Where(m => m.MsgType == Convert.ToInt32(ResponseMsgType.News)).Select(m => (ApplicationResponseMessageNews)m);
+            }
+        }
+        public IQueryable<ApplicationResponseMessageText> ResponseMessageText
+        {
+            get
+            {
+                return AllResponseMessages.Where(m => m.MsgType == Convert.ToInt32(ResponseMsgType.Text)).Select(m => (ApplicationResponseMessageText)m);
+            }
+        }
+        public IQueryable<ApplicationResponseMessageTransferCustomerService> ResponseMessageTransferCustomerService
+        {
+            get
+            {
+                return AllResponseMessages.Where(m => m.MsgType == Convert.ToInt32(ResponseMsgType.Transfer_Customer_Service)).Select(m => (ApplicationResponseMessageTransferCustomerService)m);
+            }
+        }
+        public IQueryable<ApplicationResponseMessageVideo> ResponseMessageVideo
+        {
+            get
+            {
+                return AllResponseMessages.Where(m => m.MsgType == Convert.ToInt32(ResponseMsgType.Video)).Select(m => (ApplicationResponseMessageVideo)m);
+            }
+        }
+        public IQueryable<ApplicationResponseMessageVoice> ResponseMessageVoice
+        {
+            get
+            {
+                return AllResponseMessages.Where(m => m.MsgType == Convert.ToInt32(ResponseMsgType.Voice)).Select(m => (ApplicationResponseMessageVoice)m);
+            }
+        }
 
         DbSet<RequestRule> RequestRule { get; set; }
         public static void CreateForce()
@@ -95,6 +140,8 @@ namespace Pasys.Web.WeiXin
             var requestMessageImage = modelBuilder.Entity<ApplicationRequestMessageImage>()
             .HasKey(m => m.MsgId)
             .ToTable("weixin_t_request_logs");
+            //requestMessageImage.HasRequired(m => m.MsgType);
+
             requestMessageImage.Property(t => t.MediaId).HasColumnName("MediaId");
 
             var requestMessageLink = modelBuilder.Entity<ApplicationRequestMessageLink>()
