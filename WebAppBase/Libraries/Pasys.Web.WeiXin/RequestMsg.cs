@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Pasys.Web.Core.EntityManager;
+using Senparc.Weixin.MP;
+using Senparc.Weixin.MP.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,135 +9,204 @@ using System.Threading.Tasks;
 
 namespace Pasys.Web.WeiXin
 {
-    public class RequestMsg
+
+    public class ApplicationRequestMessageBase : IEntity<string>
     {
-        #region Model
-        private long _usermsgid;
-        private string _openid;
-        private string _username;
-        private string _msgtype;
-        private DateTime _createtime;
-        private string _description;
-        private string _location_x;
-        private string _location_y;
-        private int _scale;
-        private string _picurl;
-        private string _title;
-        private string _url;
-        private string _event;
-        private string _eventkey;
-        /// <summary>
-        /// 
-        /// </summary>
-        public long UserMsgId
+        public long MsgId { get; set; }
+        public virtual int MsgType { get; set; }
+        public RequestMsgType RequestMsgType
         {
-            set { _usermsgid = value; }
-            get { return _usermsgid; }
+            get
+            {
+                return (RequestMsgType)Enum.Parse(typeof(RequestMsgType), MsgType.ToString());
+            }
         }
+        public string Encrypt { get; set; }
         /// <summary>
-        /// 
+        /// 消息创建时间
         /// </summary>
-        public string OpenId
-        {
-            set { _openid = value; }
-            get { return _openid; }
-        }
+        public DateTime CreateTime{get;set;}
         /// <summary>
-        /// 
+        /// 消息已处理
         /// </summary>
-        public string UserName
-        {
-            set { _username = value; }
-            get { return _username; }
-        }
+        public bool IsProcessed { get; set; }
         /// <summary>
-        /// 
+        /// 处理用户
         /// </summary>
-        public string MsgType
-        {
-            set { _msgtype = value; }
-            get { return _msgtype; }
-        }
+        public string ProcUserId { get; set; }
         /// <summary>
-        /// 
+        /// 处理时间
         /// </summary>
-        public DateTime CreateTime
+        public DateTime ProcDateTime { get; set; }
+        public string EntityName
         {
-            set { _createtime = value; }
-            get { return _createtime; }
+            get {
+                return string.Format("{0}", MsgId);
+            }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Description
-        {
-            set { _description = value; }
-            get { return _description; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Location_X
-        {
-            set { _location_x = value; }
-            get { return _location_x; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Location_Y
-        {
-            set { _location_y = value; }
-            get { return _location_y; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Scale
-        {
-            set { _scale = value; }
-            get { return _scale; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string PicUrl
-        {
-            set { _picurl = value; }
-            get { return _picurl; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Title
-        {
-            set { _title = value; }
-            get { return _title; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Url
-        {
-            set { _url = value; }
-            get { return _url; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Event
-        {
-            set { _event = value; }
-            get { return _event; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string EventKey
-        {
-            set { _eventkey = value; }
-            get { return _eventkey; }
-        }
-        #endregion Model}
     }
+    /// <summary>
+    /// 图片消息
+    /// </summary>
+    public class ApplicationRequestMessageImage : ApplicationRequestMessageBase
+    {
+        public override int MsgType
+        {
+            get { return Convert.ToInt32(RequestMsgType.Image); }
+            set { }
+        }
+
+        /// <summary>
+        /// 图片消息媒体id，可以调用多媒体文件下载接口拉取数据。
+        /// </summary>
+        public string MediaId { get; set; }
+
+        /// <summary>
+        /// 图片链接
+        /// </summary>
+        public string PicUrl { get; set; }
+    }
+    /// <summary>
+    /// 链接消息
+    /// </summary>
+    public class ApplicationRequestMessageLink : ApplicationRequestMessageBase
+    {
+        public override int MsgType
+        {
+            get { return Convert.ToInt32(RequestMsgType.Link); }
+            set { }
+        }
+
+        /// <summary>
+        /// 消息标题
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// 消息描述
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// 消息链接
+        /// </summary>
+        public string Url { get; set; }
+    }
+    /// <summary>
+    /// 地理位置消息
+    /// </summary>
+    public class ApplicationRequestMessageLocation : ApplicationRequestMessageBase
+    {
+        public override int MsgType
+        {
+            get { return Convert.ToInt32(RequestMsgType.Location); }
+            set { }
+        }
+
+        /// <summary>
+        /// 地理位置纬度
+        /// </summary>
+        public double Location_X { get; set; }
+
+        /// <summary>
+        /// 地理位置经度
+        /// </summary>
+        public double Location_Y { get; set; }
+
+        /// <summary>
+        /// 地图缩放大小
+        /// </summary>
+        public int Scale { get; set; }
+
+        /// <summary>
+        /// 地理位置信息
+        /// </summary>
+        public string Label { get; set; }
+    }
+    /// <summary>
+    /// 小视频消息
+    /// </summary>
+    public class ApplicationRequestMessageShortVideo : ApplicationRequestMessageBase
+    {
+        public override int MsgType
+        {
+            get { return Convert.ToInt32(RequestMsgType.ShortVideo); }
+            set { }
+        }
+
+        /// <summary>
+        /// 视频消息媒体id，可以调用多媒体文件下载接口拉取数据。
+        /// </summary>
+        public string MediaId { get; set; }
+
+        /// <summary>
+        /// 视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
+        /// </summary>
+        public string ThumbMediaId { get; set; }
+    }
+    /// <summary>
+    /// 文本消息
+    /// </summary>
+    public class ApplicationRequestMessageText : ApplicationRequestMessageBase
+    {
+        public override int MsgType
+        {
+            get { return Convert.ToInt32(RequestMsgType.Text); }
+            set { }
+        }
+
+        /// <summary>
+        /// 文本消息内容
+        /// </summary>
+        public string Content { get; set; }
+
+    }
+    /// <summary>
+    /// 视频消息
+    /// </summary>
+    public class ApplicationRequestMessageVideo : ApplicationRequestMessageBase
+    {
+        public override int MsgType
+        {
+            get { return Convert.ToInt32(RequestMsgType.Video); }
+            set { }
+        }
+
+        /// <summary>
+        /// 视频消息媒体id，可以调用多媒体文件下载接口拉取数据。
+        /// </summary>
+        public string MediaId { get; set; }
+
+        /// <summary>
+        /// 视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
+        /// </summary>
+        public string ThumbMediaId { get; set; }
+    }
+    /// <summary>
+    /// 语音消息
+    /// </summary>
+    public class ApplicationRequestMessageVoice : ApplicationRequestMessageBase
+    {
+        public override int MsgType
+        {
+            get { return Convert.ToInt32(RequestMsgType.Voice); }
+            set { }
+        }
+
+        /// <summary>
+        /// 语音消息媒体id，可以调用多媒体文件下载接口拉取数据。
+        /// </summary>
+        public string MediaId { get; set; }
+        /// <summary>
+        /// 语音格式：amr
+        /// </summary>
+        public string Format { get; set; }
+        /// <summary>
+        /// 语音识别结果，UTF8编码
+        /// 开通语音识别功能，用户每次发送语音给公众号时，微信会在推送的语音消息XML数据包中，增加一个Recongnition字段。
+        /// 注：由于客户端缓存，开发者开启或者关闭语音识别功能，对新关注者立刻生效，对已关注用户需要24小时生效。开发者可以重新关注此帐号进行测试。
+        /// </summary>
+        public string Recognition { get; set; }
+    }
+
 }

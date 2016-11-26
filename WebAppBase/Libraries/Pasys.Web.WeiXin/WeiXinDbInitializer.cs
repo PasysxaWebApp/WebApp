@@ -25,6 +25,10 @@ namespace Pasys.Web.WeiXin
                 drop table [dbo].[weixin_m_userinfos];
                 drop table [dbo].[weixin_m_mpmenuinfos];
                 drop table [dbo].[weixin_m_mps];
+                drop table [dbo].[weixin_t_request_logs];
+				drop table [dbo].[weixin_t_response_articles];
+				drop table [dbo].[weixin_t_response_customerserviceaccounts];
+				drop table [dbo].[weixin_t_responses];
              */
         }
     }
