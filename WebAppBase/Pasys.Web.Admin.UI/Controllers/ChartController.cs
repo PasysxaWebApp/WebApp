@@ -1,11 +1,12 @@
 ﻿using Pasys.Web.Admin.UI.Configs;
 using Pasys.Web.Admin.UI.Models.Chart;
+using Pasys.Web.Core.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SharedUtilitys.AspMvcLibrary.Attributes;
+
 
 namespace Pasys.Web.Admin.UI.Controllers
 {

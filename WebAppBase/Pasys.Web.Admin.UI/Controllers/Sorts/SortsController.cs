@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using SharedUtilitys.AspMvcLibrary.Attributes;
 using Pasys.Web.Admin.UI.Configs;
 using Pasys.Web.Admin.UI.Models.Base;
 using Pasys.Web.Admin.UI.Models.Sorts;
+using Pasys.Web.Core.Attributes;
 
 namespace Pasys.Web.Admin.UI.Controllers
 {
