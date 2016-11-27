@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Web.Mvc;
 
-namespace SharedUtilitys.AspMvcLibrary.Attributes
+namespace Pasys.Web.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class SubmitCommandAttribute : ActionMethodSelectorAttribute

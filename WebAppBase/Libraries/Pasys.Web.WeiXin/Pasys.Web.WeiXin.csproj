@@ -65,6 +65,10 @@
       <Project>{3f905868-f488-467f-b212-4e7a17a71881}</Project>
       <Name>Pasys.Web.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\SharedUtilitys\SharedUtilitys.csproj">
+      <Project>{beb81503-77c0-4308-b197-0b2a52220d16}</Project>
+      <Name>SharedUtilitys</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

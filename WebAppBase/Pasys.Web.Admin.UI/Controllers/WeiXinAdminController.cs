@@ -11,7 +11,8 @@ namespace Pasys.Web.Admin.UI.Controllers
         // GET: WeiXinAdmin
         public ActionResult Index()
         {
-            return View();
+            var model = new WeiXin.ApplicationResponseMessageText();
+            return View(model);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Pasys.Web.Identity.Models;
 using Pasys.Web.MemberCard;
+using Pasys.Web.WeiXin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace Pasys.Web.Admin.UI
         {
             AppIdentityDbContext.CreateForce();
             MemberCardDbContext.CreateForce();
+            WeiXinDbContext.CreateForce();
         }
     }
 }

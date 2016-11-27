@@ -573,11 +573,11 @@
     <Content Include="Views\UserRoles\Index.cshtml" />
     <Content Include="Views\RoleMenus\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutDefault.cshtml" />
+    <Content Include="Views\WeiXinAdmin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\PriceAdjust\" />
     <Folder Include="Views\Test\" />
-    <Folder Include="Views\WeiXinAdmin\" />
     <Folder Include="Views\WeiXin\" />
   </ItemGroup>
   <ItemGroup>

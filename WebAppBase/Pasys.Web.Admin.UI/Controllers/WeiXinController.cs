@@ -51,7 +51,6 @@ namespace Pasys.Web.Admin.UI.Controllers
             var messageHandler = new MessageHandler.MessageHandler(Request.InputStream, postModel, maxRecordCount);
             try
             {
-
                 /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
                  * 收到重复消息通常是因为微信服务器没有及时收到响应，会持续发送2-5条不等的相同内容的RequestMessage*/
                 messageHandler.OmitRepeatedMessage = true;

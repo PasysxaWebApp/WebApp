@@ -34,6 +34,7 @@
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -47,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\RangeNotIncludeValidationAttribute.cs" />
+    <Compile Include="Attributes\SubmitCommandAttribute.cs" />
     <Compile Include="AsyncHelper.cs" />
     <Compile Include="Config\ConfigManager.cs" />
     <Compile Include="Config\Infos\GlobalConfigInfo.cs" />

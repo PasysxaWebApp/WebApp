@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace SharedUtilitys.AspMvcLibrary.Attributes
+namespace Pasys.Web.Core.Attributes
 {
     class RangeNoIncludeAttribute : ValidationAttribute
     {
