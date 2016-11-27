@@ -1,0 +1,27 @@
+﻿@{
+    var metaData = ViewData.ModelMetadata as EasyModelMetaData;
+}
+@using Pasys.Core.Web.Metadata
+@model Object
+<div class="form-horizontal">
+    @foreach (EasyModelMetaData item in metaData.Properties.Where(m => m.ShowForEdit && !m.HideSurroundingHtml).OrderBy(m => m.Order))
+    {
+        <div class="form-group">
+            @Html.Label(item.PropertyName, item.DisplayName, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.Editor(item.PropertyName)
+                @Html.ValidationMessage(item.PropertyName)
+            </div>
+        </div>
+    }
+    <div class="hide">
+        @foreach (EasyModelMetaData item in metaData.Properties.Where(m => !m.ShowForEdit || m.HideSurroundingHtml))
+        {
+            if (item.ViewPortDescriptor.IsIgnore)
+            {
+                continue;
+            }
+            @Html.Editor(item.PropertyName, "Hidden")
+        }
+    </div>
+</div>

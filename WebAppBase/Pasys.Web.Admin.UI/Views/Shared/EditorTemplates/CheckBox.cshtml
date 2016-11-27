@@ -1,0 +1,8 @@
+﻿@using Pasys.Core.Web.Metadata
+@model bool?
+@{
+    var metaData = ViewData.ModelMetadata as EasyModelMetaData;
+
+
+}
+@Html.CheckBox("", Model ?? false, metaData.GetAttributes())

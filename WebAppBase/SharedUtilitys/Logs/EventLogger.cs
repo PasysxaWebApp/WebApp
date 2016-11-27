@@ -3,6 +3,13 @@ using PacificSystem.Utility;
 
 namespace Pasys.Core.Logs
 {
+    public class Logger
+    {
+        public static void Error(Exception ex)
+        { }
+        public static void Info(string info)
+        { }
+    }
     public class EventLogger
     {
         public static EventLogger GetInstance()

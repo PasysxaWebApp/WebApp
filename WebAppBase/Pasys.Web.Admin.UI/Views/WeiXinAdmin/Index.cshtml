@@ -1,4 +1,4 @@
-﻿@model Pasys.Web.WeiXin.ApplicationResponseMessageText
+﻿@model Pasys.Web.Admin.UI.Models.RoleViewModel
 @{
     ViewBag.Title = "Index";
 
@@ -7,6 +7,11 @@
 
 <h2>Index</h2>
 <div>
-    @Html.EditorForModel()
-</div>
+    @using (Html.BeginForm())
+    {
+        @Html.EditorForModel()
 
+        <input type="submit" formmethod="post" formaction="CreateNew" value="保存" class="btn btn-primary" />
+        <input type="submit"   value="删除" class="btn btn-danger" />
+    }
+</div>

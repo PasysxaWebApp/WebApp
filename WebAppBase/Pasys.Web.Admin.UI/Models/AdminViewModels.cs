@@ -1,10 +1,12 @@
-﻿using Pasys.Web.Identity.Models;
+﻿using Pasys.Core.MetaData;
+using Pasys.Web.Identity.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace Pasys.Web.Admin.UI.Models
 {
+    [DataConfigure(typeof(RoleViewModelMeterData))]
     public class RoleViewModel
     {
         public string Id { get; set; }
@@ -15,6 +17,20 @@ namespace Pasys.Web.Admin.UI.Models
         [Display(Name = "角色描述")]
         public string Description { get; set; }
     }
+
+    class RoleViewModelMeterData : DataViewMetaData<RoleViewModel>
+    {
+
+        protected override void DataConfigure()
+        {
+        }
+
+        protected override void ViewConfigure()
+        {
+        }
+    }
+
+       
 
     public class UserEditViewModel
     {

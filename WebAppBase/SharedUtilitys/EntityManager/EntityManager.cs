@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Pasys.Web.Core.EntityManager
 {
-    public interface IEntity<TKey> {
+    public interface IEntity<TKey> : Pasys.Core.IOC.IEntity
+    {
         string EntityName { get; }
     }
 
