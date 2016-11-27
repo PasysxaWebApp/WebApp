@@ -264,9 +264,9 @@
       <Project>{2fb3c6a7-89bb-4048-a0aa-e7e1e3b01b93}</Project>
       <Name>Pasys.Web.Identity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SharedUtilitys\SharedUtilitys.csproj">
+    <ProjectReference Include="..\SharedUtilitys\Pasys.Core.csproj">
       <Project>{beb81503-77c0-4308-b197-0b2a52220d16}</Project>
-      <Name>SharedUtilitys</Name>
+      <Name>Pasys.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

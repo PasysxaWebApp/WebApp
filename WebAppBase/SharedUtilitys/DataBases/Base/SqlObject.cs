@@ -1,9 +1,9 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
-using SharedUtilitys.DataBases.Configs;
+using Pasys.Core.DataBases.Configs;
 
-namespace SharedUtilitys.DataBases.Base
+namespace Pasys.Core.DataBases.Base
 {
     public class SqlObject
     {

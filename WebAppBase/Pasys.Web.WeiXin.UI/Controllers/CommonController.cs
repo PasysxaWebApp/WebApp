@@ -1,7 +1,7 @@
 ﻿using Pasys.Web.Core;
 using Pasys.Web.WeiXin.UI.Models;
 using Pasys.Web.WeiXin.UI.Utility;
-using SharedUtilitys.Helper;
+using Pasys.Core.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;

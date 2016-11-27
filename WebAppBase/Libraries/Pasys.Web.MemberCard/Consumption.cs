@@ -1,7 +1,7 @@
 ﻿using Pasys.Web.Core.EntityManager;
-using SharedUtilitys.DataBases;
-using SharedUtilitys.DataBases.Converters;
-using SharedUtilitys.DataBases.Base;
+using Pasys.Core.DataBases;
+using Pasys.Core.DataBases.Converters;
+using Pasys.Core.DataBases.Base;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

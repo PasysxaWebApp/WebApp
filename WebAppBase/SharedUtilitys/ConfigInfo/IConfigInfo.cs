@@ -1,4 +1,4 @@
-﻿using SharedUtilitys.Helper;
+﻿using Pasys.Core.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedUtilitys.ConfigInfo
+namespace Pasys.Core.ConfigInfo
 {
     public interface IConfigInfo
     {

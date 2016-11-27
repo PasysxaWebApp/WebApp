@@ -6,7 +6,7 @@ using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using System.Xml.Serialization;
 
-namespace SharedUtilitys.Helper
+namespace Pasys.Core.Helper
 {
     /// <summary>
     /// IO帮助类

@@ -2,7 +2,7 @@
 using System.Data;
 using PacificSystem.Utility;
 using System;
-namespace SharedUtilitys.DataBases.Converters
+namespace Pasys.Core.DataBases.Converters
 {
     public static class DataReaderConverter
     {

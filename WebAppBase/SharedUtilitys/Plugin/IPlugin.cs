@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedUtilitys.Plugin
+namespace Pasys.Core.Plugin
 {
     public interface IPlugin
     {

@@ -60,7 +60,7 @@ namespace Pasys.Web.Core
         {
             var body = new StringBuilder(configBody);
             body.Replace("{mallname}", globalConfig.SiteTitle);
-            body.Replace("{regtime}", SharedUtilitys.Helper.CommonHelper.GetDateTime());
+            body.Replace("{regtime}", Pasys.Core.Helper.CommonHelper.GetDateTime());
             return body;
         }
 

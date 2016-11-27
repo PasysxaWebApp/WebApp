@@ -1,8 +1,8 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
-using SharedUtilitys.DataBases.Base;
+using Pasys.Core.DataBases.Base;
 
-namespace SharedUtilitys.DataBases.Converters.Extractors
+namespace Pasys.Core.DataBases.Converters.Extractors
 {
     public class MySqlExtractor
     {

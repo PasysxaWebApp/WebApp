@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using SharedUtilitys.DataBases.Base;
+using Pasys.Core.DataBases.Base;
 
-namespace SharedUtilitys.DataBases.Converters.Extractors
+namespace Pasys.Core.DataBases.Converters.Extractors
 {
     public static class SqlServerExtractor
     {

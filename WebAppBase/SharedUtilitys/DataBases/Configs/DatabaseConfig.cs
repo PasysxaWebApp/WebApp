@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace SharedUtilitys.DataBases.Configs
+namespace Pasys.Core.DataBases.Configs
 {
     public static class DatabaseConfig
     {

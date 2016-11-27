@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using SharedUtilitys.DataBases.Base;
-using SharedUtilitys.DataBases.Configs;
-using SharedUtilitys.DataBases.Converters;
+using Pasys.Core.DataBases.Base;
+using Pasys.Core.DataBases.Configs;
+using Pasys.Core.DataBases.Converters;
 
-namespace SharedUtilitys.DataBases
+namespace Pasys.Core.DataBases
 {
     public class DbUtility : IDisposable
     {

@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Windows.Forms;
 
-namespace SharedUtilitys.Exceptions
+namespace Pasys.Core.Exceptions
 {
     public class ExceptionManager
     {

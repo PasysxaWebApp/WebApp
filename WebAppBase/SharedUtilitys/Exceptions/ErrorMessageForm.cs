@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace SharedUtilitys.Exceptions
+namespace Pasys.Core.Exceptions
 {
     public partial class ErrorMessageForm : Form
     {

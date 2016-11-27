@@ -70,9 +70,9 @@
     <Compile Include="WorkController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharedUtilitys\SharedUtilitys.csproj">
+    <ProjectReference Include="..\SharedUtilitys\Pasys.Core.csproj">
       <Project>{beb81503-77c0-4308-b197-0b2a52220d16}</Project>
-      <Name>SharedUtilitys</Name>
+      <Name>Pasys.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

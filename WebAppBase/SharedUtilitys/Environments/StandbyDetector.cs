@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
-namespace SharedUtilitys.Environments
+namespace Pasys.Core.Environments
 {
     public static class StandbyDetector
     {

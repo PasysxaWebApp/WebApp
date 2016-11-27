@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharedUtilitys.Attributes
+namespace Pasys.Core.Attributes
 {
     [AttributeUsageAttribute(AttributeTargets.Property)]
     public class AutoPropertyAttribute : Attribute

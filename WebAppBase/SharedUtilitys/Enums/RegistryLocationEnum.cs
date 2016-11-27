@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SharedUtilitys.Enums
+namespace Pasys.Core.Enums
 {
     public enum RegistryLocationEnum
     {

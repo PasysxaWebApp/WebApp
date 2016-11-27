@@ -4,7 +4,7 @@ using System.Text;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
-namespace SharedUtilitys.Helper
+namespace Pasys.Core.Helper
 {
     /// <summary>
     /// 安装帮助类

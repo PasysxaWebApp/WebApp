@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ServiceProcess;
 
-namespace SharedUtilitys.WindowsServices
+namespace Pasys.Core.WindowsServices
 {
 	public class ServiceController
 	{

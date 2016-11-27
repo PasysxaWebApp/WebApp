@@ -1,9 +1,9 @@
 ﻿using System.Data;
-using SharedUtilitys.DataBases.Base;
-using SharedUtilitys.DataBases.Configs;
-using SharedUtilitys.DataBases.Converters.Extractors;
+using Pasys.Core.DataBases.Base;
+using Pasys.Core.DataBases.Configs;
+using Pasys.Core.DataBases.Converters.Extractors;
 
-namespace SharedUtilitys.DataBases.Converters
+namespace Pasys.Core.DataBases.Converters
 {
     public static class DbParamConverter
     {

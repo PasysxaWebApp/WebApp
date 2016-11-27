@@ -1,4 +1,4 @@
-﻿using SharedUtilitys.Models;
+﻿using Pasys.Core.Models;
 using System.Collections;
 
 namespace Pasys.Web.Admin.UI.Models.Base

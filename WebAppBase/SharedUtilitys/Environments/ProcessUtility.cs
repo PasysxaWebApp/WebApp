@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace SharedUtilitys.Environments
+namespace Pasys.Core.Environments
 {
     public class ProcessUtility
     {

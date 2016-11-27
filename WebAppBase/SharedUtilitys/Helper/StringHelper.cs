@@ -4,7 +4,7 @@ using System.Collections;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace SharedUtilitys.Helper
+namespace Pasys.Core.Helper
 {
     /// <summary>
     /// 字符串帮助类

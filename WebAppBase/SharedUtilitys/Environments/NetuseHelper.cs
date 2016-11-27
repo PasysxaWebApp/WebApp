@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace SharedUtilitys.Environments
+namespace Pasys.Core.Environments
 {
     public class NetuseHelper
     {

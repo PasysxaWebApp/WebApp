@@ -1,4 +1,4 @@
-﻿namespace SharedUtilitys.Exceptions
+﻿namespace Pasys.Core.Exceptions
 {
     partial class ErrorMessageForm
     {

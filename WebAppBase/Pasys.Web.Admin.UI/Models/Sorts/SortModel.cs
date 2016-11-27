@@ -1,4 +1,4 @@
-﻿using SharedUtilitys.Models;
+﻿using Pasys.Core.Models;
 
 namespace Pasys.Web.Admin.UI.Models.Sorts
 {

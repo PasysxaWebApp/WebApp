@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Reflection;
 using PacificSystem.Utility;
-using SharedUtilitys.Attributes;
+using Pasys.Core.Attributes;
 
-namespace SharedUtilitys.Models
+namespace Pasys.Core.Models
 {
     [Serializable]
     public abstract class BaseModel

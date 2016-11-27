@@ -8,8 +8,8 @@
     <ProjectGuid>{BEB81503-77C0-4308-B197-0B2A52220D16}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SharedUtilitys</RootNamespace>
-    <AssemblyName>SharedUtilitys</AssemblyName>
+    <RootNamespace>Pasys.Core</RootNamespace>
+    <AssemblyName>Pasys.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>

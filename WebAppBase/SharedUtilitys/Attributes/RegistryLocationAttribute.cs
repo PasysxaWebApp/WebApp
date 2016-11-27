@@ -1,7 +1,7 @@
 ﻿using System;
-using SharedUtilitys.Enums;
+using Pasys.Core.Enums;
 
-namespace SharedUtilitys.Attributes
+namespace Pasys.Core.Attributes
 {
     [AttributeUsageAttribute(AttributeTargets.Class)]
     public class RegistryLocationAttribute : Attribute

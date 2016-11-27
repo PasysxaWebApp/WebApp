@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedUtilitys.Strategy
+namespace Pasys.Core.Strategy
 {
     public interface IStrategy
     {

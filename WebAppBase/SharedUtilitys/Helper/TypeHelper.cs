@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharedUtilitys.Helper
+namespace Pasys.Core.Helper
 {
     /// <summary>
     /// 类型帮助类

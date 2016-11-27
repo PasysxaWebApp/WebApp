@@ -45,8 +45,8 @@ namespace Pasys.Web.Admin.UI.Controllers
         {
             //var at = "OrganizationAdmin";            
             //var menus=RoleManager.GetMenusByRoleName(at);
-            var aes= SharedUtilitys.Helper.SecureHelper.GetWequence(64);
-            var sha1 = SharedUtilitys.Helper.SecureHelper.GetWequence(128);
+            var aes= Pasys.Core.Helper.SecureHelper.GetWequence(64);
+            var sha1 = Pasys.Core.Helper.SecureHelper.GetWequence(128);
             ViewBag.AES = aes;
             ViewBag.SHA1 = sha1;
            

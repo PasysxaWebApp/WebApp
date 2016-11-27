@@ -47,9 +47,9 @@
       <Project>{3f905868-f488-467f-b212-4e7a17a71881}</Project>
       <Name>Pasys.Web.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SharedUtilitys\SharedUtilitys.csproj">
+    <ProjectReference Include="..\..\SharedUtilitys\Pasys.Core.csproj">
       <Project>{beb81503-77c0-4308-b197-0b2a52220d16}</Project>
-      <Name>SharedUtilitys</Name>
+      <Name>Pasys.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

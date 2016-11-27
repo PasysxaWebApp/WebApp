@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharedUtilitys.DataBases.Base
+namespace Pasys.Core.DataBases.Base
 {
     public class SqlParamWrapper
     {

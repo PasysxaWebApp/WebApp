@@ -2,10 +2,10 @@
 using System.Reflection;
 using Microsoft.Win32;
 using PacificSystem.Utility;
-using SharedUtilitys.Attributes;
-using SharedUtilitys.Enums;
+using Pasys.Core.Attributes;
+using Pasys.Core.Enums;
 
-namespace SharedUtilitys.Models
+namespace Pasys.Core.Models
 {
     public class BaseRegistryModel
     {

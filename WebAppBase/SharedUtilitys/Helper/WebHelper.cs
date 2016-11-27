@@ -10,7 +10,7 @@ using System.IO.Compression;
 using System.Text.RegularExpressions;
 using System.Collections.Specialized;
 
-namespace SharedUtilitys.Helper
+namespace Pasys.Core.Helper
 {
     /// <summary>
     /// Web帮助类

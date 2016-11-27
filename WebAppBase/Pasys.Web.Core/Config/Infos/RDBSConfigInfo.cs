@@ -1,4 +1,4 @@
-﻿using SharedUtilitys.ConfigInfo;
+﻿using Pasys.Core.ConfigInfo;
 using System;
 using System.Collections.Generic;
 

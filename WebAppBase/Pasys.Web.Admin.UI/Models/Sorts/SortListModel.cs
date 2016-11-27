@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using SharedUtilitys.DataBases;
+using Pasys.Core.DataBases;
 using Pasys.Web.Admin.UI.Models.Base;
 using PacificSystem.Utility;
 

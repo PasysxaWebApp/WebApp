@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SharedUtilitys.Enums
+namespace Pasys.Core.Enums
 {
     public static class EnumUtil<T>
     {

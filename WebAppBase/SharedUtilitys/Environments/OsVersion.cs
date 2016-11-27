@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace SharedUtilitys.Environments
+namespace Pasys.Core.Environments
 {
     public static class OsVersion
     {

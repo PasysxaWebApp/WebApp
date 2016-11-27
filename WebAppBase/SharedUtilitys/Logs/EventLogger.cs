@@ -1,7 +1,7 @@
 ﻿using System;
 using PacificSystem.Utility;
 
-namespace SharedUtilitys.Logs
+namespace Pasys.Core.Logs
 {
     public class EventLogger
     {

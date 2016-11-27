@@ -1,10 +1,10 @@
-﻿using SharedUtilitys.ConfigInfo;
-using SharedUtilitys.Helper;
+﻿using Pasys.Core.ConfigInfo;
+using Pasys.Core.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace SharedUtilitys.Plugin
+namespace Pasys.Core.Plugin
 {
     public class PluginManifest : IConfigInfo
     {

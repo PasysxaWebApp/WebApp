@@ -1,4 +1,4 @@
-﻿using SharedUtilitys.Strategy;
+﻿using Pasys.Core.Strategy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace Pasys.Web.Core
 
         static StrategyManager()
         {
-            var loader = new SharedUtilitys.Strategy.StrategyLoader();
+            var loader = new Pasys.Core.Strategy.StrategyLoader();
             _strategymanifest = loader.GetStrategyManifest();
         }
 

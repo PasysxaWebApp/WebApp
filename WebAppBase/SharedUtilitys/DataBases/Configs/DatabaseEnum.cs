@@ -1,4 +1,4 @@
-﻿namespace SharedUtilitys.DataBases.Configs
+﻿namespace Pasys.Core.DataBases.Configs
 {
     public enum DatabaseEnum
     {
