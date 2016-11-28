@@ -18,7 +18,15 @@ namespace Pasys.Core.Data.DataBase
     /// </summary>
     public abstract class DataBasic : IDependency
     {
+        public const string DataBaseAppSetingKey = "DataBase";
+        public const string ConnectionKey = "Easy";
 
+        public abstract IEnumerable<string> DataBaseTypeNames();
+
+        public virtual T Get<T>(params object[] primaryKeys) where T : class
+        {
+            return default(T);
+        }
 
     }
 }
