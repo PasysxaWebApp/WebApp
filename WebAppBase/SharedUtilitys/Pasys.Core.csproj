@@ -97,6 +97,7 @@
     <Compile Include="Data\Pagination.cs" />
     <Compile Include="Data\PropertyDataInfo.cs" />
     <Compile Include="EntityManager\BaseEntityStore.cs" />
+    <Compile Include="EntityManager\DefaultDbContext.cs" />
     <Compile Include="EntityManager\EntityManager.cs" />
     <Compile Include="EntityManager\EntityManagerExtensions.cs" />
     <Compile Include="EntityManager\EntityStore.cs" />

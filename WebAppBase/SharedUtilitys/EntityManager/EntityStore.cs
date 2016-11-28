@@ -94,6 +94,64 @@ namespace Pasys.Web.Core.EntityManager
             _entityStore.Delete(entity);
             await Context.SaveChangesAsync().WithCurrentCulture();
         }
+        public virtual async Task DeleteByIdAsync(TKey id)
+        {
+            ThrowIfDisposed();
+            if (id == null)
+            {
+                throw new ArgumentNullException("id");
+            }
+            _entityStore.DeleteById(id);
+            await Context.SaveChangesAsync().WithCurrentCulture();
+        }
+
+        public virtual bool DeleteByEntities(List<TEntity> entities)
+        {
+            ThrowIfDisposed();
+            if (entities == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            var tran = Context.Database.BeginTransaction();
+            try
+            {
+                _entityStore.Delete(entities);
+                Context.SaveChanges();
+                tran.Commit();
+                return true;
+            }
+            catch (Exception)
+            {
+                tran.Rollback();
+                return false;
+            }
+        }
+
+        public virtual bool DeleteByIds(IEnumerable<TKey> ids)
+        {
+            ThrowIfDisposed();
+            if (ids == null)
+            {
+                throw new ArgumentNullException("ids");
+            }
+            var tran = Context.Database.BeginTransaction();
+            try
+            {
+                foreach (var id in ids)
+                {
+                    _entityStore.DeleteById(id);
+                }
+                Context.SaveChanges();
+                tran.Commit();
+                return true;
+            }
+            catch (Exception)
+            {
+                tran.Rollback();
+                return false;
+            }
+        }
+
 
         /// <summary>
         ///     Update an entity

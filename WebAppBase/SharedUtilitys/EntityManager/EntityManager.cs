@@ -10,12 +10,15 @@ namespace Pasys.Web.Core.EntityManager
     {
         string EntityName { get; }
     }
-
+    
     public interface IEntityStore<TEntity, TKey>:IDisposable
     {
         Task CreateAsync (TEntity entity);
         Task UpdateAsync(TEntity entity);
+        Task DeleteByIdAsync(TKey id);
         Task DeleteAsync(TEntity entity);
+        bool DeleteByEntities(List<TEntity> entities);
+        bool DeleteByIds(IEnumerable<TKey> ids);
         Task<TEntity> FindByIdAsync(TKey key);
         Task<TEntity> FindByNameAsync(string key);
     }
@@ -42,7 +45,7 @@ namespace Pasys.Web.Core.EntityManager
     }
 
 
-    public abstract  class EntityManagerBase<TEntity,TKey>:IDisposable        
+    public abstract class EntityManagerBase<TEntity, TKey> : IDisposable       
         where TEntity : class, IEntity<TKey>        
         where TKey : IEquatable<TKey>
     {
@@ -163,6 +166,50 @@ namespace Pasys.Web.Core.EntityManager
 
             await Store.DeleteAsync(entity).WithCurrentCulture();
             return ValidatorResult.Success;
+        }
+        public virtual async Task<ValidatorResult> DeleteByIdAsync(TKey id)
+        {
+            ThrowIfDisposed();
+            if (id == null)
+            {
+                throw new ArgumentNullException("id");
+            }
+
+            await Store.DeleteByIdAsync(id).WithCurrentCulture();
+            return ValidatorResult.Success;
+        }
+
+        //public virtual async Task<ValidatorResult> DeleteAsync(TEntity entity)
+        //{
+        //    ThrowIfDisposed();
+        //    if (entity == null)
+        //    {
+        //        throw new ArgumentNullException("entity");
+        //    }
+
+        //    await Store.DeleteAsync (entity).WithCurrentCulture();
+        //    return ValidatorResult.Success;
+        //}
+
+        public bool DeleteByEntities(List<TEntity> entities)
+        {
+            ThrowIfDisposed();
+            if (entities == null)
+            {
+                throw new ArgumentNullException("entities");
+            }
+
+            return Store.DeleteByEntities(entities);
+        }
+        public bool DeleteByIds(IEnumerable<TKey> ids)
+        {
+            ThrowIfDisposed();
+            if (ids == null)
+            {
+                throw new ArgumentNullException("ids");
+            }
+
+            return Store.DeleteByIds(ids);
         }
 
         /// <summary>

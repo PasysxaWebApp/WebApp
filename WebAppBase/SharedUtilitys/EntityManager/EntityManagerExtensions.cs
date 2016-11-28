@@ -79,6 +79,17 @@ namespace Pasys.Web.Core.EntityManager
             }
             return AsyncHelper.RunSync(() => manager.DeleteAsync(entity));
         }
+        public static ValidatorResult DeleteById<TEntity, TKey>(this EntityManagerBase<TEntity, TKey> manager, TKey id)
+            where TKey : IEquatable<TKey>
+            where TEntity : class, IEntity<TKey>
+        {
+            if (manager == null)
+            {
+                throw new ArgumentNullException("manager");
+            }
+            return AsyncHelper.RunSync(() => manager.DeleteByIdAsync(id));
+        }
+
         /// <summary>
         ///     Find a entity by name
         /// </summary>

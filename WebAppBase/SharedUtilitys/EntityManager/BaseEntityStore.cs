@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation, Inc. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -67,6 +68,24 @@ namespace Pasys.Web.Core.EntityManager
         public void Delete(TEntity entity)
         {
             DbEntitySet.Remove(entity);
+        }
+
+        public void DeleteById(object id)
+        {
+            var et = DbEntitySet.Find(id);
+            if (et != null)
+            {
+                DbEntitySet.Remove(et);
+            }
+        }
+
+
+        public void Delete(List<TEntity> entities)
+        {
+            foreach (var et in entities)
+            {
+                DbEntitySet.Remove(et);
+            }            
         }
 
         /// <summary>

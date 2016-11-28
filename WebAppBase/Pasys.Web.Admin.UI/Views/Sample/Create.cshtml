@@ -1,0 +1,19 @@
+﻿@model Pasys.Web.MemberCard.MemberCard
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{ 
+
+    <div>@Html.TextBoxFor(m => m.CardNo, new { @Value="99999999"})</div>
+    <div>@Html.TextBoxFor(m => m.OrganizationId, new { @Value = "DebugOrganizationID" })</div>
+    <div>@Html.TextBoxFor(m => m.Status, new { @Value = "0" })</div>
+    <div>@Html.TextBoxFor(m => m.Balance, new { @Value = "0" })</div>
+    <div>@Html.TextBoxFor(m => m.CashSum, new { @Value = "0" })</div>
+
+    <input type="submit" value="submit" />
+}
+

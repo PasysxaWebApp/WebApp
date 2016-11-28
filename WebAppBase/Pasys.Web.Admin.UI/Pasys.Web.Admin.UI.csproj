@@ -166,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfig\LocalConfigInfo.cs" />
+    <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Controllers\WeiXinAdminController.cs" />
     <Compile Include="Controllers\WeiXinController.cs" />
     <Compile Include="MessageHandler\MessageContext.cs" />
@@ -587,6 +588,9 @@
     <Content Include="Views\Shared\EditorTemplates\Object.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\TextArea.cshtml" />
+    <Content Include="Views\Sample\Index.cshtml" />
+    <Content Include="Views\Sample\Create.cshtml" />
+    <Content Include="Views\Sample\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\PriceAdjust\" />

@@ -1,0 +1,17 @@
+﻿@model Pasys.Web.MemberCard.MemberCard
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+@using (Html.BeginForm())
+{
+    <div>@Html.HiddenFor(m => m.MemberCardId, new { })</div>
+    <div>@Html.TextBoxFor(m => m.CardNo, new {  })</div>
+    <div>@Html.TextBoxFor(m => m.OrganizationId, new { })</div>
+    <div>@Html.TextBoxFor(m => m.Status, new {  })</div>
+    <div>@Html.TextBoxFor(m => m.Balance, new { })</div>
+    <div>@Html.TextBoxFor(m => m.CashSum, new {  })</div>
+    <input type="submit" value="submit" />
+}
+
