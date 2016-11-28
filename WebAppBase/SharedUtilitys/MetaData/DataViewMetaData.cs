@@ -107,6 +107,12 @@ namespace Pasys.Core.MetaData
             set;
         }
 
+        public Dictionary<string, PropertyDataInfo> PropertyDataConfig
+        {
+            get;
+            set;
+        }
+
         public Type TargetType
         {
             get;
@@ -130,6 +136,11 @@ namespace Pasys.Core.MetaData
         /// 视图配置 方法[ViewConfig]
         /// </summary>
         protected abstract void ViewConfigure();
+        public virtual DataFilter DataAccess(DataFilter filter)
+        {
+            return filter;
+        }
+
         /// <summary>
         /// 视图配置，界面显示
         /// </summary>
@@ -149,6 +160,40 @@ namespace Pasys.Core.MetaData
         {
             return new TagsHelper(properyt, ViewPortDescriptors, TargetType, TargetType.GetProperty(properyt));
         }
+        /// <summary>
+        /// 主键
+        /// </summary>
+        /// <summary>
+        ///  数据配置，与数据库对应
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        protected PropertyDataInfoHelper<T> DataConfig(Expression<Func<T, object>> expression)
+        {
+            string key = Reflection.LinqExpression.GetPropertyName(expression.Body);
+            return DataConfig(key);
+        }
+        /// <summary>
+        /// 数据配置，与数据库对应
+        /// </summary>
+        /// <param name="property">实体字段名称</param>
+        /// <returns></returns>
+        protected PropertyDataInfoHelper<T> DataConfig(string property)
+        {
+            PropertyDataInfo data;
+            if (PropertyDataConfig.ContainsKey(property))
+                data = PropertyDataConfig[property];
+            else
+            {
+                data = new PropertyDataInfo(property);
+                data.TableAlias = "T0";
+                data.ColumnName = property;
+                PropertyDataConfig.Add(property, data);
+            }
+            data.Ignore = false;
+            return new PropertyDataInfoHelper<T>(data, this);
+        }
+
         /// <summary>
         /// 将属于基类的字段全部设为DataConfig(item.Name).Ignore();
         /// </summary>

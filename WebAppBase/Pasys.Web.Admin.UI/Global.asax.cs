@@ -38,6 +38,31 @@ namespace Pasys.Web.Admin.UI
 
         private void CreateDb()
         {
+            /*             
+                drop table [dbo].[__MigrationHistory];
+                drop table [dbo].[account_m_rolefunctions];
+                drop table [dbo].[account_m_userroles];
+                drop table [dbo].[account_m_userclaims];
+                drop table [dbo].[account_m_userlogins];
+                drop table [dbo].[account_m_users];
+                drop table [dbo].[account_m_funtions];
+                drop table [dbo].[account_m_roles];
+                drop table [dbo].[account_m_organizations];
+
+                drop table [dbo].[mc_t_consumptions];
+                drop table [dbo].[mc_m_membercards];
+
+                drop table [dbo].[weixin_m_userbinds];
+                drop table [dbo].[weixin_m_userinfos];
+                drop table [dbo].[weixin_m_mpmenuinfos];
+                drop table [dbo].[weixin_m_mps];
+				drop table [dbo].[weixin_t_request_logs];
+				drop table [dbo].[weixin_t_response_articles];
+				drop table [dbo].[weixin_t_response_customerserviceaccounts];
+				drop table [dbo].[weixin_t_request_rules];
+				drop table [dbo].[weixin_t_responses];
+             
+             */
             AppIdentityDbContext.CreateForce();
             MemberCardDbContext.CreateForce();
             WeiXinDbContext.CreateForce();

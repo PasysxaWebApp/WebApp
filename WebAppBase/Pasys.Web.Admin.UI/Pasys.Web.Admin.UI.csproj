@@ -172,6 +172,7 @@
     <Compile Include="MessageHandler\MessageHandler.cs" />
     <Compile Include="MessageHandler\MessageHandler_Event.cs" />
     <Compile Include="MessageHandler\MessageHandler_Text.cs" />
+    <Compile Include="Models\SampleModel.cs" />
     <Compile Include="Utility\WebUtils.cs" />
     <Compile Include="AppCode\WorkContext.cs" />
     <Compile Include="AppCode\WorkController.cs" />

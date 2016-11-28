@@ -2,6 +2,7 @@
 using Pasys.Core.ViewPort.Descriptor;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -69,14 +70,23 @@ namespace Pasys.Core.MetaData
             if (!_isInitDisplayName) // && Localization.IsMultiLanReady())
             {
                 Dictionary<string, string> lan = MetaData.ViewPortDescriptors.ToDictionary(item => item.Key, item => item.Value.ModelType.Name + "@" + item.Key);
-                //lan = Localization.InitLan(lan);
                 foreach (var item in lan)
                 {
-                    if (string.IsNullOrWhiteSpace(MetaData.ViewPortDescriptors[item.Key].DisplayName))
+                    var property = this.MetaData.TargetType.GetProperty(item.Key);
+                    var displayAttributes = property.GetCustomAttributes(typeof(DisplayAttribute), true);
+                    foreach (DisplayAttribute attr in displayAttributes)
                     {
-                        MetaData.ViewPortDescriptors[item.Key].DisplayName = item.Value;
+                        MetaData.ViewPortDescriptors[item.Key].DisplayName = attr.Name;
                     }
                 }
+                //lan = Localization.InitLan(lan);
+                //foreach (var item in lan)
+                //{
+                //    if (string.IsNullOrWhiteSpace(MetaData.ViewPortDescriptors[item.Key].DisplayName))
+                //    {
+                //        MetaData.ViewPortDescriptors[item.Key].DisplayName = item.Value;
+                //    }
+                //}
             }
             _isInitDisplayName = true;
         }

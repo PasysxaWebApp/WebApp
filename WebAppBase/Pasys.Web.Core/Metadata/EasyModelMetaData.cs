@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Pasys.Core.Extend;
+using System.ComponentModel.DataAnnotations;
 
 namespace Pasys.Core.Web.Metadata
 {
@@ -18,13 +19,13 @@ namespace Pasys.Core.Web.Metadata
         {
             if (containerType != null)
             {
-                DataConfigureAttribute custAttribute = DataConfigureAttribute.GetAttribute(containerType);
-                if (custAttribute != null)
+                var dataConfigAttribute = DataConfigureAttribute.GetAttribute(containerType);
+                if (dataConfigAttribute != null)
                 {
-                    custAttribute.InitDisplayName();
-                    if (custAttribute.MetaData.ViewPortDescriptors.ContainsKey(propertyName))
+                    dataConfigAttribute.InitDisplayName();
+                    if (dataConfigAttribute.MetaData.ViewPortDescriptors.ContainsKey(propertyName))
                     {
-                        ViewPortDescriptor = custAttribute.MetaData.ViewPortDescriptors[propertyName];
+                        ViewPortDescriptor = dataConfigAttribute.MetaData.ViewPortDescriptors[propertyName];
                         DisplayFormatString = ViewPortDescriptor.ValueFormat;
 
                         if (!string.IsNullOrEmpty(ViewPortDescriptor.DisplayName))
@@ -44,9 +45,9 @@ namespace Pasys.Core.Web.Metadata
                         TemplateHint = ViewPortDescriptor.TemplateName;
                         HideSurroundingHtml = ViewPortDescriptor.IsHidden;
                     }
-                    //if (custAttribute.MetaData.PropertyDataConfig.ContainsKey(propertyName))
+                    //if (dataConfigAttribute.MetaData.PropertyDataConfig.ContainsKey(propertyName))
                     //{
-                    //    PropertyData = custAttribute.MetaData.PropertyDataConfig[propertyName];
+                    //    PropertyData = dataConfigAttribute.MetaData.PropertyDataConfig[propertyName];
                     //}
                 }
             }

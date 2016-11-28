@@ -9,14 +9,14 @@ namespace Pasys.Web.Admin.UI.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = new RoleViewModel();
+            var model = new SampleModel();
             return View(model);
         }
 
         [HttpPost]
         public ActionResult CreateNew()
         {
-            var model = new RoleViewModel();
+            var model = new SampleModel();
             return View("Index", model);
         }
 
