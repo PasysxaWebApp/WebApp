@@ -13,7 +13,7 @@ namespace Pasys.Web.Core.Controllers
     public interface IEditableController<TKey,TEntity,  TManager>
         where TKey : IEquatable<TKey>
         where TEntity : class, IEntity<TKey>
-        where TManager : EntityManagerBase<TEntity, TKey>
+        where TManager : IEntityManager<TEntity, TKey>
     {
         ActionResult Index();
         ActionResult Create();
@@ -34,7 +34,7 @@ namespace Pasys.Web.Core.Controllers
     public class EditableController<TKey,TEntity,  TManager> : System.Web.Mvc.Controller, IEditableController< TKey, TEntity,TManager>
         where TKey : IEquatable<TKey>
         where TEntity : class, IEntity<TKey>
-        where TManager : EntityManagerBase<TEntity, TKey>
+        where TManager : IEntityManager<TEntity, TKey>
     {
         /// <summary>
         /// 缩略图宽
@@ -105,6 +105,7 @@ namespace Pasys.Web.Core.Controllers
             }
             return View(entity);
         }
+        [HttpPost]
         public virtual JsonResult Delete(string ids)
         {
             try

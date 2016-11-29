@@ -10,10 +10,10 @@ namespace Pasys.Web.Core.EntityManager
     {
         string EntityName { get; }
     }
-    
-    public interface IEntityStore<TEntity, TKey>:IDisposable
+
+    public interface IEntityStore<TEntity, TKey> : IDisposable
     {
-        Task CreateAsync (TEntity entity);
+        Task CreateAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
         Task DeleteByIdAsync(TKey id);
         Task DeleteAsync(TEntity entity);
@@ -21,6 +21,23 @@ namespace Pasys.Web.Core.EntityManager
         bool DeleteByIds(IEnumerable<TKey> ids);
         Task<TEntity> FindByIdAsync(TKey key);
         Task<TEntity> FindByNameAsync(string key);
+    }
+
+    public interface IEntityManager<TEntity, TKey>
+        where TEntity : class, IEntity<TKey>
+        where TKey : IEquatable<TKey>
+    {
+        IQueryable<TEntity> Entities { get; }
+        Task<ValidatorResult> CreateAsync(TEntity entity);
+        Task<ValidatorResult> UpdateAsync(TEntity entity);
+        Task<ValidatorResult> DeleteAsync(TEntity entity);
+        Task<ValidatorResult> DeleteByIdAsync(TKey id);
+        bool DeleteByEntities(List<TEntity> entities);
+        bool DeleteByIds(IEnumerable<TKey> ids);
+        Task<TEntity> FindByIdAsync(TKey entityId);
+        Task<bool> EntityExistsAsync(string entityName);
+        Task<TEntity> FindByNameAsync(string entityName);
+
     }
 
     ///// <summary>
@@ -36,7 +53,7 @@ namespace Pasys.Web.Core.EntityManager
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public interface IQueryableIEntityStore<TEntity,TKey> : IEntityStore<TEntity, TKey> where TEntity : IEntity<TKey>
+    public interface IQueryableIEntityStore<TEntity, TKey> : IEntityStore<TEntity, TKey> where TEntity : IEntity<TKey>
     {
         /// <summary>
         ///     IQueryable Entities
@@ -45,8 +62,8 @@ namespace Pasys.Web.Core.EntityManager
     }
 
 
-    public abstract class EntityManagerBase<TEntity, TKey> : IDisposable       
-        where TEntity : class, IEntity<TKey>        
+    public abstract class EntityManagerBase<TEntity, TKey> :IEntityManager<TEntity, TKey>,  IDisposable
+        where TEntity : class, IEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         private bool _disposed;

@@ -17,7 +17,7 @@ namespace Pasys.Web.Core.EntityManager
         /// <param name="manager"></param>
         /// <param name="entityId"></param>
         /// <returns></returns>
-        public static TEntity FindById<TEntity, TKey>(this EntityManagerBase<TEntity, TKey> manager, TKey entityId)
+        public static TEntity FindById<TEntity, TKey>(this IEntityManager<TEntity, TKey> manager, TKey entityId)
             where TKey : IEquatable<TKey>
             where TEntity : class, IEntity<TKey>
         {
@@ -35,7 +35,7 @@ namespace Pasys.Web.Core.EntityManager
         /// <param name="manager"></param>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public static ValidatorResult Create<TEntity, TKey>(this EntityManagerBase<TEntity, TKey> manager, TEntity entity)
+        public static ValidatorResult Create<TEntity, TKey>(this IEntityManager<TEntity, TKey> manager, TEntity entity)
             where TKey : IEquatable<TKey>
             where TEntity : class, IEntity<TKey>
         {
@@ -52,7 +52,7 @@ namespace Pasys.Web.Core.EntityManager
         /// <param name="manager"></param>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public static ValidatorResult Update<TEntity, TKey>(this EntityManagerBase<TEntity, TKey> manager, TEntity entity)
+        public static ValidatorResult Update<TEntity, TKey>(this IEntityManager<TEntity, TKey> manager, TEntity entity)
             where TKey : IEquatable<TKey>
             where TEntity : class, IEntity<TKey>
         {
@@ -69,7 +69,7 @@ namespace Pasys.Web.Core.EntityManager
         /// <param name="manager"></param>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public static ValidatorResult Delete<TEntity, TKey>(this EntityManagerBase<TEntity, TKey> manager, TEntity entity)
+        public static ValidatorResult Delete<TEntity, TKey>(this IEntityManager<TEntity, TKey> manager, TEntity entity)
             where TKey : IEquatable<TKey>
             where TEntity : class, IEntity<TKey>
         {
@@ -79,7 +79,7 @@ namespace Pasys.Web.Core.EntityManager
             }
             return AsyncHelper.RunSync(() => manager.DeleteAsync(entity));
         }
-        public static ValidatorResult DeleteById<TEntity, TKey>(this EntityManagerBase<TEntity, TKey> manager, TKey id)
+        public static ValidatorResult DeleteById<TEntity, TKey>(this IEntityManager<TEntity, TKey> manager, TKey id)
             where TKey : IEquatable<TKey>
             where TEntity : class, IEntity<TKey>
         {
@@ -96,7 +96,7 @@ namespace Pasys.Web.Core.EntityManager
         /// <param name="manager"></param>
         /// <param name="entityName"></param>
         /// <returns></returns>
-        public static TEntity FindByName<TEntity, TKey>(this EntityManagerBase<TEntity, TKey> manager, string entityName)
+        public static TEntity FindByName<TEntity, TKey>(this IEntityManager<TEntity, TKey> manager, string entityName)
             where TKey : IEquatable<TKey>
             where TEntity : class, IEntity<TKey>
         {
@@ -113,7 +113,7 @@ namespace Pasys.Web.Core.EntityManager
         /// <param name="manager"></param>
         /// <param name="entityName"></param>
         /// <returns></returns>
-        public static bool EntityExists<TEntity, TKey>(this EntityManagerBase<TEntity, TKey> manager, string entityName)
+        public static bool EntityExists<TEntity, TKey>(this IEntityManager<TEntity, TKey> manager, string entityName)
             where TKey : IEquatable<TKey>
             where TEntity : class, IEntity<TKey>
         {
