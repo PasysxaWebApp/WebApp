@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Pasys.Web.Core.EntityManager;
+using Pasys.Core.EntityManager;
 using System.Data.Entity;
 using System.Globalization;
-using Pasys.Web.Core;
+using Pasys.Core;
 namespace Pasys.Web.MemberCard
 {
 

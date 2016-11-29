@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using Pasys.Web.Core.EntityManager;
+using Pasys.Core.EntityManager;
 
 namespace Pasys.Web.MemberCard
 {

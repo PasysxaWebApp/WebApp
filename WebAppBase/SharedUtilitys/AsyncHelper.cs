@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Pasys.Web.Core
+namespace Pasys.Core
 {
     public static class AsyncHelper
     {

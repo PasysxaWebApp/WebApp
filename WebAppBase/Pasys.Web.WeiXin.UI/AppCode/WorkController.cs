@@ -19,7 +19,7 @@ using Senparc.Weixin;
 using System.Security.Claims;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Pasys.Web.Identity.Models;
-using Pasys.Web.Core.EntityManager;
+using Pasys.Core.EntityManager;
 
 namespace Pasys.Web.WeiXin.UI
 {

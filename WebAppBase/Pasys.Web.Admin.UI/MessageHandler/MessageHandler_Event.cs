@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
-using Pasys.Web.Core.EntityManager;
+using Pasys.Core.EntityManager;
 using Pasys.Web.WeiXin;
 
 namespace Pasys.Web.Admin.UI.MessageHandler

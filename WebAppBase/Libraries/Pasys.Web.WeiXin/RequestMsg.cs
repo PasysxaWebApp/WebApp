@@ -1,4 +1,4 @@
-﻿using Pasys.Web.Core.EntityManager;
+﻿using Pasys.Core.EntityManager;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.Entities;
 using System;
@@ -7,8 +7,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Pasys.Web.Core.EntityManager;
-
 namespace Pasys.Web.WeiXin
 {
 

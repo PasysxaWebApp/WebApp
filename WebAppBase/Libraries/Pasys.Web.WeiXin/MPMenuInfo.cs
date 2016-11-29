@@ -1,4 +1,4 @@
-﻿using Pasys.Web.Core.EntityManager;
+﻿using Pasys.Core.EntityManager;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

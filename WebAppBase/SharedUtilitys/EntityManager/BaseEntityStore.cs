@@ -6,7 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pasys.Web.Core.EntityManager
+namespace Pasys.Core.EntityManager
 {
     /// <summary>
     ///     EntityFramework based IIdentityEntityStore that allows query/manipulation of a TEntity set

@@ -1,4 +1,4 @@
-﻿using Pasys.Web.Core.EntityManager;
+﻿using Pasys.Core.EntityManager;
 using Pasys.Core.DataBases;
 using Pasys.Core.DataBases.Converters;
 using Pasys.Core.DataBases.Base;

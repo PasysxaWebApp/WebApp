@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pasys.Web.Core.EntityManager
+namespace Pasys.Core.EntityManager
 {
 
     public class DefaultDbContext : DbContext

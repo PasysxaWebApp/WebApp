@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Pasys.Web.Core.EntityManager;
+using Pasys.Core.EntityManager;
 using Pasys.Core.ViewPort.Grid;
 using Pasys.Core.Models;
 
