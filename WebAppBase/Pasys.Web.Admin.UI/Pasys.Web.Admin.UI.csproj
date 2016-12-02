@@ -576,21 +576,16 @@
     <Content Include="Views\RoleMenus\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutDefault.cshtml" />
     <Content Include="Views\WeiXinAdmin\Index.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\CheckBox.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Decimal.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\DropDownList.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\FileInput.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Hidden.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Int32.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\ListEditor.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\ListEditorItem.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Object.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\TextArea.cshtml" />
     <Content Include="Views\Sample\Index.cshtml" />
     <Content Include="Views\Sample\Create.cshtml" />
     <Content Include="Views\Sample\Edit.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CheckBoxes.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DropdownList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Object.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\RadioButtons.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TextAreas.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TextBoxes.cshtml" />
+    <Content Include="Views\Sample\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\PriceAdjust\" />

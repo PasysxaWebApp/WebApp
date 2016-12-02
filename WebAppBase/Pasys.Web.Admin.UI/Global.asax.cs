@@ -20,7 +20,7 @@ namespace Pasys.Web.Admin.UI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            ModelMetadataProviders.Current = new Pasys.Core.Web.MetadataProvider.EasyModelMetaDataProvider();
+            //ModelMetadataProviders.Current = new Pasys.Core.Web.MetadataProvider.EasyModelMetaDataProvider();
 
             CreateDb();
 

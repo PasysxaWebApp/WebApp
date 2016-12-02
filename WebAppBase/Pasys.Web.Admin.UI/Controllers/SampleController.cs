@@ -15,6 +15,13 @@ namespace Pasys.Web.Admin.UI.Controllers
             : base(new MemberCard.MemberCardManager())
         { }
 
+        public ActionResult Test()
+        {
+            var model = new Pasys.Web.Admin.UI.Models.TestModel();
+            model.UserID = "3";
+            model.CanDoList = new List<string> { "1", "3" };
+            return View(model);
+        }
         // GET: Sample
         public override ActionResult Index()
         {

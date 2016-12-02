@@ -1,0 +1,31 @@
+﻿@using Pasys.Web.Core.Attributes;
+@model object
+
+@{
+    SelectList selectList = null;
+    var mataData = ViewData.ModelMetadata;
+    var p = mataData.ContainerType.GetProperty(mataData.PropertyName);
+    var dataSource = p.GetCustomAttributes(typeof(ICheckBoxDataSourceAttribute), true).FirstOrDefault() as ICheckBoxDataSourceAttribute;
+    if (dataSource != null)
+    {
+        selectList = dataSource.GetData(Model);
+    }
+
+}
+
+@if (selectList != null)
+{
+    foreach (SelectListItem item in selectList.Items)
+    {
+        var fieldId = ViewData.TemplateInfo.GetFullHtmlFieldId(item.Value);
+
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="@item.Value" name="@mataData.PropertyName" checked="@item.Selected">
+                @item.Text
+            </label>
+        </div>
+                    @*<input type="checkbox" id="@fieldId" name="@mataData.PropertyName" value="@item.Value" checked="@item.Selected" />
+                    @Html.Label(item.Text, new { @for = fieldId })*@
+        }
+}

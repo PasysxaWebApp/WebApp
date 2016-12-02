@@ -1,0 +1,15 @@
+﻿@using Pasys.Web.Core.Attributes;
+@model string
+
+@{
+    var placeholder = "";
+    var mataData = ViewData.ModelMetadata;
+    var p = mataData.ContainerType.GetProperty(mataData.PropertyName);
+    var dataSource = p.GetCustomAttributes(typeof(ITextBoxSourceAttribute), true).FirstOrDefault() as ITextBoxSourceAttribute;
+    if (dataSource != null)
+    {
+        placeholder = dataSource.PlaceHolder;
+    }
+
+}
+@Html.TextBox("", Model, new { @class = "form-control", placeholder = placeholder })

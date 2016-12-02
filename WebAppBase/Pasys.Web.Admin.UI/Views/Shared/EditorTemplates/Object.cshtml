@@ -1,26 +1,33 @@
 ﻿@{
-    var metaData = ViewData.ModelMetadata as EasyModelMetaData;
+    var metaData = ViewData.ModelMetadata;
 }
-@using Pasys.Core.Web.Metadata
-@model Object
+@using Pasys.Web.Core.Attributes;
+@model object
 <div class="form-horizontal">
-    @foreach (EasyModelMetaData item in metaData.Properties.Where(m => m.ShowForEdit && !m.HideSurroundingHtml).OrderBy(m => m.Order))
+    @foreach (ModelMetadata item in metaData.Properties.Where(m => m.ShowForEdit && !m.HideSurroundingHtml).OrderBy(m => m.Order))
     {
         <div class="form-group">
             @Html.Label(item.PropertyName, item.DisplayName, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
-                @Html.Editor(item.PropertyName)
+                @{
+                string templateName = "";
+                var p = item.ContainerType.GetProperty(item.PropertyName);
+                var dataSource = p.GetCustomAttributes(typeof(IDataSourceAttribute), true).FirstOrDefault() as IDataSourceAttribute;
+                if (dataSource != null)
+                {
+                    templateName = dataSource.TemplateName;
+                }                   
+                  
+                @Html.Editor(item.PropertyName, templateName)
+                
                 @Html.ValidationMessage(item.PropertyName)
+                }
             </div>
         </div>
     }
     <div class="hide">
-        @foreach (EasyModelMetaData item in metaData.Properties.Where(m => !m.ShowForEdit || m.HideSurroundingHtml))
+        @foreach (ModelMetadata item in metaData.Properties.Where(m => !m.ShowForEdit || m.HideSurroundingHtml))
         {
-            if (item.ViewPortDescriptor.IsIgnore)
-            {
-                continue;
-            }
             @Html.Editor(item.PropertyName, "Hidden")
         }
     </div>

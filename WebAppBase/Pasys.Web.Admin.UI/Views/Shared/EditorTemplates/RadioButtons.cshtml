@@ -1,0 +1,32 @@
+﻿@using Pasys.Web.Core.Attributes;
+@model object
+
+@{
+    SelectList selectList = null;
+    var mataData = ViewData.ModelMetadata;
+    var p = mataData.ContainerType.GetProperty(mataData.PropertyName);
+    var dataSource = p.GetCustomAttributes(typeof(IRadioButtonDataSourceAttribute), true).FirstOrDefault() as IRadioButtonDataSourceAttribute;
+    if (dataSource != null)
+    {
+        selectList = dataSource.GetData(Model);
+    }
+
+}
+
+@if (selectList != null)
+{
+    foreach (var item in selectList)
+    {
+        var fieldId = ViewData.TemplateInfo.GetFullHtmlFieldId(item.Value);
+
+        <div class="radio">
+            <label>
+                <input type="radio" name="@mataData.PropertyName" id="@fieldId" value="@item.Value" @(item.Selected ? "checked" : "")>
+                @item.Text
+            </label>
+        </div>
+
+        @*@Html.RadioButton("", item.Value, item.Selected, new { ID = fieldId, @class = "radio-inline" })
+            @Html.Label(item.Text, new { @for = fieldId })*@
+    }
+}

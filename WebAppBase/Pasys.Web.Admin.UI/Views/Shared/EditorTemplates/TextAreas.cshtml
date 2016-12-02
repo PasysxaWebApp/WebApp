@@ -1,0 +1,21 @@
+﻿@using Pasys.Web.Core.Attributes;
+@model string
+
+@{
+    var attrs = new Dictionary<string, object>();
+    var mataData = ViewData.ModelMetadata;
+    var p = mataData.ContainerType.GetProperty(mataData.PropertyName);
+    var dataSource = p.GetCustomAttributes(typeof(ITextAreaSourceAttribute), true).FirstOrDefault() as ITextAreaSourceAttribute;
+    if (dataSource != null)
+    {
+        attrs = dataSource.GetAttributes();
+        if (!attrs.ContainsKey("rows"))
+        {
+            attrs.Add("rows", 5);
+        }
+
+        attrs.Add("class","form-control");
+    }
+
+}
+@Html.TextArea("", Model, attrs)

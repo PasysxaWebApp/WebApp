@@ -1,0 +1,14 @@
+﻿@model Pasys.Web.Admin.UI.Models.TestModel
+
+@{
+    ViewBag.Title = "Test";
+}
+
+<h2>Test</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.EditorForModel();
+
+    <input type="submit" value="submit" />
+}
