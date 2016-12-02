@@ -16,6 +16,7 @@ namespace Pasys.Web.Admin.UI.Models
 
     public class TestModel 
     {
+        [HiddenInput(DisplayValue=false)]
         [DisplayName("ユーザー")]
         [ViewDataSource]
         public string UserID { get; set; }
@@ -44,6 +45,9 @@ namespace Pasys.Web.Admin.UI.Models
         public List<string> CanDoList { get; set; }
         [TextAreaDataSource]
         public string MultiText { get; set; }
+
+        [System.ComponentModel.DataAnnotations.ScaffoldColumn(false)]
+        public DateTime LastUpdateTime { get; set; }
     }
 
 
