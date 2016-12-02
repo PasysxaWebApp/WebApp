@@ -11,8 +11,21 @@ namespace Pasys.Web.Core.Attributes
     public interface IDataSourceAttribute
     {
         string TemplateName { get; }
+
         Dictionary<string, object> GetAttributes();
+        void AddAttribute(string attributeName, string attributeValue);
+        void RemoveAttribute(string attributeName);
+
+        List<string> GetClass();
+        void AddClass(string name);
+        void RemoveClass(string name);
+
+
+        Dictionary<string, object> GetStyles();
+        void AddStyle(string properyt, string value);
+        void RemoveStyle(string properyt);
     }
+
     public interface IDropDownDataSourceAttribute : IDataSourceAttribute
     {
         SelectList GetData(object selectedValue);
@@ -48,14 +61,29 @@ namespace Pasys.Web.Core.Attributes
                 return "DropdownList";
             }
         }
+        public virtual SelectList GetData(object selectedValue)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual Dictionary<string, object> GetAttributes()
         {
             return new Dictionary<string, object>();
         }
-        public virtual SelectList GetData(object selectedValue)
-        {
-            throw new NotImplementedException();
-        }        
+        Dictionary<string, object> GetAttributes();
+        void AddAttribute(string attributeName, string attributeValue);
+        void RemoveAttribute(string attributeName);
+
+        List<string> GetClass();
+        void AddClass(string name);
+        void RemoveClass(string name);
+
+
+        Dictionary<string, object> GetStyles();
+        void AddStyle(string properyt, string value);
+        void RemoveStyle(string properyt);
+
+
     }
 
     public abstract class RadioButtonDataSourceAttributeBase : Attribute, IRadioButtonDataSourceAttribute
