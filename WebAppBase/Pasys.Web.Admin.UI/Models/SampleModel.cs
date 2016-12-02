@@ -16,7 +16,7 @@ namespace Pasys.Web.Admin.UI.Models
 
     public class TestModel 
     {
-        //[DisplayName("ユーザー")]
+        [DisplayName("ユーザー")]
         [ViewDataSource]
         public string UserID { get; set; }
 
@@ -24,11 +24,14 @@ namespace Pasys.Web.Admin.UI.Models
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "PlaceholderUserName")]
         public string UserName { get; set; }
 
+        [DisplayName("ユーザーカナ")]
+        public string UserKana { get; set; }
+
         [DisplayName("クラス")]
         [ClassDataSource]
         public int ClassIndex { get; set; }
 
-        //[DisplayName("削除タップ")]
+        [DisplayName("削除タップ")]
         [DeleteDataSource]
         public int? DelFlag { get; set; }
 

@@ -1,5 +1,5 @@
 ﻿@using Pasys.Web.Core.Attributes;
-@model string
+@model object
 
 @{
     var placeholder = "";
@@ -10,6 +10,5 @@
     {
         placeholder = dataSource.PlaceHolder;
     }
-
 }
 @Html.TextBox("", Model, new { @class = "form-control", placeholder = placeholder })

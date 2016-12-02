@@ -11,6 +11,10 @@
             <div class="col-sm-10">
                 @{
                 string templateName = "";
+                if (item.ModelType == typeof(System.String) || item.ModelType.IsValueType)
+                {
+                    templateName = "TextBoxes";
+                }
                 var p = item.ContainerType.GetProperty(item.PropertyName);
                 var dataSource = p.GetCustomAttributes(typeof(IDataSourceAttribute), true).FirstOrDefault() as IDataSourceAttribute;
                 if (dataSource != null)
