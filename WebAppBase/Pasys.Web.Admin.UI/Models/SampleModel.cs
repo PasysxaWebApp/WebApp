@@ -128,24 +128,24 @@ namespace Pasys.Web.Admin.UI.Models
     }
 
 
-    class YesNoDataSourceAttribute : RadioButtonDataSourceAttributeBase
-    {
-        private string[] yesStrs = { "yes", "true", "1" };
-        public override SelectList GetData(object selectedValue)
-        {
-            List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem() { Value = "1", Text = "Yes" });
-            items.Add(new SelectListItem() { Value = "0", Text = "No" });
-            string s = string.Format("{0}", selectedValue).ToLower();
-            var sv = "0";
-            if (yesStrs.Contains(s))
-            {
-                sv = "1";
-            }
-            var lst = new SelectList(items, "Value", "Text", sv);
-            return lst;
-        }
-    }
+    //class YesNoDataSourceAttribute : RadioButtonDataSourceAttributeBase
+    //{
+    //    private string[] yesStrs = { "yes", "true", "1" };
+    //    public override SelectList GetData(object selectedValue)
+    //    {
+    //        List<SelectListItem> items = new List<SelectListItem>();
+    //        items.Add(new SelectListItem() { Value = "1", Text = "Yes" });
+    //        items.Add(new SelectListItem() { Value = "0", Text = "No" });
+    //        string s = string.Format("{0}", selectedValue).ToLower();
+    //        var sv = "0";
+    //        if (yesStrs.Contains(s))
+    //        {
+    //            sv = "1";
+    //        }
+    //        var lst = new SelectList(items, "Value", "Text", sv);
+    //        return lst;
+    //    }
+    //}
 
     class DeleteDataSourceAttribute : RadioButtonDataSourceAttributeBase
     {

@@ -5,7 +5,7 @@
     SelectList selectList = null;
     var mataData = ViewData.ModelMetadata;
     var p = mataData.ContainerType.GetProperty(mataData.PropertyName);
-    var dataSource = p.GetCustomAttributes(typeof(IRadioButtonDataSourceAttribute), true).FirstOrDefault() as IRadioButtonDataSourceAttribute;
+    var dataSource = p.GetCustomAttributes(typeof(RadioButtonDataSourceAttributeBase), true).FirstOrDefault() as RadioButtonDataSourceAttributeBase;
     if (dataSource != null)
     {
         selectList = dataSource.GetData(Model);

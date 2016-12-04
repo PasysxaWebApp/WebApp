@@ -5,7 +5,7 @@
     SelectList selectList = null;
     var mataData = ViewData.ModelMetadata;
     var p = mataData.ContainerType.GetProperty(mataData.PropertyName);
-    var dataSource = p.GetCustomAttributes(typeof(IDropDownDataSourceAttribute), true).FirstOrDefault() as IDropDownDataSourceAttribute;
+    var dataSource = p.GetCustomAttributes(typeof(DropDownDataSourceAttributeBase), true).FirstOrDefault() as DropDownDataSourceAttributeBase;
     if (dataSource != null)
     {
         selectList = dataSource.GetData(Model);

@@ -22,6 +22,13 @@ namespace Pasys.Web.Admin.UI.Controllers
             model.CanDoList = new List<string> { "1", "3" };
             return View(model);
         }
+        [HttpPost]
+        public ActionResult Test(Pasys.Web.Admin.UI.Models.TestModel model)
+        {
+            return View(model);
+        }
+
+
         // GET: Sample
         public override ActionResult Index()
         {

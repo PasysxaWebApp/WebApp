@@ -5,7 +5,7 @@
     var placeholder = "";
     var mataData = ViewData.ModelMetadata;
     var p = mataData.ContainerType.GetProperty(mataData.PropertyName);
-    var dataSource = p.GetCustomAttributes(typeof(ITextBoxSourceAttribute), true).FirstOrDefault() as ITextBoxSourceAttribute;
+    var dataSource = p.GetCustomAttributes(typeof(TextBoxDataSourceAttributeBase), true).FirstOrDefault() as TextBoxDataSourceAttributeBase;
     if (dataSource != null)
     {
         placeholder = dataSource.PlaceHolder;

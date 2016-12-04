@@ -5,7 +5,7 @@
     var attrs = new Dictionary<string, object>();
     var mataData = ViewData.ModelMetadata;
     var p = mataData.ContainerType.GetProperty(mataData.PropertyName);
-    var dataSource = p.GetCustomAttributes(typeof(ITextAreaSourceAttribute), true).FirstOrDefault() as ITextAreaSourceAttribute;
+    var dataSource = p.GetCustomAttributes(typeof(TextAreaDataSourceAttributeBase), true).FirstOrDefault() as TextAreaDataSourceAttributeBase;
     if (dataSource != null)
     {
         attrs = dataSource.GetAttributes();

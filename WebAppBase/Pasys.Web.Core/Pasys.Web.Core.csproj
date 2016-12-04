@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="AjaxState.cs" />
     <Compile Include="Attributes\HTMLDataSourceAttributes.cs" />
+    <Compile Include="Attributes\HTMLDefaultDataSourceAttributes.cs" />
     <Compile Include="Attributes\HTMLTextBoxDataSourceAttributes.cs" />
     <Compile Include="Attributes\RangeNotIncludeValidationAttribute.cs" />
     <Compile Include="Attributes\SubmitCommandAttribute.cs" />

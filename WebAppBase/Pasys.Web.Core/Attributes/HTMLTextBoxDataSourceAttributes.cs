@@ -3,67 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Pasys.Web.Core.Attributes
 {
-
-    public abstract class TextBoxSourceAttributeBase : Attribute, ITextBoxSourceAttribute
+    public class YesNoDataSourceAttribute : RadioButtonDataSourceAttributeBase
     {
-        public virtual string TemplateName
+        private string[] yesStrs = { "yes", "true", "1" };
+        private string _yesName, _noName;
+        public string YesName
         {
             get
             {
-                return "TextBoxes";
-            }
-        }
-        public virtual string PlaceHolder { get; set; }
-
-        public virtual Dictionary<string, object> GetAttributes()
-        {
-            return new Dictionary<string, object>();
-        }
-        public virtual string GetData(object textValue)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class TextBoxDataSourceAttribute : TextBoxSourceAttributeBase
-    {
-        private string _placeHolder;
-        public override string PlaceHolder
-        {
-            get
-            {
-                if (ResourceType == null)
-                {
-                    return _placeHolder;
-                }
-
-                var p = string.Format("{0}", System.Web.HttpContext.GetGlobalResourceObject(ResourceType.Name, _placeHolder));
-                return p;
+                return GetPropertyValue(_yesName);
             }
             set
             {
-                _placeHolder = value;
+                _yesName = value;
             }
-        }
-        public Type ResourceType { get; set; }
-        public TextBoxDataSourceAttribute()
-        {
 
         }
-
-        public override string GetData(object textValue)
+        public string NoName
         {
-            if (textValue != null)
+            get
             {
-                return textValue.ToString();
+                return GetPropertyValue(_noName);
             }
-            else
+            set
             {
-                return string.Empty;
+                _noName = value;
             }
+        }
+        public YesNoDataSourceAttribute()
+        {
+            YesName = "Yes";
+            NoName = "No";
+            this.ListItems.Add(new SelectListItem() { Value = "1", Text = "Yes" });
+            this.ListItems.Add(new SelectListItem() { Value = "0", Text = "No" });
+        }
+
+        public override SelectList GetData(object selectedValue)
+        {
+            string s = string.Format("{0}", selectedValue).ToLower();
+            var sv = "0";
+            if (yesStrs.Contains(s))
+            {
+                sv = "1";
+            }
+            var lst = new SelectList(ListItems, "Value", "Text", sv);
+            return lst;
         }
     }
+
 }
