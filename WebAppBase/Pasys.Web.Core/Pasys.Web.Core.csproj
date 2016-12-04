@@ -54,7 +54,7 @@
     <Compile Include="Attributes\HTMLTextBoxDataSourceAttributes.cs" />
     <Compile Include="Attributes\RangeNotIncludeValidationAttribute.cs" />
     <Compile Include="Attributes\SubmitCommandAttribute.cs" />
-    <Compile Include="Attributes\HTMLTextAreaDataSourceAttribute.cs" />
+    <Compile Include="Attributes\HTMLViewDataDataSourceAttribute.cs" />
     <Compile Include="Config\ConfigManager.cs" />
     <Compile Include="Config\Infos\GlobalConfigInfo.cs" />
     <Compile Include="Config\Infos\RDBSConfigInfo.cs" />

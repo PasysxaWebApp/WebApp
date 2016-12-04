@@ -11,6 +11,7 @@ namespace Pasys.Web.Core.Attributes
     public interface IDataSourceAttribute
     {
         string TemplateName { get; }
+        string ViewDataKey { get; }
 
         Dictionary<string, object> GetAttributes();
         void AddAttribute(string attributeName, string attributeValue);
@@ -24,16 +25,25 @@ namespace Pasys.Web.Core.Attributes
         Dictionary<string, object> GetStyles();
         void AddStyle(string properyt, string value);
         void RemoveStyle(string properyt);
+
+        void SetDataSourceFromViewData(object ViewData);
     }
 
     public abstract class DataSourceAttribute : Attribute, IDataSourceAttribute
     {
         public virtual string TemplateName { get; set; }
+        public virtual string ViewDataKey { get; set; }
+        
         public virtual Type ResourceType { get; set; }
 
         private Dictionary<string, object> _attributes = new Dictionary<string, object>();
         private List<string> _classes = new List<string>();
         private Dictionary<string, object> _styles = new Dictionary<string, object>();
+
+        public DataSourceAttribute()
+        {
+            ViewDataKey = "";
+        }
 
         public Dictionary<string, object> GetAttributes()
         {
@@ -142,6 +152,10 @@ namespace Pasys.Web.Core.Attributes
             var resourceValue = string.Format("{0}", System.Web.HttpContext.GetGlobalResourceObject(ResourceType.Name, resourceKey));
             return resourceValue;
         }
+        public virtual void SetDataSourceFromViewData(object ViewData)
+        {
+            //throw new NotImplementedException();
+        }
     }
 
     public abstract class DropDownDataSourceAttributeBase : DataSourceAttribute
@@ -158,6 +172,15 @@ namespace Pasys.Web.Core.Attributes
         {
             return new SelectList(ListItems, "Value", "Text", selectedValue);
         }
+        public override void SetDataSourceFromViewData(object ViewData)
+        {
+            var lst = ViewData as List<SelectListItem>;
+            if (lst == null)
+            {
+                lst = new List<SelectListItem>();
+            }
+            ListItems = lst;
+        }
     }
 
     public abstract class RadioButtonDataSourceAttributeBase : DataSourceAttribute
@@ -172,6 +195,15 @@ namespace Pasys.Web.Core.Attributes
         public virtual SelectList GetData(object selectedValue)
         {
             return new SelectList(ListItems, "Value", "Text", selectedValue);
+        }
+        public override void SetDataSourceFromViewData(object ViewData)
+        {
+            var lst = ViewData as List<SelectListItem>;
+            if (lst == null)
+            {
+                lst = new List<SelectListItem>();
+            }
+            ListItems = lst;
         }
     }
 
@@ -200,6 +232,15 @@ namespace Pasys.Web.Core.Attributes
                 }
             }
             return new SelectList(ListItems, "Value", "Text");
+        }
+        public override void SetDataSourceFromViewData(object ViewData)
+        {
+            var lst = ViewData as List<SelectListItem>;
+            if (lst == null)
+            {
+                lst = new List<SelectListItem>();
+            }
+            ListItems = lst;
         }
     }
 

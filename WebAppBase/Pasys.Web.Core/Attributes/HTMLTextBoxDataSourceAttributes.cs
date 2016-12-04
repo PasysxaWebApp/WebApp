@@ -10,7 +10,7 @@ namespace Pasys.Web.Core.Attributes
     public class YesNoDataSourceAttribute : RadioButtonDataSourceAttributeBase
     {
         private string[] yesStrs = { "yes", "true", "1" };
-        private string _yesName, _noName;
+        private string _yesName = "Yes", _noName = "No";
         public string YesName
         {
             get
@@ -34,16 +34,17 @@ namespace Pasys.Web.Core.Attributes
                 _noName = value;
             }
         }
-        public YesNoDataSourceAttribute()
-        {
-            YesName = "Yes";
-            NoName = "No";
-            this.ListItems.Add(new SelectListItem() { Value = "1", Text = "Yes" });
-            this.ListItems.Add(new SelectListItem() { Value = "0", Text = "No" });
-        }
 
         public override SelectList GetData(object selectedValue)
         {
+            int count = this.ListItems.Count;
+            for (int i = 0; i < count; i++)
+            {
+                this.ListItems.RemoveAt(0);
+            }
+            this.ListItems.Add(new SelectListItem() { Value = "1", Text = YesName });
+            this.ListItems.Add(new SelectListItem() { Value = "0", Text = NoName });
+
             string s = string.Format("{0}", selectedValue).ToLower();
             var sv = "0";
             if (yesStrs.Contains(s))

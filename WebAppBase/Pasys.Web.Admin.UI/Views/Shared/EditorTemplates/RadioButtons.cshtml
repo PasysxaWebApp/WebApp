@@ -8,6 +8,10 @@
     var dataSource = p.GetCustomAttributes(typeof(RadioButtonDataSourceAttributeBase), true).FirstOrDefault() as RadioButtonDataSourceAttributeBase;
     if (dataSource != null)
     {
+        if (ViewData.ContainsKey(dataSource.ViewDataKey))
+        {
+            dataSource.SetDataSourceFromViewData(ViewData[dataSource.ViewDataKey]);
+        }
         selectList = dataSource.GetData(Model);
     }
 
@@ -25,8 +29,5 @@
                 @item.Text
             </label>
         </div>
-
-        @*@Html.RadioButton("", item.Value, item.Selected, new { ID = fieldId, @class = "radio-inline" })
-            @Html.Label(item.Text, new { @for = fieldId })*@
     }
 }

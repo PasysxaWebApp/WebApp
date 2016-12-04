@@ -27,3 +27,8 @@ textarea {
 #copyright {
   text-align: center;
 }
+
+.field-validation-error {
+    font-size:90%;
+    color:red;
+}

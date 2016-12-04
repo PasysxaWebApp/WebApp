@@ -17,9 +17,9 @@ namespace Pasys.Web.Core.Controllers
     {
         ActionResult Index();
         ActionResult Create();
-        ActionResult Create(TEntity entity);
+        ActionResult Create(object entity);
         ActionResult Edit(TKey Id);
-        ActionResult Edit(TEntity entity);
+        ActionResult Edit(object entity);
         JsonResult Delete(string ids);
         JsonResult GetList();
     }
@@ -31,9 +31,10 @@ namespace Pasys.Web.Core.Controllers
     //{ }
 
 
-    public class EditableController<TKey,TEntity,  TManager> : System.Web.Mvc.Controller, IEditableController< TKey, TEntity,TManager>
+    public class EditableController<TKey,TEntity,TViewModel, TManager> : System.Web.Mvc.Controller, IEditableController< TKey, TEntity,TManager>
         where TKey : IEquatable<TKey>
-        where TEntity : class, IEntity<TKey>
+        where TEntity : class, IEntity<TKey>,new()
+        where TViewModel : class, new()
         where TManager : IEntityManager<TEntity, TKey>
     {
         /// <summary>
@@ -60,13 +61,6 @@ namespace Pasys.Web.Core.Controllers
             {
                 entity.ImageThumbUrl = entity.ImageUrl;
             }
-            //string filePath = Request.SaveImage();
-            //if (!string.IsNullOrEmpty(filePath))
-            //{
-            //    entity.ImageUrl = filePath;
-            //    string fileName = ImageUnity.SetThumb(Server.MapPath(filePath), ImageThumbWidth ?? 64, ImageThumbHeight ?? 64);
-            //    entity.ImageThumbUrl = filePath.Replace(System.IO.Path.GetFileName(filePath), fileName);
-            //}
         }
 
         public virtual ActionResult Index()
@@ -76,34 +70,41 @@ namespace Pasys.Web.Core.Controllers
         public virtual ActionResult Create()
         {
             var entity = Activator.CreateInstance<TEntity>();
-            return View(entity);
+            var model = ConvertToModel(entity);
+            return View(model);
         }
         [HttpPost]
-        public virtual ActionResult Create(TEntity entity)
+        public virtual ActionResult Create(object obj)
         {
+             var model= BindModel();
             if (ModelState.IsValid)
             {
-                UpLoadImage(entity as IImage);
-                EntityManager.Create(entity);
+                var editEntity = ConvertFromModel(model);
+                UpLoadImage(model as IImage);
+                EntityManager.Create(editEntity);
                 return RedirectToAction("Index");
             }
-            return View(entity);
+            return View(model);
         }
+
         public virtual ActionResult Edit(TKey Id)
         {
             var entity = EntityManager.FindById(Id);
-            return View(entity);
+            var model = ConvertToModel(entity);
+            return View(model);
         }
         [HttpPost]
-        public virtual ActionResult Edit(TEntity entity)
+        public virtual ActionResult Edit(object obj)
         {
+            var model = BindModel();
             if (ModelState.IsValid)
             {
-                UpLoadImage(entity as IImage);
-                EntityManager.Update(entity);
+                var editEntity = ConvertFromModel(model);
+                UpLoadImage(model as IImage);
+                EntityManager.Update(editEntity);
                 return RedirectToAction("Index");
             }
-            return View(entity);
+            return View(model);
         }
         [HttpPost]
         public virtual JsonResult Delete(string ids)
@@ -136,6 +137,28 @@ namespace Pasys.Web.Core.Controllers
         {
             throw new NotImplementedException();
         }
+
+        protected virtual TEntity ConvertFromModel(TViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual TViewModel ConvertToModel(TEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual TViewModel BindModel()
+        {
+            var model = new TViewModel();
+            var bl = this.TryUpdateModel(model);
+            if (!bl)
+            {
+                throw new ArgumentException();
+            }
+            return model;
+        }
+
     }
 
 }

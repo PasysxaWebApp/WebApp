@@ -8,6 +8,10 @@
     var dataSource = p.GetCustomAttributes(typeof(DropDownDataSourceAttributeBase), true).FirstOrDefault() as DropDownDataSourceAttributeBase;
     if (dataSource != null)
     {
+        if (ViewData.ContainsKey(dataSource.ViewDataKey))
+        {
+            dataSource.SetDataSourceFromViewData(ViewData[dataSource.ViewDataKey]);
+        }
         selectList = dataSource.GetData(Model);
     }
    

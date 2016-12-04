@@ -8,6 +8,9 @@
     var dataSource = p.GetCustomAttributes(typeof(CheckBoxDataSourceAttributeBase), true).FirstOrDefault() as CheckBoxDataSourceAttributeBase;
     if (dataSource != null)
     {
+        if (ViewData.ContainsKey(dataSource.ViewDataKey)){
+            dataSource.SetDataSourceFromViewData(ViewData[dataSource.ViewDataKey]);
+        }
         selectList = dataSource.GetData(Model);
     }
 
@@ -25,7 +28,5 @@
                 @item.Text
             </label>
         </div>
-                    @*<input type="checkbox" id="@fieldId" name="@mataData.PropertyName" value="@item.Value" checked="@item.Selected" />
-                    @Html.Label(item.Text, new { @for = fieldId })*@
-        }
+    }
 }

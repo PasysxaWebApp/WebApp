@@ -14,11 +14,10 @@ using System.ComponentModel;
 namespace Pasys.Web.Admin.UI.Models
 {
 
-    public class TestModel 
+    public class TestModel : IEntity
     {
         [HiddenInput(DisplayValue=false)]
         [DisplayName("ユーザー")]
-        [ViewDataSource]
         public string UserID { get; set; }
 
         [TextBoxDataSource(ResourceType = typeof(Resources.LanguageResource), PlaceHolder = "PlaceholderUserName")]
@@ -26,31 +25,47 @@ namespace Pasys.Web.Admin.UI.Models
         public string UserName { get; set; }
 
         [DisplayName("ユーザーカナ")]
+        [TextBoxDataSource(PlaceHolder = "ユーザーカナ")]
         public string UserKana { get; set; }
 
         [DisplayName("クラス")]
-        [ClassDataSource]
+        [ClassDataSource()]
         public int ClassIndex { get; set; }
 
         [DisplayName("削除タップ")]
-        [DeleteDataSource]
+        [DeleteDataSource()]
         public int? DelFlag { get; set; }
 
         [DisplayName("表示")]
-        [YesNoDataSource]
+        [YesNoDataSource(YesName="はい",NoName="いいえ")]
         public int? DisFlag { get; set; }
 
         [DisplayName("我能")]
-        [DeleteCheckBoxDataSource]
+        [CheckBoxDataSourceAttribute(ViewDataKey = "DeleteListItems")]
         public List<string> CanDoList { get; set; }
         [TextAreaDataSource]
         public string MultiText { get; set; }
 
-        [System.ComponentModel.DataAnnotations.ScaffoldColumn(false)]
+        [ScaffoldColumn(false)]
         public DateTime LastUpdateTime { get; set; }
     }
 
+    public class MemberCardViewModel 
+    {
+        [HiddenInput(DisplayValue=false)]
+        public string MemberCardId { get; set; }
+        [Display(Name = "用户ID")]
+        public string UserId { get; set; }
+        [Required(AllowEmptyStrings = false)]
+        [Display(Name = "组织ID")]
+        public string OrganizationId { get; set; }
+        [Display(Name = "卡号")]
+        public string CardNo { get; set; }
 
+    }
+
+
+    /*
     [DataConfigure(typeof(SampleModelMeterData))]
     public class SampleModel:IEntity<string>
     {
@@ -98,96 +113,27 @@ namespace Pasys.Web.Admin.UI.Models
        
     }
 
-    class ViewDataSourceAttribute : DropDownDataSourceAttributeBase
-    {
-
-        public override SelectList GetData(object selectedValue)
-        {
-            List<SelectListItem> items = new List<SelectListItem>();
-            for (int i = 0; i < 10; i++)
-            {
-                items.Add(new SelectListItem() { Value = i.ToString(), Text = "item" + i });
-            }
-            var lst = new SelectList(items, "Value", "Text", selectedValue);
-            return lst;
-        }
-    }
-
+    */
+    
     class ClassDataSourceAttribute : DropDownDataSourceAttributeBase
     {
-        public override SelectList GetData(object selectedValue)
-        {
-            List<SelectListItem> items = new List<SelectListItem>();
+        public ClassDataSourceAttribute()
+        { 
             for (int i = 0; i < 10; i++)
             {
-                items.Add(new SelectListItem() { Value = i.ToString(), Text = "Class" + i });
+                this.ListItems.Add(new SelectListItem() { Value = i.ToString(), Text = "Class" + i });
             }
-            var lst = new SelectList(items, "Value", "Text", selectedValue);
-            return lst;
         }
     }
-
-
-    //class YesNoDataSourceAttribute : RadioButtonDataSourceAttributeBase
-    //{
-    //    private string[] yesStrs = { "yes", "true", "1" };
-    //    public override SelectList GetData(object selectedValue)
-    //    {
-    //        List<SelectListItem> items = new List<SelectListItem>();
-    //        items.Add(new SelectListItem() { Value = "1", Text = "Yes" });
-    //        items.Add(new SelectListItem() { Value = "0", Text = "No" });
-    //        string s = string.Format("{0}", selectedValue).ToLower();
-    //        var sv = "0";
-    //        if (yesStrs.Contains(s))
-    //        {
-    //            sv = "1";
-    //        }
-    //        var lst = new SelectList(items, "Value", "Text", sv);
-    //        return lst;
-    //    }
-    //}
 
     class DeleteDataSourceAttribute : RadioButtonDataSourceAttributeBase
     {
-        public override SelectList GetData(object selectedValue)
-        {
-            List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem() { Text = "正常使用", Value = "1" });
-            items.Add(new SelectListItem() { Text = "逻辑删除", Value = "2" });
-            items.Add(new SelectListItem() { Text = "物理删除", Value = "3" });
-            var lst = new SelectList(items, "Value", "Text", selectedValue);
-            return lst;
+        public DeleteDataSourceAttribute()
+        { 
+            this.ListItems.Add(new SelectListItem() { Text = "正常使用", Value = "1" });
+            this.ListItems.Add(new SelectListItem() { Text = "逻辑删除", Value = "2" });
+            this.ListItems.Add(new SelectListItem() { Text = "物理删除", Value = "3" });        
         }
     }
-
-    class DeleteCheckBoxDataSourceAttribute : CheckBoxDataSourceAttributeBase
-    {
-        public override SelectList GetData(object selectedValue)
-        {
-            var svs = selectedValue as List<string>;// string.Format("{0}", selectedValue).Split(new char[] { ',' });
-            if (svs == null)
-            {
-                svs = new List<string>();
-            }
-
-            List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem() { Text = "正常使用", Value = "1" });
-            items.Add(new SelectListItem() { Text = "逻辑删除", Value = "2" });
-            items.Add(new SelectListItem() { Text = "物理删除", Value = "3" });
-            items.Add(new SelectListItem() { Text = "删库", Value = "4" });
-            items.Add(new SelectListItem() { Text = "换硬盘", Value = "5" });
-            items.Add(new SelectListItem() { Text = "挪主机", Value = "6" });
-
-            foreach (var item in items)
-            {
-                item.Selected = svs.Contains(item.Value);
-            }
-
-            var lst = new SelectList(items, "Value", "Text");
-            return lst;
-        }
-    }
-
-
 
 }
