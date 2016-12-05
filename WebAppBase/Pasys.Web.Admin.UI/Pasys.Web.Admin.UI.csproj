@@ -305,6 +305,12 @@
     <Content Include="Contents\images\System\TitleBackground.jpg" />
     <Content Include="Contents\images\user24.png" />
     <Content Include="Contents\images\zoom24.png" />
+    <Content Include="Contents\jqgrid\grid.locale-en.js" />
+    <Content Include="Contents\jqgrid\grid.locale-ja.js" />
+    <Content Include="Contents\jqgrid\jqGrid.bootstrap.css" />
+    <Content Include="Contents\jqgrid\jquery.jqGrid.min.js" />
+    <Content Include="Contents\jqgrid\ui.jqgrid-bootstrap.css" />
+    <Content Include="Contents\jqgrid\ui.jqgrid.css" />
     <Content Include="Contents\jquery-wijmo\external\globalize.culture.ja-JP.js" />
     <Content Include="Contents\jquery-wijmo\external\knockout-2.2.0.js" />
     <Content Include="Contents\jquery-wijmo\external\require.js" />

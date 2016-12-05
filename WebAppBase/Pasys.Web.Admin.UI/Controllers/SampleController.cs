@@ -50,6 +50,72 @@ namespace Pasys.Web.Admin.UI.Controllers
             return View();
         }
 
+        #region jqGridData
+
+        /// <summary>
+        /// お知らせ一覧データ取得
+        /// </summary>
+        public ActionResult LoadjqData(string searchText, string sidx, string sord, int page, int rows,
+                bool _search, string searchField, string searchOper, string searchString)
+        {
+            var list = new List<TestModel>();
+            for (int i = 0; i < 50; i++)
+            {
+                list.Add(new TestModel()
+                {
+                    UserID = string.Format("UserID{0}", i),
+                    UserName = string.Format("UserName{0}", i),
+                    UserKana = string.Format("UserKana{0}", i),
+                    MultiText = string.Format("MultiText{0}", i),
+                    ClassIndex = i,
+                    LastUpdateTime =DateTime.Now.AddMinutes(i),
+                });
+            }
+
+            var listData = list.AsQueryable();
+
+            // If search, filter the list against the search condition.
+            // Only "contains" search is implemented here.
+            var filteredData = listData;
+
+            // Sort the student list
+            //var sortedData = SortIQueryable<PatientInfo>(filteredData, "PatientKanaGroup", sord);
+
+            // Calculate the total number of pages
+            var totalRecords = list.Count;
+            var totalPages = (int)Math.Ceiling((double)totalRecords / (double)rows);
+
+            // Prepare the data to fit the requirement of jQGrid
+            var data = (from s in filteredData
+                        select new
+                        {
+                            id = s.UserID,
+                            cell = new object[] 
+                            {
+                                s.UserID,
+                                string.Format("{0:yyyy年MM月dd日}", s.LastUpdateTime),
+                                s.UserName,
+                                s.UserKana,
+                                s.MultiText,
+                                s.ClassIndex,
+                            }
+                        }).ToArray();
+
+            // Send the data to the jQGrid
+            var jsonData = new
+            {
+                total = totalPages,
+                page = page,
+                records = totalRecords,
+                rows = data//.Skip((page - 1) * rows).Take(rows)
+            };
+
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+
         //public override ActionResult Create()
         //{
         //    ViewBag.DeleteListItems = getDeleteListItems();

@@ -8,3 +8,49 @@
 
 @Html.ActionLink("delete", "Delete", "Sample", new { ids = "4613452f-2063-4427-ba32-9b0385c32ff5" })
 
+<div style="margin-left:20px">
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+</div>
+
+@section Script{
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var jqDataUrl = '@Url.Action("LoadjqData")';
+        // Setup grid
+        jQuery("#jqGrid").jqGrid({
+            // Ajax related configurations
+            url: jqDataUrl,
+            datatype: "json",
+            mtype: "GET",
+            loadonce: true,
+            shrinkToFit: false,
+            height: 200, 
+            width: 780,
+            rowNum: 10,
+            rowList: [10, 20, 30],
+            colNames: ['NoticeID', '登録日', 'タイトル', '事業所', '登録者'],
+            colModel: [
+                { label: "NoticeID", name: 'NoticeID', index: 'NoticeID', width: 100, sortable: false, hidden: false, frozen: true },
+                { label: "登録日", name: 'NoticeDateTime', index: 'NoticeDateTime', width: 150, align: "center", sortable: false, frozen: true },
+                { label: "タイトル", name: 'Title', index: 'Title', width: 200, sortable: false },
+                { label: "事業所", name: 'OfficeName', index: 'OfficeName', width: 250, align: "center", sortable: false },
+                { label: "登録者", name: 'UserName', index: 'UserName', width: 250, sortable: false }
+            ],
+            pager: "#jqGridPager",
+            gridComplete: function () {
+                $(".expandEnableTitle").click();
+            },
+            edit: false
+        });
+        $("#jqGrid").jqGrid("setFrozenColumns");
+        // Set grid width to #content
+        //$("#jqGrid").jqGrid('setGridWidth', $("#content").width(), true);
+
+    });
+</script>
+
+}
