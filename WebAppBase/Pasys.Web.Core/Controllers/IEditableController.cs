@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Pasys.Core.EntityManager;
 using Pasys.Core.ViewPort.Grid;
 using Pasys.Core.Models;
+using Pasys.Web.Core.Attributes;
 
 namespace Pasys.Web.Core.Controllers
 {
@@ -71,12 +72,14 @@ namespace Pasys.Web.Core.Controllers
         {
             var entity = Activator.CreateInstance<TEntity>();
             var model = ConvertToModel(entity);
+            ViewBag.Title = GetTitle();
+            ViewBag.SubTitle = GetSubTitle();
             return View(model);
         }
         [HttpPost]
         public virtual ActionResult Create(object obj)
         {
-             var model= BindModel();
+            var model = BindModel();
             if (ModelState.IsValid)
             {
                 var editEntity = ConvertFromModel(model);
@@ -84,6 +87,8 @@ namespace Pasys.Web.Core.Controllers
                 EntityManager.Create(editEntity);
                 return RedirectToAction("Index");
             }
+            ViewBag.Title = GetTitle();
+            ViewBag.SubTitle = GetSubTitle();
             return View(model);
         }
 
@@ -91,6 +96,8 @@ namespace Pasys.Web.Core.Controllers
         {
             var entity = EntityManager.FindById(Id);
             var model = ConvertToModel(entity);
+            ViewBag.Title = GetTitle();
+            ViewBag.SubTitle = GetSubTitle();
             return View(model);
         }
         [HttpPost]
@@ -104,6 +111,8 @@ namespace Pasys.Web.Core.Controllers
                 EntityManager.Update(editEntity);
                 return RedirectToAction("Index");
             }
+            ViewBag.Title = GetTitle();
+            ViewBag.SubTitle = GetSubTitle();
             return View(model);
         }
         [HttpPost]
@@ -159,6 +168,31 @@ namespace Pasys.Web.Core.Controllers
             return model;
         }
 
+        protected virtual string GetTitle()
+        {
+            var t = typeof(TViewModel);
+            var vmAttr = t.GetViewModelAttribute();
+            if (vmAttr != null)
+            {
+                return vmAttr.Title;
+            }
+            else {
+                return string.Empty;
+            }
+        }
+        protected virtual string GetSubTitle()
+        {
+            var t = typeof(TViewModel);
+            var vmAttr = t.GetViewModelAttribute();
+            if (vmAttr != null)
+            {
+                return vmAttr.SubTitle;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
     }
 
 }

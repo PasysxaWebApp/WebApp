@@ -1,19 +1,20 @@
 ﻿@model Pasys.Web.Admin.UI.Models.MemberCardViewModel
 @{
-    ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>@ViewBag.Title </h2>
+<p>@ViewBag.SubTitle</p>
 
 @using (Html.BeginForm())
-{ 
-    @Html.EditorForModel()
-    @*<div>@Html.TextBoxFor(m => m.CardNo, new { @Value="99999999"})</div>
-    <div>@Html.TextBoxFor(m => m.OrganizationId, new { @Value = "DebugOrganizationID" })</div>
-    <div>@Html.TextBoxFor(m => m.Status, new { @Value = "0" })</div>
-    <div>@Html.TextBoxFor(m => m.Balance, new { @Value = "0" })</div>
-    <div>@Html.TextBoxFor(m => m.CashSum, new { @Value = "0" })</div>*@
-
-    <input type="submit" value="submit" />
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            @Html.EditorForModel()
+        </div>
+    </div>
+    <div class="pull-right">
+        <input type="submit" value="@Resources.LanguageResource.SaveButtonTitle" class="btn btn-primary" />
+        <a href="@Url.Action("Index")" class="btn btn-default active" role="button">@Resources.LanguageResource.BackButtonTitle</a>
+    </div>
 }
 
