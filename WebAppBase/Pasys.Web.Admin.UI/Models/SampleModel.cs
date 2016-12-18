@@ -50,7 +50,8 @@ namespace Pasys.Web.Admin.UI.Models
         public DateTime LastUpdateTime { get; set; }
     }
 
-    [ViewModel(Title="会员卡",SubTitle="会员卡管理")]
+    [ListViewModel(Title = "会员卡", SubTitle = "会员卡管理")]
+    [EditViewModel(Title="会员卡",SubTitle="会员卡管理")]
     public class MemberCardViewModel 
     {
         [HiddenInput(DisplayValue=false)]

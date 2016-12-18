@@ -36,7 +36,7 @@
 
         $(document).ready(function () {
 
-            var jqDataUrl = '@Url.Action(Model.LoadjqDataUrl, new { searchText = ViewBag.SearchText})';
+            var jqDataUrl = '@Url.Action("LoadjqData", new { searchText = ViewBag.SearchText})';
             // Setup grid
             jQuery("#jqGrid").jqGrid({
                 // Ajax related configurations

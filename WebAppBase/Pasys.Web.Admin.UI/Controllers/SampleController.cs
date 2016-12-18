@@ -6,11 +6,28 @@ using System.Web;
 using System.Web.Mvc;
 using Pasys.Core.EntityManager;
 using Pasys.Web.Admin.UI.Models;
+using System.Linq.Expressions;
 
 namespace Pasys.Web.Admin.UI.Controllers
 {
     public class SampleController : EditableController<string, MemberCard.MemberCard, MemberCardViewModel, MemberCard.MemberCardManager>
     {
+        public override GridListViewModel GetGridListViewModel()
+        {
+            var vm = new GridListViewModel() {
+                DefaultSortColumn = "MemberCardId",
+                LoadjqDataUrl = "LoadjqData",
+                KeyColumn = "MemberCardId",
+                NameColumn = "CardNo",
+            };
+            vm.Columns.Add(new GridListColumn() { Label = "MemberCardId", Name = "MemberCardId", Index = "index", Width = "10%", Sortable = true, Frozen = true, Align = "center" });
+            vm.Columns.Add(new GridListColumn() { Label = "OrganizationId", Name = "OrganizationId", Index = "OrganizationId", Width = "30%", Sortable = true, Frozen = true, Align = "center" });
+            vm.Columns.Add(new GridListColumn() { Label = "UserId", Name = "UserId", Index = "UserId", Width = "20%", Sortable = true, Align = "center" });
+            vm.Columns.Add(new GridListColumn() { Label = "CardNo", Name = "CardNo", Index = "CardNo", Width = "20%", Sortable = true,  Align = "center" });
+            vm.Columns.Add(new GridListColumn() { Label = "Balance", Name = "Balance", Index = "Balance", Width = "10%", Sortable = true, Align = "center" });
+            vm.Columns.Add(new GridListColumn() { Label = "Status", Name = "Status", Index = "Status", Width = "10%", Sortable = true, Frozen = true, Align = "center" });
+            return vm;
+        }
 
         public SampleController()
             : base(new MemberCard.MemberCardManager())
@@ -45,85 +62,44 @@ namespace Pasys.Web.Admin.UI.Controllers
 
 
         // GET: Sample
-        public override ActionResult Index()
-        {
-            return View();
-        }
+        //public override ActionResult Index()
+        //{
+        //    var vm = GetGridListViewModel();
+        //    return View(vm);
+        //}
 
         #region jqGridData
 
-        /// <summary>
-        /// お知らせ一覧データ取得
-        /// </summary>
-        public ActionResult LoadjqData(string searchText, string sidx, string sord, int page, int rows,
-                bool _search, string searchField, string searchOper, string searchString)
+        public override IQueryable<MemberCard.MemberCard> FilterData(IQueryable<MemberCard.MemberCard> list)
         {
-            var list = new List<TestModel>();
-            for (int i = 0; i < 50; i++)
+            var searchText = this.Request["searchText"];
+            if (!string.IsNullOrEmpty(searchText))
             {
-                list.Add(new TestModel()
-                {
-                    UserID = string.Format("UserID{0}", i),
-                    UserName = string.Format("UserName{0}", i),
-                    UserKana = string.Format("UserKana{0}", i),
-                    MultiText = string.Format("MultiText{0}", i),
-                    ClassIndex = i,
-                    LastUpdateTime =DateTime.Now.AddMinutes(i),
-                });
+                var rst = list.Where(s => s.CardNo.Contains(searchText));
+                return rst;
+            }
+            else {
+                return list;
             }
 
-            var listData = list.AsQueryable();
-
-            // If search, filter the list against the search condition.
-            // Only "contains" search is implemented here.
-            var filteredData = listData;
-
-            // Sort the student list
-            //var sortedData = SortIQueryable<PatientInfo>(filteredData, "PatientKanaGroup", sord);
-
-            // Calculate the total number of pages
-            var totalRecords = list.Count;
-            var totalPages = (int)Math.Ceiling((double)totalRecords / (double)rows);
-
-            // Prepare the data to fit the requirement of jQGrid
-            var data = (from s in filteredData
-                        select new
-                        {
-                            id = s.UserID,
-                            cell = new object[] 
-                            {
-                                s.UserID,
-                                string.Format("{0:yyyy年MM月dd日}", s.LastUpdateTime),
-                                s.UserName,
-                                s.UserKana,
-                                s.MultiText,
-                                s.ClassIndex,
-                            }
-                        }).ToArray();
-
-            // Send the data to the jQGrid
-            var jsonData = new
-            {
-                total = totalPages,
-                page = page,
-                records = totalRecords,
-                rows = data//.Skip((page - 1) * rows).Take(rows)
-            };
-
-            return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
-
+        public override object GetJsonDataModel(MemberCardViewModel card)
+        {
+            return new
+            {
+                id = card.MemberCardId,
+                cell = new object[] 
+                {
+                    card.MemberCardId,
+                    card.OrganizationId,
+                    card.UserId,
+                    card.CardNo,
+                    0,
+                    0,
+                }
+            };
+        }
         #endregion
-
-
-        //public override ActionResult Create()
-        //{
-        //    ViewBag.DeleteListItems = getDeleteListItems();
-        //    var model = new Pasys.Web.Admin.UI.Models.TestModel();
-        //    model.UserID = "3";
-        //    model.CanDoList = new List<string> { "1", "3" };
-        //    return View(model);
-        //}
 
         protected override MemberCard.MemberCard ConvertFromModel(MemberCardViewModel model)
         {
@@ -144,6 +120,10 @@ namespace Pasys.Web.Admin.UI.Controllers
 
         protected override MemberCardViewModel ConvertToModel(MemberCard.MemberCard entity)
         {
+            if (entity == null)
+            {
+                return null;
+            }
             var model = new MemberCardViewModel()
             {
                 MemberCardId=entity.MemberCardId,

@@ -54,8 +54,11 @@ namespace Pasys.Web.Core.Attributes
 
     }
 
-    public class ViewModelAttribute : ViewModelAttributeBase
-    { 
-    
+    public class EditViewModelAttribute : ViewModelAttributeBase
+    {     
     }
+    public class ListViewModelAttribute : ViewModelAttributeBase
+    {
+    }
+
 }

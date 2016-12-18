@@ -583,8 +583,6 @@
     <Content Include="Views\Shared\_LayoutDefault.cshtml" />
     <Content Include="Views\WeiXinAdmin\Index.cshtml" />
     <Content Include="Views\Sample\Index.cshtml" />
-    <Content Include="Views\Sample\Create.cshtml" />
-    <Content Include="Views\Sample\Edit.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CheckBoxes.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropdownList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Object.cshtml" />
@@ -592,6 +590,9 @@
     <Content Include="Views\Shared\EditorTemplates\TextAreas.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\TextBoxes.cshtml" />
     <Content Include="Views\Sample\Test.cshtml" />
+    <Content Include="Views\Shared\CommonCreate.cshtml" />
+    <Content Include="Views\Shared\CommonEdit.cshtml" />
+    <Content Include="Views\Shared\CommonIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\PriceAdjust\" />

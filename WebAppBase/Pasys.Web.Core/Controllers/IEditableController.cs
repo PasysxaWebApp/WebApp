@@ -50,6 +50,7 @@ namespace Pasys.Web.Core.Controllers
         /// 业务Service
         /// </summary>
         public TManager EntityManager;
+        public GridListViewModel GridListModel = new GridListViewModel();
         public EditableController(TManager service)
         {
             EntityManager = service;
@@ -63,18 +64,69 @@ namespace Pasys.Web.Core.Controllers
                 entity.ImageThumbUrl = entity.ImageUrl;
             }
         }
+        public virtual GridListViewModel GetGridListViewModel()
+        {
+            var vm = new GridListViewModel();
+            return vm;
+        }
 
         public virtual ActionResult Index()
         {
-            return View();
+            SetViewBagTitle();
+            var vm = GetGridListViewModel();
+            ViewBag.SearchText = this.Request["SearchText"];
+            return View("CommonIndex",vm);
         }
+
+        /// <summary>
+        /// Load data for jqgrid
+        /// </summary>
+        public ActionResult LoadjqData(string sidx, string sord, int page, int rows,
+                bool _search, string searchField, string searchOper, string searchString)
+        {
+            var list = from s in this.EntityManager.Entities select s;
+            list = FilterData(list);
+            sidx = sidx ?? this.GridListModel.DefaultSortColumn;
+            list = list.OrderBy(s => sidx);
+
+            var filteredData = list.Skip((page - 1) * rows);
+            filteredData = filteredData.Take(rows);
+            var resulltData = filteredData.ToList();
+
+            // Calculate the total number of pages
+            var totalRecords = list.Count();
+            var totalPages = (int)Math.Ceiling((double)totalRecords / (double)rows);
+            // Prepare the data to fit the requirement of jQGrid
+            var datas = filteredData.Select(ConvertToModel).Select(GetJsonDataModel);
+
+            // Send the data to the jQGrid
+            var jsonData = new
+            {
+                total = totalPages,
+                page = page,
+                records = totalRecords,
+                rows = datas//.Skip((page - 1) * rows).Take(rows)
+            };
+
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+        }
+
+        public virtual IQueryable<TEntity> FilterData(IQueryable<TEntity> list)
+        {
+            return list;
+        }
+        public virtual object GetJsonDataModel(TViewModel card)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public virtual ActionResult Create()
         {
             var entity = Activator.CreateInstance<TEntity>();
             var model = ConvertToModel(entity);
-            ViewBag.Title = GetTitle();
-            ViewBag.SubTitle = GetSubTitle();
-            return View(model);
+            SetViewBagTitle();
+            return View("CommonCreate", model);
         }
         [HttpPost]
         public virtual ActionResult Create(object obj)
@@ -87,18 +139,20 @@ namespace Pasys.Web.Core.Controllers
                 EntityManager.Create(editEntity);
                 return RedirectToAction("Index");
             }
-            ViewBag.Title = GetTitle();
-            ViewBag.SubTitle = GetSubTitle();
-            return View(model);
+            SetViewBagTitle();
+            return View("CommonCreate", model);
         }
 
         public virtual ActionResult Edit(TKey Id)
         {
             var entity = EntityManager.FindById(Id);
             var model = ConvertToModel(entity);
-            ViewBag.Title = GetTitle();
-            ViewBag.SubTitle = GetSubTitle();
-            return View(model);
+            if (model == null)
+            {
+                return new HttpNotFoundResult();
+            }
+            SetViewBagTitle();
+            return View("CommonEdit", model);
         }
         [HttpPost]
         public virtual ActionResult Edit(object obj)
@@ -111,9 +165,8 @@ namespace Pasys.Web.Core.Controllers
                 EntityManager.Update(editEntity);
                 return RedirectToAction("Index");
             }
-            ViewBag.Title = GetTitle();
-            ViewBag.SubTitle = GetSubTitle();
-            return View(model);
+            SetViewBagTitle();
+            return View("CommonEdit", model);
         }
         [HttpPost]
         public virtual JsonResult Delete(string ids)
@@ -168,13 +221,14 @@ namespace Pasys.Web.Core.Controllers
             return model;
         }
 
+        /*
         protected virtual string GetTitle()
         {
             var t = typeof(TViewModel);
             var vmAttr = t.GetViewModelAttribute();
             if (vmAttr != null)
             {
-                return vmAttr.Title;
+                return vmAttr.EditTitle;
             }
             else {
                 return string.Empty;
@@ -186,13 +240,253 @@ namespace Pasys.Web.Core.Controllers
             var vmAttr = t.GetViewModelAttribute();
             if (vmAttr != null)
             {
-                return vmAttr.SubTitle;
+                return vmAttr.EditSubTitle;
             }
             else
             {
                 return string.Empty;
             }
         }
+        */
+
+        protected virtual void SetViewBagTitle()
+        {
+            var t = typeof(TViewModel);
+            var vmEditAttr = t.GetEditViewModelAttribute();
+            if (vmEditAttr != null)
+            {
+                ViewBag.EditTitle = vmEditAttr.Title;
+                ViewBag.EditSubTitle = vmEditAttr.SubTitle;
+            }
+            var vmListAttr = t.GetListViewModelAttribute();
+            if (vmListAttr != null)
+            {
+                ViewBag.ListTitle = vmListAttr.Title;
+                ViewBag.ListSubTitle = vmListAttr.SubTitle;
+            }
+        }
     }
 
+    public class GridListViewModel
+    {
+        public string DefaultSortColumn { get; set; }
+        public string KeyColumn { get; set; }
+        public string NameColumn { get; set; }
+
+        public string LoadjqDataUrl { get; set; }
+
+        public List<GridListColumn> Columns { get; set; }
+
+        public GridListViewModel()
+        {
+            Columns = new List<GridListColumn>();
+            LoadjqDataUrl = "LoadjqData";
+        }
+
+        public string[] GetColNames()
+        {
+            return Columns.Select(m => m.Label).ToArray();
+        }
+
+        public List<Dictionary<string, object>> GetColModels()
+        {
+            var list = new List<Dictionary<string, object>>();
+            var dic = new Dictionary<string, object>();
+            foreach (var d in Columns)
+            {
+                if (d.Name.Equals(this.NameColumn))
+                {
+                    d.Formatter = "jqGrid_NameEditLink";
+                }
+                list.Add(d.GetSetting());
+            }
+            return list;
+        }
+
+    }
+
+    public class GridListColumn
+    {
+        private Dictionary<string, object> Settings = new Dictionary<string, object>();
+        public string Label
+        {
+            get
+            {
+                return GetSettingAsString("label");
+            }
+            set
+            {
+                AddSetting("label", value);
+            }
+        }
+        public string Name
+        {
+            get
+            {
+                return GetSettingAsString("name");
+            }
+            set
+            {
+                AddSetting("name", value);
+            }
+        }
+        public string Index
+        {
+            get
+            {
+                return GetSettingAsString("index");
+            }
+            set
+            {
+                AddSetting("index", value);
+            }
+        }
+        public string Width
+        {
+            get
+            {
+                return GetSettingAsString("width");
+            }
+            set
+            {
+                AddSetting("width", value);
+            }
+        }
+        public bool Sortable
+        {
+            get
+            {
+                return GetSettingAsBool("sortable");
+            }
+            set
+            {
+                AddSetting("sortable", value);
+            }
+        }
+
+        public bool Hidden
+        {
+            get
+            {
+                return GetSettingAsBool("hidden");
+            }
+            set
+            {
+                AddSetting("hidden", value);
+            }
+        }
+        public bool Frozen
+        {
+            get
+            {
+                return GetSettingAsBool("frozen");
+            }
+            set
+            {
+                AddSetting("frozen", value);
+            }
+        }
+        public string Align
+        {
+            get
+            {
+                return GetSettingAsString("align");
+            }
+            set
+            {
+                AddSetting("align", value);
+            }
+        }
+        public string Formatter
+        {
+            get
+            {
+                return GetSettingAsString("formatter");
+            }
+            set
+            {
+                AddSetting("formatter", value);
+            }
+        }
+
+        public void AddSetting(string settingKey, object settingValue)
+        {
+            if (string.IsNullOrEmpty(settingKey)) {
+                return;
+            }
+
+            if (settingValue==null)
+            {
+                return;
+            }
+            var k = settingKey;//.ToLower();
+            if (Settings.ContainsKey(k))
+            {
+                Settings[k] = settingValue;
+            }
+            else {
+                Settings.Add(k, settingValue);
+            }
+        }
+        //public void AddSetting(string settingKey, bool settingValue)
+        //{
+        //    AddSetting(settingKey, settingValue.ToString());
+        //}
+        public object GetSetting(string settingKey)
+        {
+            if (string.IsNullOrEmpty(settingKey))
+            {
+                return null;
+            }
+
+            var k = settingKey.ToLower();
+            if (Settings.ContainsKey(k))
+            {
+                return Settings[k];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public bool GetSettingAsBool(string settingKey)
+        {
+            var sv = GetSetting(settingKey);
+            if (sv==null)
+            {
+                return false;
+            }
+            var trueValues = new[] { "true","1" };
+            return trueValues.Contains(sv);
+        }
+        public string GetSettingAsString(string settingKey)
+        {
+            var sv = GetSetting(settingKey);
+            if (sv == null)
+            {
+                return null;
+            }
+            return sv.ToString();
+        }
+
+        public Dictionary<string, object> GetSetting()
+        {
+            return Settings;
+        }
+
+        //public static string GetJavascriptKey(string k)
+        //{
+        //    if (string.IsNullOrEmpty(k))
+        //    {
+        //        return k;
+        //    }
+        //    if (k.Length == 1)
+        //    {
+        //        return k.ToLower();
+        //    }
+        //    return string.Format("{0}{1}", k.Substring(0, 1).ToLower(), k.Substring(1));
+        //}
+
+    }
 }

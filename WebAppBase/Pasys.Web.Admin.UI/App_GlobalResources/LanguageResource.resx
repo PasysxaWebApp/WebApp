@@ -120,10 +120,22 @@
   <data name="BackButtonTitle" xml:space="preserve">
     <value>返回</value>
   </data>
+  <data name="CreateButtonTitle" xml:space="preserve">
+    <value>新增...</value>
+  </data>
+  <data name="DeleteButtonTitle" xml:space="preserve">
+    <value>删除...</value>
+  </data>
   <data name="PlaceholderUserName" xml:space="preserve">
     <value>请输入名字</value>
   </data>
   <data name="SaveButtonTitle" xml:space="preserve">
     <value>保存</value>
+  </data>
+  <data name="SearchButtonTitle" xml:space="preserve">
+    <value>检索</value>
+  </data>
+  <data name="SearchTextBoxPlaceholder" xml:space="preserve">
+    <value>检索</value>
   </data>
 </root>

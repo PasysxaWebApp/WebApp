@@ -70,6 +70,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 新增... 的本地化字符串。
+        /// </summary>
+        internal static string CreateButtonTitle {
+            get {
+                return ResourceManager.GetString("CreateButtonTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 删除... 的本地化字符串。
+        /// </summary>
+        internal static string DeleteButtonTitle {
+            get {
+                return ResourceManager.GetString("DeleteButtonTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 请输入名字 的本地化字符串。
         /// </summary>
         internal static string PlaceholderUserName {
@@ -84,6 +102,24 @@ namespace Resources {
         internal static string SaveButtonTitle {
             get {
                 return ResourceManager.GetString("SaveButtonTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 检索 的本地化字符串。
+        /// </summary>
+        internal static string SearchButtonTitle {
+            get {
+                return ResourceManager.GetString("SearchButtonTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 检索 的本地化字符串。
+        /// </summary>
+        internal static string SearchTextBoxPlaceholder {
+            get {
+                return ResourceManager.GetString("SearchTextBoxPlaceholder", resourceCulture);
             }
         }
     }
