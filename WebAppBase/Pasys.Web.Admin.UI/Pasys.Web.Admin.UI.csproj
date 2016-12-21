@@ -582,7 +582,6 @@
     <Content Include="Views\RoleMenus\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutDefault.cshtml" />
     <Content Include="Views\WeiXinAdmin\Index.cshtml" />
-    <Content Include="Views\Sample\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CheckBoxes.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropdownList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Object.cshtml" />

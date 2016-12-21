@@ -20,10 +20,10 @@ namespace Pasys.Web.Admin.UI.Controllers
                 KeyColumn = "MemberCardId",
                 NameColumn = "CardNo",
             };
+            vm.Columns.Add(new GridListColumn() { Label = "CardNo", Name = "CardNo", Index = "CardNo", Width = "20%", Sortable = true,  Align = "center" });
             vm.Columns.Add(new GridListColumn() { Label = "MemberCardId", Name = "MemberCardId", Index = "index", Width = "10%", Sortable = true, Frozen = true, Align = "center" });
             vm.Columns.Add(new GridListColumn() { Label = "OrganizationId", Name = "OrganizationId", Index = "OrganizationId", Width = "30%", Sortable = true, Frozen = true, Align = "center" });
             vm.Columns.Add(new GridListColumn() { Label = "UserId", Name = "UserId", Index = "UserId", Width = "20%", Sortable = true, Align = "center" });
-            vm.Columns.Add(new GridListColumn() { Label = "CardNo", Name = "CardNo", Index = "CardNo", Width = "20%", Sortable = true,  Align = "center" });
             vm.Columns.Add(new GridListColumn() { Label = "Balance", Name = "Balance", Index = "Balance", Width = "10%", Sortable = true, Align = "center" });
             vm.Columns.Add(new GridListColumn() { Label = "Status", Name = "Status", Index = "Status", Width = "10%", Sortable = true, Frozen = true, Align = "center" });
             return vm;
@@ -83,7 +83,7 @@ namespace Pasys.Web.Admin.UI.Controllers
             }
 
         }
-        public override object GetJsonDataModel(MemberCardViewModel card)
+        public override object GetJsonDataModel(MemberCard.MemberCard card)
         {
             return new
             {
@@ -94,8 +94,8 @@ namespace Pasys.Web.Admin.UI.Controllers
                     card.OrganizationId,
                     card.UserId,
                     card.CardNo,
-                    0,
-                    0,
+                    card.Balance ,
+                    card.CashSum,
                 }
             };
         }

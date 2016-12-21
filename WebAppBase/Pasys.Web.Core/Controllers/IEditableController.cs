@@ -32,10 +32,10 @@ namespace Pasys.Web.Core.Controllers
     //{ }
 
 
-    public class EditableController<TKey,TEntity,TViewModel, TManager> : System.Web.Mvc.Controller, IEditableController< TKey, TEntity,TManager>
+    public class EditableController<TKey,TEntity,TEditViewModel, TManager> : System.Web.Mvc.Controller, IEditableController< TKey, TEntity,TManager>
         where TKey : IEquatable<TKey>
         where TEntity : class, IEntity<TKey>,new()
-        where TViewModel : class, new()
+        where TEditViewModel : class, new()
         where TManager : IEntityManager<TEntity, TKey>
     {
         /// <summary>
@@ -97,7 +97,7 @@ namespace Pasys.Web.Core.Controllers
             var totalRecords = list.Count();
             var totalPages = (int)Math.Ceiling((double)totalRecords / (double)rows);
             // Prepare the data to fit the requirement of jQGrid
-            var datas = filteredData.Select(ConvertToModel).Select(GetJsonDataModel);
+            var datas = filteredData.Select(GetJsonDataModel);
 
             // Send the data to the jQGrid
             var jsonData = new
@@ -115,7 +115,7 @@ namespace Pasys.Web.Core.Controllers
         {
             return list;
         }
-        public virtual object GetJsonDataModel(TViewModel card)
+        public virtual object GetJsonDataModel(TEntity card)
         {
             throw new NotImplementedException();
         }
@@ -200,19 +200,19 @@ namespace Pasys.Web.Core.Controllers
             throw new NotImplementedException();
         }
 
-        protected virtual TEntity ConvertFromModel(TViewModel model)
+        protected virtual TEntity ConvertFromModel(TEditViewModel model)
         {
             throw new NotImplementedException();
         }
 
-        protected virtual TViewModel ConvertToModel(TEntity entity)
+        protected virtual TEditViewModel ConvertToModel(TEntity entity)
         {
             throw new NotImplementedException();
         }
 
-        protected virtual TViewModel BindModel()
+        protected virtual TEditViewModel BindModel()
         {
-            var model = new TViewModel();
+            var model = new TEditViewModel();
             var bl = this.TryUpdateModel(model);
             if (!bl)
             {
@@ -251,7 +251,7 @@ namespace Pasys.Web.Core.Controllers
 
         protected virtual void SetViewBagTitle()
         {
-            var t = typeof(TViewModel);
+            var t = typeof(TEditViewModel);
             var vmEditAttr = t.GetEditViewModelAttribute();
             if (vmEditAttr != null)
             {
