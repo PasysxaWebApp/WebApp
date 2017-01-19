@@ -15,6 +15,10 @@
                 {
                     templateName = "TextBoxes";
                 }
+                else if (item.ModelType == typeof(System.DateTime))
+                {
+                    templateName = "DateTimeBoxes";
+                }
                 var p = item.ContainerType.GetProperty(item.PropertyName);
                 var dataSource = p.GetCustomAttributes(typeof(IDataSourceAttribute), true).FirstOrDefault() as IDataSourceAttribute;
                 if (dataSource != null)

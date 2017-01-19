@@ -129,7 +129,8 @@ namespace Pasys.Web.Admin.UI.Controllers
                 MemberCardId=entity.MemberCardId,
                 UserId = entity.UserId,
                 CardNo = entity.CardNo,
-                OrganizationId = entity.OrganizationId
+                OrganizationId = entity.OrganizationId,
+                ValidityTo=DateTime.Now
             };
             return model;
         }

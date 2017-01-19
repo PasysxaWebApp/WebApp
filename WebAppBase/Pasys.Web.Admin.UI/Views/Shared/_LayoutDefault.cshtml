@@ -7,6 +7,9 @@
     <title>@ViewBag.Title - @this.WorkContext.GlobalConfig.SiteTitle</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @*<link href="@Url.AreaContent("~/Contents/jqgrid/ui.jqgrid.css")" rel="stylesheet" type="text/css" />*@
+    <link href="@Url.AreaContent("~/Contents/jqgrid/ui.jqgrid-bootstrap.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.AreaContent("~/Contents/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css")" rel="stylesheet" type="text/css" />
     @RenderSection("Style", false)
     @RenderSection("PrepareScript", false)
 </head>
@@ -39,13 +42,53 @@
     <script type="text/javascript" src='@Url.AreaContent("~/Contents/jqgrid/grid.locale-ja.js")'></script>
     <script type="text/javascript" src='@Url.AreaContent("~/Contents/jqgrid/jquery.jqGrid.min.js")'></script>
     @Scripts.Render("~/bundles/bootstrap")
-    @*<link href="@Url.AreaContent("~/Contents/jqgrid/ui.jqgrid.css")" rel="stylesheet" type="text/css" />*@
-    <link href="@Url.AreaContent("~/Contents/jqgrid/ui.jqgrid-bootstrap.css")" rel="stylesheet" type="text/css" />
     <script>
     $.jgrid.defaults.width = 780;
     $.jgrid.defaults.responsive = true;
     $.jgrid.defaults.styleUI = 'Bootstrap';
     </script>
+    <script src='@Url.AreaContent("~/Contents/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js")' type="text/javascript"></script>
+    <script src='@Url.AreaContent("~/Contents/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.ja.js")' type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            initDateTime();
+        });
+        function initDateTime() {
+            $(".form_date").datetimepicker({
+                autoclose: true,
+                startView: 2,
+                minView: 2, 
+                todayBtn: false,
+                pickerPosition: "bottom-left",
+                language: "ja",
+            }).on('changeDate', function (ev) {
+                //dateToJapanDate(ev.date);
+            });
+
+            $(".form_datetime").datetimepicker({
+                autoclose: true,
+                startView: 2,
+                todayBtn: false,
+                pickerPosition: "bottom-left",
+                language: "ja",
+            }).on('changeDate', function (ev) {
+                //dateToJapanDate(ev.date);
+            });
+
+            $(".form_time").datetimepicker({
+                autoclose: true,
+                startView: 1,
+                minView: 0,
+                maxView: 1,
+                todayBtn: false,
+                pickerPosition: "bottom-left",
+                language: "ja",
+            }).on('changeDate', function (ev) {
+                //dateToJapanDate(ev.date);
+            });
+        }
+    </script>
+
     @RenderSection("Script", required: false)
     @RenderSection("scripts", required: false)
 

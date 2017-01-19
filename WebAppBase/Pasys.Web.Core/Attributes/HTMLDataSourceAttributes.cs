@@ -297,4 +297,44 @@ namespace Pasys.Web.Core.Attributes
         }
     }
 
+    public abstract class DateTimeDataSourceAttributeBase : DataSourceAttribute
+    {
+        private string _placeHolder;
+        public const string DefaultTemplateName = "DateTimeBoxes";
+
+        public string DateFormat { get; set; }
+
+        public DateTimeDataSourceAttributeBase()
+        {
+            TemplateName = DefaultTemplateName;
+            PlaceHolder = "";
+            DateFormat = "Date";
+        }
+        public virtual string PlaceHolder
+        {
+            get
+            {
+                return GetPropertyValue(_placeHolder);
+            }
+            set
+            {
+                _placeHolder = value;
+            }
+        }
+        public virtual string GetData(object textValue)
+        {
+            if (textValue != null)
+            {
+                return textValue.ToString();
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        
+    }
+
+
 }

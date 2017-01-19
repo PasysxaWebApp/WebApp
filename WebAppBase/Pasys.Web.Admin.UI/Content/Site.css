@@ -24,6 +24,10 @@ textarea {
     max-width: 280px;
 }
 
+.inputContainer {
+    max-width: 280px;
+}
+
 #copyright {
   text-align: center;
 }

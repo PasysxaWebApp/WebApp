@@ -20,12 +20,15 @@ namespace Pasys.Web.Core.Attributes
     {
     }
 
-
     public class TextBoxDataSourceAttribute : TextBoxDataSourceAttributeBase
     {
     }
 
     public class TextAreaDataSourceAttribute : TextAreaDataSourceAttributeBase
+    {
+    }
+
+    public class DateTimDataSourceAttribute : DateTimeDataSourceAttributeBase
     {
     }
 

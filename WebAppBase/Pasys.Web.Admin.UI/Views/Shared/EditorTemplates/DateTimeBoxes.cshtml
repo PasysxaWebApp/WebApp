@@ -1,0 +1,47 @@
+﻿
+@using Pasys.Web.Core.Attributes;
+@model object
+
+@{
+    var placeholder = "";
+    var dateFormat = "Date";
+    var inputClass = "form_datetime";
+    var formatStr = "yyyy-MM-dd";
+    var formatJsStr = "yyyy-mm-dd";
+    var mataData = ViewData.ModelMetadata;
+    var p = mataData.ContainerType.GetProperty(mataData.PropertyName);
+    var dataSource = p.GetCustomAttributes(typeof(DateTimeDataSourceAttributeBase), true).FirstOrDefault() as DateTimeDataSourceAttributeBase;
+    if (dataSource != null)
+    {
+        placeholder = dataSource.PlaceHolder;
+        dateFormat = dataSource.DateFormat;
+    }
+    switch (dateFormat.ToLower())
+    {
+        case "datetime":
+            formatStr = "yyyy-MM-dd hh:mm:ss";
+            formatJsStr = "yyyy-mm-dd hh:ii:ss";
+            inputClass = "form_datetime";
+            break;
+        case "time":
+            formatStr = "hh:mm:ss";
+            formatJsStr = "hh:ii:ss";
+            inputClass = "form_time";
+            break;
+        case "date":
+        default:
+            formatStr = "yyyy-MM-dd";
+            formatJsStr = "yyyy-mm-dd";
+            inputClass = "form_date";
+            break;
+    }
+    var fieldId =mataData.PropertyName;
+
+}
+
+<div class="input-group date @inputClass inputContainer" data-date="@string.Format("{0:" + formatStr + "}", Model)" data-date-format="@formatJsStr" data-link-field="@fieldId" data-link-format="@formatJsStr">
+    <input class="form-control" size="16" type="text" value="@string.Format("{0:" + formatStr + "}", Model)" placeholder="@placeholder" readonly>
+    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+</div>
+@Html.TextBox("", Model, new { @class = "form-control", placeholder = placeholder,@style="display:none;" })
