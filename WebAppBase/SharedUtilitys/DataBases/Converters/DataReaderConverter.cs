@@ -138,7 +138,7 @@ namespace Pasys.Core.DataBases.Converters
                     else
                     {
                         decimal o;
-                        if (decimal.TryParse(string.Format("{0:n}", value), out o))
+                        if (decimal.TryParse(string.Format("{0}", value), out o))
                         {
                             pi.SetValue(model, o, null);
                         }

@@ -136,13 +136,40 @@ namespace Pasys.Core.DataBases
 
             var reader = command.ExecuteReader();
             command.Dispose();
+            try
+            {
+                var result = DataReaderConverter.GetList(reader);
+                return result;
+            }
+            finally
+            {
+                reader.Close();
+                SqlParameters = new List<SqlParamWrapper>();
+            }
+        }
 
-            var result = DataReaderConverter.GetList(reader);
-            reader.Close();
+        public object ExecuteScalar(string sql)
+        {
+            var command = _sqlConnection.CreateCommand();
+            command.CommandText = sql;
 
-            SqlParameters = new List<SqlParamWrapper>();
+            _setSqlParameters(command);
 
-            return result;
+            if (_sqlTransaction != null)
+            {
+                command.Transaction = _sqlTransaction;
+            }
+
+            var obj = command.ExecuteScalar();
+            command.Dispose();
+            try
+            {
+                return obj;
+            }
+            finally
+            {
+                SqlParameters = new List<SqlParamWrapper>();
+            }
         }
 
         public DataSet GetDataSet(string sql)
@@ -177,10 +204,19 @@ namespace Pasys.Core.DataBases
 
             var reader = command.ExecuteReader();
             command.Dispose();
-
-            DataReaderConverter.ConvertModel(reader, model);
-            reader.Close();
-            SqlParameters = new List<SqlParamWrapper>();
+            try
+            {
+                DataReaderConverter.ConvertModel(reader, model);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                reader.Close();
+                SqlParameters = new List<SqlParamWrapper>();
+            }
         }
 
         public void ExecuteReaderModelList(string sql, Object list)
@@ -197,10 +233,19 @@ namespace Pasys.Core.DataBases
 
             var reader = command.ExecuteReader();
             command.Dispose();
-
-            DataReaderConverter.ConvertModelList(reader, list);
-            reader.Close();
-            SqlParameters = new List<SqlParamWrapper>();
+            try
+            {
+                DataReaderConverter.ConvertModelList(reader, list);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                reader.Close();
+                SqlParameters = new List<SqlParamWrapper>();
+            }
         }
 
 
