@@ -177,7 +177,9 @@
     <Compile Include="Controllers\DemoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\MPMenuController.cs" />
+    <Compile Include="Controllers\StoreMngController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -265,7 +267,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -329,9 +333,12 @@
     <Content Include="Views\Demo\photobrowser.cshtml" />
     <Content Include="Views\MPMenu\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Member\BindUser.cshtml" />
+    <Content Include="Views\Member\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Common\" />
+    <Folder Include="Views\StoreMng\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
