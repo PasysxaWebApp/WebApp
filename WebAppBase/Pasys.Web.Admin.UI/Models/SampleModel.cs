@@ -64,7 +64,7 @@ namespace Pasys.Web.Admin.UI.Models
         [Display(Name = "卡号")]
         public string CardNo { get; set; }
         [Display(Name = "有效期")]
-        [DateTimDataSource(DateFormat = "DateTime")]
+        [DateTimDataSource(DateFormat = "Date")]
         public DateTime ValidityTo { get; set; }
 
     }
