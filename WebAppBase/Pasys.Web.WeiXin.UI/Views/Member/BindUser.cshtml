@@ -1,7 +1,37 @@
 ﻿
 @{
-    ViewBag.Title = "BindUser";
+    ViewBag.Title = "西安翔虹信息科技有限公司";
 }
 
-<h2>BindUser</h2>
+<table>
+    <tr>
+        <td>
+            <a href="#">
+                <img class="media-object" src="http://www.xh2005.com/data/upload/201702/f_ed19e8dcb9a8657325c3c81be3f8a72a.png">
+            </a>
+        </td>
+        <td>
+            <h1 class="media-heading">西安翔虹信息科技有限公司</h1>
+        </td>
+    </tr>
+</table>
+<div style="padding:10px 20px;">
+   西安翔虹信息科技有限公司是由日本高知县的太平洋系统株式会社全额出资，于 2005年9月成立的外商独资软件开发企业。公司位于国家软件产业基地、国家软件出口基地——西安软件园内。
+
+      公司的主要业务为对日软件开发和技术服务外包，同时还承接中国的国内企事业单位的业务管理系统的外包开发业务，为客户提供从需求分析、架构设计、代码实现、系统测试、系统实施、和系统维护等一系列的信息化服务。公司拥有C/S和 B/S系统的设计、开发及系统维护所需的技术，其中在以Windows系统为操作平台的系统开发和系统维护的方面尤为擅长。公司在医疗、水产养殖、生产销售管理、物流等领域拥有丰富的实际开发经验和出色的实绩，可以为企事业单位提供相应的业务系统集成解决方案和系统开发，还提供企业局域网的设计和构筑、办公自动化、网页网站制作等服务。2007年9月获得了双软认证企业的资质认证。公司成立以来，承蒙社会各界的支持与帮助，得以快速发展壮大，目前已跻身西安软件服务外包知名企业之一。公司现有员工为35名，常驻日本人2人，系统工程师5名，高级程序员15名。开发技术人员的日语水平均在3级以上。
+</div>
+
+<div class="weui_cells weui_cells_form">
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">绑定</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="tel" placeholder="手机号等">
+        </div>
+    </div>
+    <div class="weui_btn_area">
+        <a class="weui_btn weui_btn_primary" href="javascript:" id="showTooltips">确定</a>
+    </div>
+</div>
+
+<a href="@Url.Action("UpStore", "StoreMng", new { FromStore=0})">店主申请</a>
 
