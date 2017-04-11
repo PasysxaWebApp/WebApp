@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Core", "SharedUtilitys\Pasys.Core.csproj", "{BEB81503-77C0-4308-B197-0B2A52220D16}"
 EndProject
@@ -36,6 +36,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Web.MemberCard", "Libraries\Pasys.Web.MemberCard\Pasys.Web.MemberCard.csproj", "{2855F040-916B-411D-AC69-2762F00CACEC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Web.Areas.Test", "Pasys.Web.Areas.Test\Pasys.Web.Areas.Test.csproj", "{8AA6F42E-9A67-4FCF-91FF-81569DD1813C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Web.Starter", "Pasys.Web.Starter\Pasys.Web.Starter.csproj", "{AA5AD259-5DE6-4A70-87E2-BEF83C6947EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{DCE01A90-4696-4CA4-AF8A-D43E2C21E006}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.CMS.Article", "Pasys.Web.Starter\Modules\Pasys.CMS.Article\Pasys.CMS.Article.csproj", "{84E215A7-9453-4A77-9F19-29AC84F96807}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.CMS.Section", "Pasys.Web.Starter\Modules\Pasys.CMS.Section\Pasys.CMS.Section.csproj", "{0BB1C658-CD33-4FB7-B547-1129F20E54CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +91,18 @@ Global
 		{8AA6F42E-9A67-4FCF-91FF-81569DD1813C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AA6F42E-9A67-4FCF-91FF-81569DD1813C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AA6F42E-9A67-4FCF-91FF-81569DD1813C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA5AD259-5DE6-4A70-87E2-BEF83C6947EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA5AD259-5DE6-4A70-87E2-BEF83C6947EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA5AD259-5DE6-4A70-87E2-BEF83C6947EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA5AD259-5DE6-4A70-87E2-BEF83C6947EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84E215A7-9453-4A77-9F19-29AC84F96807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84E215A7-9453-4A77-9F19-29AC84F96807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84E215A7-9453-4A77-9F19-29AC84F96807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84E215A7-9453-4A77-9F19-29AC84F96807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BB1C658-CD33-4FB7-B547-1129F20E54CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BB1C658-CD33-4FB7-B547-1129F20E54CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BB1C658-CD33-4FB7-B547-1129F20E54CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BB1C658-CD33-4FB7-B547-1129F20E54CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,5 +114,7 @@ Global
 		{C65064FB-8865-421A-98D2-4539954F188D} = {9C3BAE2D-F4CD-4735-8264-C562099A671A}
 		{75DD7BED-5822-4509-9B12-C32D7D1A7960} = {DBF1DF28-605A-4711-908D-2D19D60431DE}
 		{2855F040-916B-411D-AC69-2762F00CACEC} = {DBF1DF28-605A-4711-908D-2D19D60431DE}
+		{84E215A7-9453-4A77-9F19-29AC84F96807} = {DCE01A90-4696-4CA4-AF8A-D43E2C21E006}
+		{0BB1C658-CD33-4FB7-B547-1129F20E54CC} = {DCE01A90-4696-4CA4-AF8A-D43E2C21E006}
 	EndGlobalSection
 EndGlobal

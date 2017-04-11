@@ -65,6 +65,7 @@
     <Compile Include="Controllers\IEditableController.cs" />
     <Compile Include="MetadataProvider\EasyModelMetaDataProvider.cs" />
     <Compile Include="Metadata\EasyModelMetaData.cs" />
+    <Compile Include="PluginBase.cs" />
     <Compile Include="Strategy\Strategies\IInitDbContextStratety.cs" />
     <Compile Include="Strategy\Strategies\ISMSStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
