@@ -664,6 +664,10 @@
       <Project>{75dd7bed-5822-4509-9b12-c32d7d1a7960}</Project>
       <Name>Pasys.Web.WeiXin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Pasys.Web.Areas.Test\Pasys.Web.Areas.Test.csproj">
+      <Project>{8aa6f42e-9a67-4fcf-91ff-81569dd1813c}</Project>
+      <Name>Pasys.Web.Areas.Test</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Pasys.Web.Core\Pasys.Web.Core.csproj">
       <Project>{3f905868-f488-467f-b212-4e7a17a71881}</Project>
       <Name>Pasys.Web.Core</Name>

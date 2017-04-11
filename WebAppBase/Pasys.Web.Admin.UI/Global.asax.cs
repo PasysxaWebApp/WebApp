@@ -35,6 +35,10 @@ namespace Pasys.Web.Admin.UI
             //var smsStrategy= Pasys.Web.Core.StrategyManager.GetSMSStrategy();
         }
 
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            //RouteConfig.RegisterRoutes(routes);
+        } 
 
         private void CreateDb()
         {

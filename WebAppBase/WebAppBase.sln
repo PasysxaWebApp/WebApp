@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Core", "SharedUtilitys\Pasys.Core.csproj", "{BEB81503-77C0-4308-B197-0B2A52220D16}"
 EndProject
@@ -34,6 +34,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cores", "Cores", "{D1D72828-0CD0-4C91-A215-115B6563440B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Web.MemberCard", "Libraries\Pasys.Web.MemberCard\Pasys.Web.MemberCard.csproj", "{2855F040-916B-411D-AC69-2762F00CACEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pasys.Web.Areas.Test", "Pasys.Web.Areas.Test\Pasys.Web.Areas.Test.csproj", "{8AA6F42E-9A67-4FCF-91FF-81569DD1813C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{2855F040-916B-411D-AC69-2762F00CACEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2855F040-916B-411D-AC69-2762F00CACEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2855F040-916B-411D-AC69-2762F00CACEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AA6F42E-9A67-4FCF-91FF-81569DD1813C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AA6F42E-9A67-4FCF-91FF-81569DD1813C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AA6F42E-9A67-4FCF-91FF-81569DD1813C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AA6F42E-9A67-4FCF-91FF-81569DD1813C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

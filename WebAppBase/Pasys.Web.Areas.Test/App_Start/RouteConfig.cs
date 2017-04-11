@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Pasys.Web.Admin.UI
+namespace Pasys.Web.Areas.Test
 {
     public class RouteConfig
     {
@@ -16,8 +16,7 @@ namespace Pasys.Web.Admin.UI
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new string[] { "Pasys.Web.Admin.UI.Controllers" }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
